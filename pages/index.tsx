@@ -1,16 +1,20 @@
 import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import { Card } from '../components/card/Card'
-import { getFellows } from '../domain/contentful/service'
+import {
+    Fellow,
+    getFellows,
+    getPosts,
+    Post,
+} from '../domain/contentful/service'
 import styles from '../styles/Home.module.css'
-import styles2 from './index.module.css'
 
 interface HomeProps {
-    fellows: Awaited<ReturnType<typeof getFellows>>
+    fellows: Fellow[]
+    posts: Post[]
 }
 
-const Home: NextPage<HomeProps> = ({ fellows }) => {
+const Home: NextPage<HomeProps> = ({ fellows, posts }) => {
     return (
         <div>
             <Head>
@@ -24,14 +28,24 @@ const Home: NextPage<HomeProps> = ({ fellows }) => {
 
             <main className="bg-white">
                 <div className="grid grid-cols-4">
-                    {fellows.map((fellow) => (
-                        <Card
-                            title={fellow.name}
-                            text={fellow.description}
-                            image={fellow.image?.fields.file.url}
-                            key={fellow.name}
-                        />
-                    ))}
+                    <>
+                        {posts.map((post) => (
+                            <Card
+                                title={post.title}
+                                text={post.description.content.toString()}
+                                image={post.image?.fields.file.url}
+                                key={post.title}
+                            />
+                        ))}
+                        {fellows.map((fellow) => (
+                            <Card
+                                title={fellow.name}
+                                text={fellow.description}
+                                image={fellow.image?.fields.file.url}
+                                key={fellow.name}
+                            />
+                        ))}
+                    </>
                 </div>
             </main>
 
@@ -44,6 +58,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     return {
         props: {
             fellows: await getFellows(),
+            posts: await getPosts(),
         },
     }
 }
