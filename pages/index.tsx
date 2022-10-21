@@ -1,20 +1,15 @@
 import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
-import { Card } from '../components/card/Card'
-import {
-    Fellow,
-    getFellows,
-    getPosts,
-    Post,
-} from '../domain/contentful/service'
+import { Card, CardProps } from '../components/card/Card'
+import { getFellows, getPosts } from '../domain/contentful/service'
 import styles from '../styles/Home.module.css'
 
 interface HomeProps {
-    fellows: Fellow[]
-    posts: Post[]
+    items: CardProps[]
 }
 
-const Home: NextPage<HomeProps> = ({ fellows, posts }) => {
+const Home: NextPage<HomeProps> = ({ items }) => {
+    console.log({ items })
     return (
         <div>
             <Head>
@@ -28,24 +23,14 @@ const Home: NextPage<HomeProps> = ({ fellows, posts }) => {
 
             <main className="bg-white">
                 <div className="grid grid-cols-4">
-                    <>
-                        {posts.map((post) => (
-                            <Card
-                                title={post.title}
-                                text={post.description.content.toString()}
-                                image={post.image?.fields.file.url}
-                                key={post.title}
-                            />
-                        ))}
-                        {fellows.map((fellow) => (
-                            <Card
-                                title={fellow.name}
-                                text={fellow.description}
-                                image={fellow.image?.fields.file.url}
-                                key={fellow.name}
-                            />
-                        ))}
-                    </>
+                    {items.map((item) => (
+                        <Card
+                            title={item.title}
+                            text={item.text}
+                            image={item.image}
+                            key={item.title}
+                        />
+                    ))}
                 </div>
             </main>
 
@@ -55,11 +40,24 @@ const Home: NextPage<HomeProps> = ({ fellows, posts }) => {
 }
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
+    const fellows = await getFellows()
+    const posts = await getPosts()
+    const items: CardProps[] = fellows
+        .map(({ name, description, image }) => ({
+            title: name,
+            text: description,
+            image: image?.fields.file.url,
+        }))
+        .concat(
+            posts.map(({ title, description, image }) => ({
+                title,
+                text: description,
+                image: image?.fields.file.url,
+            }))
+        )
+        .sort(() => (Math.random() > 0.5 ? 1 : -1))
     return {
-        props: {
-            fellows: await getFellows(),
-            posts: await getPosts(),
-        },
+        props: { items },
     }
 }
 

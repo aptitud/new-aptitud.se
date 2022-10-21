@@ -23,6 +23,3 @@ export const getPosts = async () => {
 
     return res.items.map((fellow) => fellow.fields)
 }
-
-export type Fellow = Awaited<ReturnType<typeof getFellows>>[0]
-export type Post = Awaited<ReturnType<typeof getPosts>>[0]

@@ -1,6 +1,6 @@
 import { CSSProperties } from 'react'
 
-interface CardProps {
+export interface CardProps {
     title: string
     text: string
     image?: string
