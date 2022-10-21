@@ -9,9 +9,9 @@ const client = createClient({
 })
 
 export const getFellows = async () => {
-  const a = await client.getEntries<TypeFellowFields>({
+  const res = await client.getEntries<TypeFellowFields>({
     content_type: 'fellow',
   })
 
-  return a.items.map((x) => x.fields)
+  return res.items.map((fellow) => fellow.fields)
 }
