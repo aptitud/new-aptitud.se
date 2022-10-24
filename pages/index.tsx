@@ -11,7 +11,7 @@ interface HomeProps {
 const Home: NextPage<HomeProps> = ({ items }) => {
     console.log({ items })
     return (
-        <div>
+        <div className="w-10/12 max-w-7xl ml-auto mr-auto">
             <Head>
                 <title>Create Next App</title>
                 <meta
@@ -21,7 +21,7 @@ const Home: NextPage<HomeProps> = ({ items }) => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <main className="bg-white">
+            <main>
                 <div className="grid grid-cols-4">
                     {items.map((item) => (
                         <Card
@@ -33,8 +33,6 @@ const Home: NextPage<HomeProps> = ({ items }) => {
                     ))}
                 </div>
             </main>
-
-            <footer className={styles.footer}></footer>
         </div>
     )
 }
