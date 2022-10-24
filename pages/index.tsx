@@ -23,8 +23,8 @@ const Home: NextPage<HomeProps> = ({ items }) => {
             </Head>
 
             <main>
-                <div className="grid grid-cols-4 gap-4">
-                    <div className="col-span-4 ml-auto mr-auto my-2">
+                <div className="grid grid-cols-2 gap-4 xl:grid-cols-4">
+                    <div className="col-span-2 xl:col-span-4 ml-auto mr-auto my-2">
                         <Image src={'/logo.png'} height="210px" width="300px" />
                     </div>
                     {items.map((item) => (
