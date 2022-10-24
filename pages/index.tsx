@@ -1,5 +1,6 @@
 import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
+import Image from 'next/image'
 import { Card, CardProps } from '../components/card/Card'
 import { getFellows, getPosts } from '../domain/contentful/service'
 import styles from '../styles/Home.module.css'
@@ -22,7 +23,10 @@ const Home: NextPage<HomeProps> = ({ items }) => {
             </Head>
 
             <main>
-                <div className="grid grid-cols-4">
+                <div className="grid grid-cols-4 gap-4">
+                    <div className="col-span-4 ml-auto mr-auto my-2">
+                        <Image src={'/logo.png'} height="210px" width="300px" />
+                    </div>
                     {items.map((item) => (
                         <Card
                             title={item.title}
