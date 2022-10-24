@@ -6,21 +6,23 @@ export interface CardProps {
     image?: string
 }
 export const Card = ({ title, text, image }: CardProps) => {
-    const backgroundStyle: CSSProperties = image
+    const imageStyle: CSSProperties = image
         ? {
-              backgroundImage: `url(${image})`,
+              backgroundImage: `linear-gradient(to bottom, #fff0, #3533b5), url('${image}')`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
           }
         : {}
+
     return (
-        <div
-            className="border rounded-lg m-2 h-96 flex flex-col justify-end"
-            style={backgroundStyle}
-        >
-            <div className="z-2 self-center font-bold">
-                <h3>{title}</h3>
-                <p>{text}</p>
+        <div className={`border rounded-lg m-2 h-96`} style={imageStyle}>
+            <div className="h-2/3"></div>
+            <div className="h-1/3 p-2 text-white bg-gradient-to-b from-transparent to-blue-800 ">
+                <h2 className="text-2xl mb-2 font-bold">{title}</h2>
+                {/* <div className="">
+                    <div className="overflow-hidden">{text}</div>
+                    <div>Läs mer</div>
+                </div> */}
             </div>
         </div>
     )
