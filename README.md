@@ -1,4 +1,3 @@
-
 ## Getting Started
 
 copy `template.env` and name it `.env.local`
