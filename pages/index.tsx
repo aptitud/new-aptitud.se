@@ -3,14 +3,12 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Card, CardProps } from '../components/card/Card'
 import { getFellows, getPosts } from '../domain/contentful/service'
-import styles from '../styles/Home.module.css'
 
 interface HomeProps {
     items: CardProps[]
 }
 
 const Home: NextPage<HomeProps> = ({ items }) => {
-    console.log({ items })
     return (
         <div className="w-10/12 max-w-7xl ml-auto mr-auto">
             <Head>
@@ -33,12 +31,28 @@ const Home: NextPage<HomeProps> = ({ items }) => {
                             text={item.text}
                             image={item.image}
                             key={item.title}
+                            colorCode={item.colorCode}
                         />
                     ))}
                 </div>
             </main>
         </div>
     )
+}
+
+const getRandomColor = (): string => {
+    const colors = [
+        'aptitud-pink-red',
+        'aptitud-cerise',
+        'aptitud-orange',
+        'aptitud-yellow',
+        'aptitud-pink',
+        'aptitud-green',
+        'aptitud-petrol',
+        'aptitud-blue_green',
+        'aptitud-blue_dim',
+    ]
+    return colors.sort(() => (Math.random() > 0.5 ? 1 : -1))[0]
 }
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
@@ -49,12 +63,14 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
             title: fellow.name,
             text: fellow.description,
             image: fellow.image ? fellow.image?.fields.file.url : null,
+            colorCode: getRandomColor(),
         }))
         .concat(
             posts.map((post) => ({
                 title: post.title,
                 text: post.description,
                 image: post.image ? post.image?.fields.file.url : null,
+                colorCode: getRandomColor(),
             }))
         )
         .sort(() => (Math.random() > 0.5 ? 1 : -1))
