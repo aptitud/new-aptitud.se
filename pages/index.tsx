@@ -45,16 +45,16 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     const fellows = await getFellows()
     const posts = await getPosts()
     const items: CardProps[] = fellows
-        .map(({ name, description, image }) => ({
-            title: name,
-            text: description,
-            image: image?.fields.file.url,
+        .map((fellow) => ({
+            title: fellow.name,
+            text: fellow.description,
+            image: fellow.image ? fellow.image?.fields.file.url : null,
         }))
         .concat(
-            posts.map(({ title, description, image }) => ({
-                title,
-                text: description,
-                image: image?.fields.file.url,
+            posts.map((post) => ({
+                title: post.title,
+                text: post.description,
+                image: post.image ? post.image?.fields.file.url : null,
             }))
         )
         .sort(() => (Math.random() > 0.5 ? 1 : -1))
