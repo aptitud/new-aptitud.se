@@ -1,12 +1,8 @@
-/* eslint-disable @next/next/no-img-element */
-//TODO: Add to eslint
 import * as Dialog from '@radix-ui/react-dialog'
 import { Cross2Icon } from '@radix-ui/react-icons'
 
-import styles from './Card.module.css'
-
 import { CSSProperties } from 'react'
-import { CardImage } from '../CardImage'
+import { CardImage } from './CardImage'
 
 export interface CardProps {
   title: string
@@ -15,13 +11,15 @@ export interface CardProps {
   colorCode: string
 }
 
+// TODO: why does cards get too tall in mobile?
+
 export const Card = (props: CardProps) => {
   return (
     <Dialog.Root>
       <Dialog.Portal>
-        <Dialog.Overlay className={styles.overlay}>
+        <Dialog.Overlay className="fixed inset-0 md:grid md:place-items-center overflow-y-auto">
           <Dialog.Content
-            className="relative min-h-full md:min-h-[60vh] md:w-[80vw] p-5 md:rounded-lg"
+            className="relative min-h-full w-full md:min-h-[60vh] md:w-[80vw] p-5 md:rounded-lg"
             style={{ backgroundColor: `var(--${props.colorCode})` }}
           >
             <DetailCard {...props} />
@@ -41,12 +39,12 @@ export const Card = (props: CardProps) => {
 const DetailCard = (props: CardProps) => {
   const { image, title, text, colorCode } = props
   return (
-    <div className="relative">
+    <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_2fr] gap-3">
       {/* TODO:Fix image scaling */}
-      <div className="relative h-[37vh]">
+      <div className="relative aspect-square">
         <CardImage image={image} title={title} colorCode={colorCode} />
       </div>
-      <div className="h-1/3 text-white mt-2">
+      <div className="text-white mt-2">
         <h3 className="text-2xl mb-2 font-bold">{title}</h3>
         <p className="">{text}</p>
       </div>
