@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import ContentfulImage from './contentful-image/ContentfulImage'
 
 export const CardImage = ({
   image,
@@ -13,11 +14,12 @@ export const CardImage = ({
     return (
       <Image
         src="/logo.svg"
+        alt="asdf"
         width={200}
         height={80}
         style={{ fill: colorCode, marginLeft: 'auto', marginRight: 'auto' }}
       />
     )
   }
-  return <img className="mx-auto" src={image ?? ''} alt={title} />
+  return <ContentfulImage src={image} />
 }
