@@ -5,7 +5,6 @@ import { CSSProperties } from 'react'
 import { CardImage } from './CardImage'
 import { getFellows } from '../../domain/contentful/service'
 import Link from 'next/link'
-import {} from '@fortawesome/fontawesome-svg-core'
 
 type SocialLink = Awaited<
   Required<ReturnType<typeof getFellows>>
