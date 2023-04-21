@@ -61,9 +61,7 @@ const DetailCard = (props: CardProps) => {
         {/* TODO:Fix image scaling */}
         <div className="relative aspect-square">
           <CardImage image={image} title={title} colorCode={colorCode} />
-          {socialLinks.length > 0 && (
-            <SocialLinks name={title} socialLinks={socialLinks} />
-          )}
+          <SocialLinks name={title} socialLinks={socialLinks} />
         </div>
         <div className="text-white mt-2">
           <h3 className="text-2xl mb-2 font-bold">{title}</h3>
