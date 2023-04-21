@@ -65,7 +65,7 @@ export interface TypePostFields {
 export type TypePost = Contentful.Entry<TypePostFields>
 
 export interface TypeServiceFields {
-  name?:
+  name:
     | 'blog'
     | 'github'
     | 'instagram'
@@ -74,7 +74,7 @@ export interface TypeServiceFields {
     | 'slideshare'
     | 'stack-overflow'
     | 'twitter'
-  url?: Contentful.EntryFields.Symbol
+  url: Contentful.EntryFields.Symbol
 }
 
 export type TypeService = Contentful.Entry<TypeServiceFields>
