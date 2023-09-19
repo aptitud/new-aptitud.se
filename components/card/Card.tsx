@@ -154,12 +154,12 @@ const SummaryCard = ({
 }: SharedCardProps) => {
   const imageWithGradient: CSSProperties = image
     ? {
-        backgroundImage: `linear-gradient(to bottom, #fff0, var(--${colorCode})), url('${image}')`,
+        backgroundImage: `linear-gradient(to bottom, #fff0 50%, var(--${colorCode}) 90%), url('${image}')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }
     : {
-        backgroundImage: `linear-gradient(to bottom, #fff0, var(--${colorCode}))`,
+        backgroundImage: `linear-gradient(to bottom, #fff0 50%, var(--${colorCode} 90%))`,
       }
 
   return (
