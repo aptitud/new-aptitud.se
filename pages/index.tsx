@@ -47,10 +47,28 @@ const getRandomColor = (): string => {
   return colors.sort(() => (Math.random() > 0.5 ? 1 : -1))[0]
 }
 
+const randomizeOrder =  (postsItems: CardProps[], fellowItems: CardProps[]): CardProps[]  => {
+  const fivePosts = postsItems.splice(0, postsItems.length > 5 ? 5 : postsItems.length)
+
+  const fiveFellows = fellowItems
+    .sort(() => (Math.random() > 0.5 ? 1 : -1))
+    .splice(0, 5)
+
+  const items = fiveFellows
+    .concat(fivePosts)
+    .sort(() => (Math.random() > 0.5 ? 1 : -1))
+    .concat(fellowItems.concat(postsItems).sort(() => (Math.random() > 0.5 ? 1 : -1)))
+  return items
+}
+
 export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
   const fellows = await getFellows()
 
   const posts = await getPosts()
+  
+  const sortedPosts = posts
+    .sort((a, b) => Date.parse(a.ts) - Date.parse(b.ts))
+
   const fellowItems: CardProps[] = fellows.map((fellow) => ({
     title: fellow.name,
     type: 'fellow',
@@ -59,21 +77,22 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     colorCode: getRandomColor(),
     socialLinks: fellow.services,
   }))
-  const postsItems: CardProps[] = posts.map((post) => ({
+
+  const postsItems: CardProps[] = sortedPosts.map((post) => ({
     title: post.title,
     type: 'post',
     text: post.description,
     image: post.image ? post.image?.fields.file.url : null,
     colorCode: getRandomColor(),
   }))
-  const items = fellowItems
-    .concat(postsItems)
-    .sort((a, b) => a.title.localeCompare(b.title))
-  //.sort(() => (Math.random() > 0.5 ? 1 : -1))
+
+  const items = randomizeOrder(postsItems, fellowItems)
 
   return {
     props: { items },
   }
 }
+
+
 
 export default Home

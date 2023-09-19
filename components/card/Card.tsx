@@ -47,7 +47,7 @@ export const Card = ({ item }: { item: CardProps }) => {
         </Dialog.Overlay>
       </Dialog.Portal>
       <Dialog.Trigger asChild>
-        <SummaryCard {...item} />
+        <SummaryCard colorCode={item.colorCode} image={item.image} text={item.text} title={item.title} />
       </Dialog.Trigger>
     </Dialog.Root>
   )
@@ -151,7 +151,7 @@ const SummaryCard = ({
   text,
   colorCode,
   ...props
-}: CardProps) => {
+}: SharedCardProps) => {
   const imageWithGradient: CSSProperties = image
     ? {
         backgroundImage: `linear-gradient(to bottom, #fff0, var(--${colorCode})), url('${image}')`,

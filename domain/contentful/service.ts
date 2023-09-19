@@ -35,6 +35,8 @@ export const getPosts = async () => {
   const res = await client.getEntries<TypePostFields>({
     content_type: 'post',
   })
-
-  return res.items.map((fellow) => fellow.fields)
+  console.log(res.items);
+  return res.items.map((post) => {
+    return  { ...post.fields, ts : post.sys.updatedAt }  
+  })
 }
