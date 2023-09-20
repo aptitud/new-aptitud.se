@@ -19,9 +19,9 @@ type SharedCardProps = {
   type: string
 }
 export type CardProps = SharedCardProps &
-  (
-    | {
-        socialLinks: SocialLink[]
+  ( 
+      {
+        socialLinks?: SocialLink[]
       }
   )
 
