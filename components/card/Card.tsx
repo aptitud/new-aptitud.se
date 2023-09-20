@@ -196,7 +196,7 @@ const PostCard = ({
     return (
       <div
         role={'button'}
-        className={`rounded-lg h-52 md:h-96 p-2 cursor-pointer`}
+        className={`rounded-lg h-52 md:h-96 p-2 cursor-pointer m-0 p-0`}
         style={backgroundStyle}
         {...props}
       >
@@ -209,7 +209,7 @@ const PostCard = ({
             }
             </div>
         </div>
-        <div className={`h-2/3 text-white text-clip overflow-hidden`}>
+        <div className={`h-2/3 text-white text-clip overflow-hidden m-1 p-1`}>
           <h3 className="text-2xl mb-2 font-bold">{title}</h3>
           {text}
         </div>
