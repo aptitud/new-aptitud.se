@@ -10,7 +10,6 @@ module.exports = {
         'aptitud-pink-red': 'var(--aptitud-pink)',
         'aptitud-cerise': 'var(--aptitud-cerise)',
         'aptitud-orange': 'var(--aptitud-orange)',
-        'aptitud-yellow': 'var(--aptitud-yellow)',
         'aptitud-pink': 'var(--aptitud-pink)',
         'aptitud-green': 'var(--aptitud-green)',
         'aptitud-petrol': 'var(--aptitud-petrol)',
