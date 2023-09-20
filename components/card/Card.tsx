@@ -19,11 +19,16 @@ type SharedCardProps = {
   type: string
 }
 export type CardProps = SharedCardProps &
-  ( 
-      {
-        socialLinks?: SocialLink[]
-      }
-  )
+(
+  | {
+      type: 'fellow'
+      //TODO: get rid of undefined values...
+      socialLinks: SocialLink[]
+    }
+  | {
+      type: 'post'
+    }
+)
 
 // TODO: why does cards get too tall in mobile?
 
