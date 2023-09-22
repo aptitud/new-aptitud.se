@@ -67,7 +67,12 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
   const posts = await getPosts()
   
   const sortedPosts = posts
-    .sort((a, b) => Date.parse(a.ts) - Date.parse(b.ts))
+    .sort((a, b) => {
+     if(a.sticky != b.sticky) {
+      return a.sticky ? -1 : 1; 
+     } 
+     return Date.parse(b.ts) - Date.parse(a.ts)
+    })
 
   const fellowItems: CardProps[] = fellows.map((fellow) => ({
     title: fellow.name,

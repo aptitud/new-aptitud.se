@@ -36,6 +36,6 @@ export const getPosts = async () => {
     content_type: 'post',
   })
   return res.items.map((post) => {
-    return  { ...post.fields, ts : post.sys.updatedAt }  
+    return  { ...post.fields, ts : post.sys.createdAt }  
   })
 }
