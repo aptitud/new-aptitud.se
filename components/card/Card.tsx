@@ -5,6 +5,7 @@ import { CSSProperties } from 'react'
 import { CardImage } from './CardImage'
 import { getFellows } from '../../domain/contentful/service'
 import Link from 'next/link'
+import Image from 'next/image'
 
 type SocialLink = Awaited<
   Required<ReturnType<typeof getFellows>>
@@ -15,18 +16,19 @@ type SharedCardProps = {
   text: string
   image: string | null
   colorCode: string
+  type: string
 }
 export type CardProps = SharedCardProps &
-  (
-    | {
-        type: 'fellow'
-        //TODO: get rid of undefined values...
-        socialLinks: SocialLink[]
-      }
-    | {
-        type: 'post'
-      }
-  )
+(
+  | {
+      type: 'fellow'
+      //TODO: get rid of undefined values...
+      socialLinks: SocialLink[]
+    }
+  | {
+      type: 'post'
+    }
+)
 
 // TODO: why does cards get too tall in mobile?
 
@@ -47,7 +49,10 @@ export const Card = ({ item }: { item: CardProps }) => {
         </Dialog.Overlay>
       </Dialog.Portal>
       <Dialog.Trigger asChild>
-        <SummaryCard colorCode={item.colorCode} image={item.image} text={item.text} title={item.title} />
+        { item.type === 'fellow' ?
+          <FellowCard colorCode={item.colorCode} image={item.image} text={item.text} title={item.title} type={item.type}/>
+          : <PostCard colorCode={item.colorCode} image={item.image} text={item.text} title={item.title} type={item.type}/>
+        }
       </Dialog.Trigger>
     </Dialog.Root>
   )
@@ -145,7 +150,7 @@ const SocialLinks = ({
   )
 }
 
-const SummaryCard = ({
+const FellowCard = ({
   image,
   title,
   text,
@@ -159,7 +164,7 @@ const SummaryCard = ({
         backgroundPosition: 'center',
       }
     : {
-        backgroundImage: `linear-gradient(to bottom, #fff0 50%, var(--${colorCode} 90%))`,
+        backgroundColor: `var(--${colorCode})`,
       }
 
   return (
@@ -176,4 +181,38 @@ const SummaryCard = ({
       </div>
     </div>
   )
+}
+const PostCard = ({
+    image,
+    title,
+    text,
+    colorCode,
+    ...props
+  }: SharedCardProps) => {
+    const backgroundStyle: CSSProperties =  {
+          backgroundColor: `var(--${colorCode})`,
+        }
+  
+    return (
+      <div
+        role={'button'}
+        className={`rounded-lg h-52 md:h-96 p-2 cursor-pointer m-0 p-0`}
+        style={backgroundStyle}
+        {...props}
+      >
+      
+        <div className="h-1/3" >
+          <div className="relative h-full w-full">
+            { image ?
+              <Image src={`https:${image}`} layout='fill' alt="asdf" className='object-cover'/>
+              : <Image src="/logo.svg" alt="asdf"  layout='fill' />
+            }
+            </div>
+        </div>
+        <div className={`h-2/3 text-white text-clip overflow-hidden m-1 p-1`}>
+          <h3 className="text-2xl mb-2 font-bold">{title}</h3>
+          {text}
+        </div>
+      </div>
+    )
 }
