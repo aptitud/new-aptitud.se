@@ -1,5 +1,5 @@
 import { createClient } from 'contentful'
-import { TypeFellowFields, TypePostFields, TypeServiceFields } from './types'
+import { TypeFellowFields, TypePostFields, TypeContactFields } from './types'
 
 const { CONTENTFUL_ACCESS_TOKEN } = process.env
 
@@ -37,5 +37,14 @@ export const getPosts = async () => {
   })
   return res.items.map((post) => {
     return  { ...post.fields, ts : post.sys.createdAt }  
+  })
+}
+export const getContacts = async () => {
+  const res = await client.getEntries<TypeContactFields>({
+    content_type: 'contact',
+  })
+
+  return res.items.map((contact) => {
+    return  { ...contact.fields }  
   })
 }

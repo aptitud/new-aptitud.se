@@ -2,7 +2,7 @@ import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import { Card, CardProps } from '../components/card/Card'
-import { getFellows, getPosts } from '../domain/contentful/service'
+import { getFellows, getPosts, getContacts } from '../domain/contentful/service'
 
 interface HomeProps {
   items: CardProps[]
@@ -47,7 +47,7 @@ const getRandomColor = (): string => {
   return colors.sort(() => (Math.random() > 0.5 ? 1 : -1))[0]
 }
 
-const randomizeOrder =  (postsItems: CardProps[], fellowItems: CardProps[]): CardProps[]  => {
+const randomizeOrder =  (postsItems: CardProps[], fellowItems: CardProps[], contactItems: CardProps[]): CardProps[]  => {
   const fivePosts = postsItems.splice(0, postsItems.length > 5 ? 5 : postsItems.length)
 
   const fiveFellows = fellowItems
@@ -56,15 +56,19 @@ const randomizeOrder =  (postsItems: CardProps[], fellowItems: CardProps[]): Car
 
   const items = fiveFellows
     .concat(fivePosts)
+    .concat(contactItems)
     .sort(() => (Math.random() > 0.5 ? 1 : -1))
     .concat(fellowItems.concat(postsItems).sort(() => (Math.random() > 0.5 ? 1 : -1)))
   return items
+
 }
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
   const fellows = await getFellows()
 
   const posts = await getPosts()
+
+  const contacts =  await getContacts()
   
   const sortedPosts = posts
     .sort((a, b) => {
@@ -91,7 +95,15 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     colorCode: getRandomColor(),
   }))
 
-  const items = randomizeOrder(postsItems, fellowItems)
+  const contactItems: CardProps[] = contacts.map((contact) => ({
+    title: contact.header,
+    type: 'post',
+    text: contact.visitingAddress ? contact.visitingAddress : '',
+    image: contact.image ? contact.image?.fields.file.url : null,
+    colorCode: getRandomColor(),
+  }))
+
+  const items = randomizeOrder(postsItems, fellowItems, contactItems)
 
   return {
     props: { items },
