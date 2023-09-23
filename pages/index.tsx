@@ -97,7 +97,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
 
   const contactItems: CardProps[] = contacts.map((contact) => ({
     title: contact.header,
-    type: 'post',
+    type: 'contact',
     text: contact.visitingAddress ? contact.visitingAddress : '',
     image: contact.image ? contact.image?.fields.file.url : null,
     colorCode: getRandomColor(),
