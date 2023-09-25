@@ -17,7 +17,7 @@ type SharedCardProps = {
   image: string | null
   colorCode: string
 }
-export type CardProps = FellowCardProps | PostsCardProps 
+export type CardProps = FellowCardProps | PostsCardProps
 
 type PostsCardProps = SharedCardProps & {
   type: 'post'
@@ -51,9 +51,9 @@ export const Card = ({ item }: { item: CardProps }) => {
         </Dialog.Overlay>
       </Dialog.Portal>
       <Dialog.Trigger asChild>
-        { item.type === 'fellow' ?
-          <FellowCard  { ...item }/>
-          : <PostCard  { ...item }/>
+        {item.type === 'fellow' ?
+          <FellowCard  {...item} />
+          : <PostCard  {...item} />
         }
       </Dialog.Trigger>
     </Dialog.Root>
@@ -62,7 +62,7 @@ export const Card = ({ item }: { item: CardProps }) => {
 
 const DetailCard = (props: CardProps) => {
   if (props.type === 'fellow') {
-    const { title, text, colorCode, image, socialLinks} = props
+    const { title, text, colorCode, image, socialLinks } = props
     return (
       <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_2fr] gap-3">
         {/* TODO:Fix image scaling */}
@@ -78,7 +78,7 @@ const DetailCard = (props: CardProps) => {
     )
   }
 
-  const { title, text, colorCode, image, postContent} = props
+  const { title, text, colorCode, image, postContent } = props
   return (
     <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_2fr] gap-3">
       {/* TODO:Fix image scaling */}
@@ -159,17 +159,18 @@ const FellowCard = ({
   title,
   text,
   colorCode,
+  socialLinks,
   ...props
 }: FellowCardProps) => {
   const imageWithGradient: CSSProperties = image
     ? {
-        backgroundImage: `linear-gradient(to bottom, #fff0 50%, var(--${colorCode}) 90%), url('${image}')`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }
+      backgroundImage: `linear-gradient(to bottom, #fff0 50%, var(--${colorCode}) 90%), url('${image}')`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    }
     : {
-        backgroundColor: `var(--${colorCode})`,
-      }
+      backgroundColor: `var(--${colorCode})`,
+    }
 
   return (
     <div
@@ -179,39 +180,49 @@ const FellowCard = ({
       {...props}
     >
       <div className="h-2/3"></div>
-      <div className={`h-1/3 text-white text-clip overflow-hidden m-0 p-0`}>
-        <h3 className="text-2xl mb-2 font-bold">{title}</h3>
-        {text}
+      <div className={`h-1/3 text-white m-0 p-0`}>
+        <div className="grid grid-cols-1 relative h-full">
+          <h3 className="text-2xl mb-2 font-bold">{title}</h3>
+          <span className='h-full line-clamp-3'>
+            {text}
+          </span>
+        </div>
       </div>
     </div>
   )
 }
-const PostCard = ( props: PostsCardProps) => {
-  const { title, text, colorCode, image, postContent } = props
-    const backgroundStyle: CSSProperties =  {
-          backgroundColor: `var(--${colorCode})`,
-        }
-  
-    return (
-      <div
-        role={'button'}
-        className={`rounded-lg h-52 md:h-96 p-2 cursor-pointer m-0 p-4`}
-        style={backgroundStyle}
-        {...props}
-      >
-      
-      {image ?  
+const PostCard = ({
+  image,
+  title,
+  text,
+  colorCode,
+  postContent,
+  ...props
+}: PostsCardProps) => {
+  const backgroundStyle: CSSProperties = {
+    backgroundColor: `var(--${colorCode})`,
+  }
+
+  return (
+    <div
+      role={'button'}
+      className={`rounded-lg h-52 md:h-96 p-2 cursor-pointer m-0 p-4`}
+      style={backgroundStyle}
+      {...props}
+    >
+
+      {image ?
         <div className="relative h-1/3" >
           <div className="relative aspect-square h-full">
-              <Image src={`https:${image}`} layout='fill' alt= {title} className='object-fill'/>
+            <Image src={`https:${image}`} layout='fill' alt={title} className='object-fill' />
           </div>
         </div>
         : <></>
-        }
-        <div className={`h-2/3 text-white text-clip overflow-hidden m-0 p-0`}>
-          <h3 className="text-2xl mb-2 font-bold">{title}</h3>
-            <ReactMarkdown>{postContent? postContent : text}</ReactMarkdown>
-        </div>
+      }
+      <div className={`h-2/3 text-white text-clip overflow-hidden m-0 p-0`}>
+        <h3 className="text-2xl mb-2 font-bold">{title}</h3>
+        <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
       </div>
-    )
+    </div>
+  )
 }
