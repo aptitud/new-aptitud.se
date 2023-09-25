@@ -62,7 +62,7 @@ export const Card = ({ item }: { item: CardProps }) => {
 
 const DetailCard = (props: CardProps) => {
   if (props.type === 'fellow') {
-    const { title, text, colorCode, image, socialLinks } = props
+    const { title, text, colorCode, image, socialLinks} = props
     return (
       <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_2fr] gap-3">
         {/* TODO:Fix image scaling */}
@@ -78,7 +78,7 @@ const DetailCard = (props: CardProps) => {
     )
   }
 
-  const { title, text, colorCode, image } = props
+  const { title, text, colorCode, image, postContent} = props
   return (
     <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_2fr] gap-3">
       {/* TODO:Fix image scaling */}
@@ -88,7 +88,7 @@ const DetailCard = (props: CardProps) => {
       <div className="text-white mt-2">
         <h3 className="text-2xl mb-2 font-bold">{title}</h3>
         <p className="">
-            <ReactMarkdown>{text}</ReactMarkdown>
+          <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
         </p>
       </div>
     </div>
