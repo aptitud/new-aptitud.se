@@ -209,7 +209,7 @@ const PostCard = ({
           <div className="relative h-full w-full">
             { image ?
               <Image src={`https:${image}`} layout='fill' alt="asdf" className='object-cover'/>
-              : <Image src="/logo.svg" alt="asdf"  layout='fill' />
+              : <Image src="/logo.svg" alt="aptitud"  layout='fill' />
             }
             </div>
         </div>

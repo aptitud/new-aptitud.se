@@ -18,6 +18,7 @@ module.exports = {
         'aptitud-blue_dim': 'var(--aptitud-blue_dim)',
         'aptitud-light-grey': 'var(--aptitud-light-grey)',
         'aptitud-very-light-grey': 'var(--aptitud-very-light-grey)',
+        'aptitud-transparent': 'var(--aptitud-transparent)',
       },
     },
   },
