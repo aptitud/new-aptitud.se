@@ -16,7 +16,7 @@ export type ContactCardProps = {
   colorCode: string
 }
 
-export const ContactCard = ({ item }: { item: ContactCardProps }) => {
+export const Contact = ({ item }: { item: ContactCardProps }) => {
   return (
     <Dialog.Root>
       <Dialog.Portal>
@@ -25,7 +25,7 @@ export const ContactCard = ({ item }: { item: ContactCardProps }) => {
             className="relative min-h-full w-full md:min-h-[60vh] md:w-[80vw] p-5 md:rounded-lg"
             style={{ backgroundColor: `var(--${item.colorCode})` }}
           >
-            <DetailCard {...item} />
+            <ContactDetail {...item} />
             <Dialog.Close className="absolute flex justify-center items-center rounded top-2 right-2 w-10 h-10 bg-white md:-top-2 md:-right-2">
               <Cross2Icon />
             </Dialog.Close>
@@ -33,13 +33,13 @@ export const ContactCard = ({ item }: { item: ContactCardProps }) => {
         </Dialog.Overlay>
       </Dialog.Portal>
       <Dialog.Trigger asChild>
-          <SummaryCard {...item} />
+          <ContactSummary {...item} />
       </Dialog.Trigger>
     </Dialog.Root>
   )
 }
 
-const DetailCard = (props: ContactCardProps) => {
+const ContactDetail = (props: ContactCardProps) => {
   const { title, text, colorCode, image } = props
   return (
     <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_2fr] gap-3">
@@ -57,7 +57,7 @@ const DetailCard = (props: ContactCardProps) => {
   )
 }
 
-const SummaryCard = ({
+const ContactSummary = ({
     image,
     title,
     text,
