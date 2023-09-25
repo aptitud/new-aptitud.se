@@ -16,6 +16,7 @@ export interface TypeContactFields {
   header: Contentful.EntryFields.Symbol
   visitingAddress?: Contentful.EntryFields.Text
   image?: Contentful.Asset
+  summaryHeader?: Contentful.EntryFields.Symbol
 }
 
 export type TypeContact = Contentful.Entry<TypeContactFields>

@@ -2,13 +2,15 @@ import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import { Card, CardProps } from '../components/card/Card'
+import { ContactCard, ContactCardProps } from '../components/card/Contact'
 import { getFellows, getPosts, getContacts } from '../domain/contentful/service'
 
 interface HomeProps {
-  items: CardProps[]
+  items: CardProps[],
+  contact: ContactCardProps
 }
 
-const Home: NextPage<HomeProps> = ({ items }) => {
+const Home: NextPage<HomeProps> = ({ items, contact }) => {
   return (
     <div className="w-10/12 max-w-7xl ml-auto mr-auto">
       <Head>
@@ -19,8 +21,18 @@ const Home: NextPage<HomeProps> = ({ items }) => {
 
       <main>
         <div className="grid grid-cols-2 gap-4 xl:grid-cols-4">
-          <div className="col-span-2 xl:col-span-4 ml-auto mr-auto my-2">
-            <Image src={'/logo.svg'} height="302px" width="500px" />
+          <div className="w-full h-full col-span-2 xl:col-span-4 ml-auto mr-auto my-2">
+            <div className="grid grid-cols-4 gap-4">
+              <div></div>
+              <div className="col-span-2">
+                <Image src={'/logo.svg'} height="302px" width="500px" />
+              </div>
+              <div className='relative w-full h-full'>
+                <div className="absolute bottom-0 right-0">
+                  <ContactCard key={contact.title} item={contact} />
+                </div>
+              </div>
+            </div>
           </div>
           {items.map((item) => {
             item
@@ -47,7 +59,7 @@ const getRandomColor = (): string => {
   return colors.sort(() => (Math.random() > 0.5 ? 1 : -1))[0]
 }
 
-const randomizeOrder =  (postsItems: CardProps[], fellowItems: CardProps[], contactItems: CardProps[]): CardProps[]  => {
+const randomizeOrder =  (postsItems: CardProps[], fellowItems: CardProps[]): CardProps[]  => {
   const fivePosts = postsItems.splice(0, postsItems.length > 5 ? 5 : postsItems.length)
 
   const fiveFellows = fellowItems
@@ -56,7 +68,6 @@ const randomizeOrder =  (postsItems: CardProps[], fellowItems: CardProps[], cont
 
   const items = fiveFellows
     .concat(fivePosts)
-    .concat(contactItems)
     .sort(() => (Math.random() > 0.5 ? 1 : -1))
     .concat(fellowItems.concat(postsItems).sort(() => (Math.random() > 0.5 ? 1 : -1)))
   return items
@@ -95,18 +106,20 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     colorCode: getRandomColor(),
   }))
 
-  const contactItems: CardProps[] = contacts.map((contact) => ({
+  const contactItems: ContactCardProps[] = contacts.map((contact) => ({
     title: contact.header,
-    type: 'post',
+    summaryTitle: contact.summaryHeader? contact.summaryHeader : '',
+    type: 'contact',
     text: contact.visitingAddress ? contact.visitingAddress : '',
     image: contact.image ? contact.image?.fields.file.url : null,
     colorCode: getRandomColor(),
   }))
 
-  const items = randomizeOrder(postsItems, fellowItems, contactItems)
+  const items = randomizeOrder(postsItems, fellowItems)
 
   return {
-    props: { items },
+    props: { items, contact: contactItems[0]},
+
   }
 }
 
