@@ -2,7 +2,7 @@ import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import { Card, CardProps } from '../components/card/Card'
-import { ContactCard, ContactCardProps } from '../components/card/Contact'
+import { Contact, ContactCardProps } from '../components/card/Contact'
 import { getFellows, getPosts, getContacts } from '../domain/contentful/service'
 
 interface HomeProps {
@@ -29,7 +29,7 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
               </div>
               <div className='relative w-full h-full'>
                 <div className="absolute bottom-0 right-0">
-                  <ContactCard key={contact.title} item={contact} />
+                  <Contact key={contact.title} item={contact} />
                 </div>
               </div>
             </div>
@@ -104,6 +104,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     text: post.description,
     image: post.image ? post.image?.fields.file.url : null,
     colorCode: getRandomColor(),
+    postContent: post.postContent ? post.postContent : ''
   }))
 
   const contactItems: ContactCardProps[] = contacts.map((contact) => ({

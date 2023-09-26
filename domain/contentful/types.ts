@@ -62,6 +62,7 @@ export interface TypePostFields {
   title: Contentful.EntryFields.Symbol
   description: Contentful.EntryFields.Symbol
   sticky: Contentful.EntryFields.Boolean
+  postContent: Contentful.EntryFields.Text
 }
 
 export type TypePost = Contentful.Entry<TypePostFields>
