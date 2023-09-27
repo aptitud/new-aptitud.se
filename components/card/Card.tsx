@@ -182,8 +182,8 @@ const FellowCard = ({
       <div className="h-2/3"></div>
       <div className={`h-1/3 text-white m-0 p-0`}>
         <div className="grid grid-cols-1 relative h-full">
-          <h3 className="text-2xl mb-2 font-bold">{title}</h3>
-          <span className='line-clamp-1 md:line-clamp-3 '>
+          <h3 className="text-2xl mb-2 font-bold truncate">{title}</h3>
+          <span className='line-clamp-1 md:line-clamp-3'>
             {text}
           </span>
         </div>
@@ -206,7 +206,7 @@ const PostCard = ({
   return (
     <div
       role={'button'}
-      className={`rounded-lg h-52 md:h-96 p-2 cursor-pointer m-0 p-4`}
+      className={`rounded-lg h-52 md:h-96 cursor-pointer m-0 p-2`}
       style={backgroundStyle}
       {...props}
     >
@@ -219,9 +219,11 @@ const PostCard = ({
         </div>
         : <></>
       }
-      <div className={`h-2/3 text-white text-clip overflow-hidden m-0 p-0`}>
-        <h3 className="text-2xl mb-2 font-bold">{title}</h3>
-        <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
+      <div className={`h-2/3 text-white m-0 p-0`}>
+        <h3 className="text-xl md:text-2xl mb-2 font-bold truncate">{title}</h3>
+        <span className={`line-clamp-3 md:line-clamp-[${image?8:10}]`}>
+            <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
+        </span>
       </div>
     </div>
   )
