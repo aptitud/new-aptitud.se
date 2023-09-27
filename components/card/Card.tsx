@@ -164,7 +164,7 @@ const FellowCard = ({
 }: FellowCardProps) => {
   const imageWithGradient: CSSProperties = image
     ? {
-      backgroundImage: `linear-gradient(to bottom, #fff0 50%, var(--${colorCode}) 90%), url('${image}')`,
+      backgroundImage: `linear-gradient(to bottom, #fff0 50%, var(--aptitud-petrol) 90%), url('${image}')`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
     }
