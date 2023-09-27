@@ -2161,9 +2161,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         }
       `}</style>
       <div className="w-screen "
-      style= {{
-        background: `linear-gradient(to right, var(--aptitud-cerise),50%, var(--aptitud-orange))`,
-      }} >
+        style={{
+          background: `linear-gradient(to right, var(--aptitud-cerise),50%, var(--aptitud-orange))`,
+        }} >
         <Component {...pageProps} />
       </div>
     </>
