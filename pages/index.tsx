@@ -46,8 +46,6 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
 
 const getRandomColor = (): string => {
   const colors = [
-    'aptitud-pink-red',
-    'aptitud-cerise',
     'aptitud-yellow',
     'aptitud-green',
     'aptitud-petrol',
