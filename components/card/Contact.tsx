@@ -72,7 +72,7 @@ const ContactSummary = ({
     return (
       <div
         role={'button'}
-        className={`rounded-lg w-16 h-16 md:h-24 md:w-24 p-2 cursor-pointer m-0 p-0`}
+        className={`rounded-lg w-16 h-16 md:h-24 md:w-24 xl:h-36 xl:w-36 p-2 cursor-pointer m-0 p-0`}
         style={backgroundStyle}
         {...props}
       >
