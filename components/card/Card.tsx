@@ -43,34 +43,38 @@ type AptigramProps = SharedCardProps & {
 
 export const Card = ({ item }: { item: CardProps }) => {
   return (
-    <Dialog.Root>
-      <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 md:grid md:place-items-center overflow-y-auto">
-          <Dialog.Content
-            className="relative min-h-full w-full md:min-h-[60vh] md:w-[80vw] p-5 md:rounded-lg"
-            style={{ backgroundColor: `var(--${item.colorCode})` }}
-          >
-            <DetailCard {...item} />
-            <Dialog.Close className="absolute flex justify-center items-center rounded top-2 right-2 w-10 h-10 bg-white md:-top-2 md:-right-2">
-              <Cross2Icon />
-            </Dialog.Close>
-          </Dialog.Content>
-        </Dialog.Overlay>
-      </Dialog.Portal>
-      <Dialog.Trigger asChild>
-        {
-          item.type === 'fellow' ?
-            <FellowCard  {...item} />
-            : item.type === "post" ?
-              <PostCard  {...item} />
-              : <Aptigram {...item} />
-        }
-      </Dialog.Trigger>
-    </Dialog.Root>
+    item.type === 'aptigram' ?
+      <Aptigram {...item} />
+      :<Dialog.Root>
+        <Dialog.Portal>
+          <Dialog.Overlay className="fixed inset-0 md:grid md:place-items-center overflow-y-auto">
+            <Dialog.Content
+              className="relative min-h-full w-full md:min-h-[60vh] md:w-[80vw] p-5 md:rounded-lg"
+              style={{ backgroundColor: `var(--${item.colorCode})` }}
+            >
+              <DetailCard {...item} />
+              <Dialog.Close className="absolute flex justify-center items-center rounded top-2 right-2 w-10 h-10 bg-white md:-top-2 md:-right-2">
+                <Cross2Icon />
+              </Dialog.Close>
+            </Dialog.Content>
+          </Dialog.Overlay>
+        </Dialog.Portal>
+        <Dialog.Trigger asChild>
+          {
+            item.type === 'fellow' ?
+              <FellowCard  {...item} />
+              : <PostCard  {...item} />
+          }
+        </Dialog.Trigger>
+      </Dialog.Root>
   )
 }
 
 const DetailCard = (props: CardProps) => {
+  if(props.type === 'aptigram') {
+    return <></>
+  }
+  
   if (props.type === 'fellow') {
     const { title, text, colorCode, image, socialLinks } = props
     return (
@@ -88,24 +92,23 @@ const DetailCard = (props: CardProps) => {
     )
   }
 
-  if (props.type === 'post') {
-    const { title, text, colorCode, image, postContent } = props
-    return (
-      <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_2fr] gap-3">
-        {/* TODO:Fix image scaling */}
-        <div className="relative aspect-square">
-          <CardImage image={image} title={title} colorCode={colorCode} />
-        </div>
-        <div className="text-white mt-2">
-          <h3 className="text-2xl mb-2 font-bold">{title}</h3>
-          <p className="">
-            <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
-          </p>
-        </div>
+
+  const { title, text, colorCode, image, postContent } = props
+  return (
+    <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_2fr] gap-3">
+      {/* TODO:Fix image scaling */}
+      <div className="relative aspect-square">
+        <CardImage image={image} title={title} colorCode={colorCode} />
       </div>
-    )
-  }
-  return (<></>)
+      <div className="text-white mt-2">
+        <h3 className="text-2xl mb-2 font-bold">{title}</h3>
+        <p className="">
+          <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
+        </p>
+      </div>
+    </div>
+  )
+
 }
 
 const SocialLinks = ({
@@ -251,25 +254,27 @@ const Aptigram = ({
   permalink
 }: AptigramProps) => {
   const bgImage: CSSProperties = {
-    backgroundImage: ` linear-gradient(to bottom, #fff0 50%, var(--aptitud-petrol) 90%), url('${thumbnail?thumbnail:image}')`,
+    backgroundImage: ` linear-gradient(to bottom, #fff0 50%, var(--aptitud-petrol) 90%), url('${thumbnail ? thumbnail : image}')`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   }
 
   return (
-    <div
+    <a
       role={'button'}
       className={`rounded-lg h-52 md:h-96 p-2 cursor-pointer`}
       style={bgImage}
+      href= { permalink}
+      target='_blank'
     >
       <div className="h-2/3"></div>
       <div className={`h-1/3 text-white m-0 p-0`}>
         <div className="grid grid-cols-1 relative h-full">
-          <span className='line-clamp-1 md:line-clamp-3'>
-          <ReactMarkdown>{text}</ReactMarkdown>
+          <span className='line-clamp-3 md:line-clamp-5'>
+            <p>{text}</p>
           </span>
         </div>
       </div>
-    </div>
+    </a>
   )
 }

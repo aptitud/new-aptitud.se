@@ -41,6 +41,11 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
           })}
         </div>
       </main>
+      <footer>
+        <div className="w-full">
+          <span className='h-full p-4 m-4'>&nbsp;</span>
+        </div>
+      </footer>
     </div>
   )
 }
@@ -118,7 +123,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
 
   const instaPosts: CardProps[] = insta.map((post : any) => ({
     title: '',
-    type: 'insta',
+    type: 'aptigram',
     text: post.caption || '',
     image: post.media_url ? post.media_url : null,
     colorCode: '',
