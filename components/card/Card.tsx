@@ -266,6 +266,7 @@ const Aptigram = ({
       style={bgImage}
       href= { permalink}
       target='_blank'
+      rel="noreferrer"
     >
       <div className="h-2/3"></div>
       <div className={`h-1/3 text-white m-0 p-0`}>
