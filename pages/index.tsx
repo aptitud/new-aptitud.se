@@ -70,8 +70,8 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
                         konsulter
                       </span>
                     </div></li>
-                    <li className={`p-0 md:pr-2 ${filter === 'insta' ? 'bg-white text-black rounded-lg' : ''}`}>
-                      <div className='flex p-1' role={'button'} onClick={() => clickHandler('insta')}>
+                    <li className={`p-0 md:pr-2 ${filter === 'aptigram' ? 'bg-white text-black rounded-lg' : ''}`}>
+                      <div className='flex p-1' role={'button'} onClick={() => clickHandler('aptigram')}>
                       <span className='m-2'>
                         <svg className="h-4 w-4 text-white-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg>
                       </span>
