@@ -1,11 +1,12 @@
 import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import { Card, CardProps } from '../components/card/Card'
+import { Card, CardProps} from '../components/card/Card'
 import { Contact, ContactCardProps } from '../components/card/Contact'
 import { getFellows, getPosts, getContacts } from '../domain/contentful/service'
 import { useState } from 'react'
 
+import { getInstagramPosts } from '../domain/instagram/service'
 
 interface HomeProps {
   items: CardProps[],
@@ -94,6 +95,11 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
           {filteredCards(items)}
         </div>
       </main>
+      <footer>
+        <div className="w-full">
+          <span className='h-full p-4 m-4'>&nbsp;</span>
+        </div>
+      </footer>
     </div>
   )
 }
@@ -167,7 +173,21 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
   }))
 
   const items = randomizeOrder(postsItems, fellowItems)
+  const insta = await getInstagramPosts();
 
+  const instaPosts: CardProps[] = insta.map((post : any) => ({
+    title: '',
+    type: 'aptigram',
+    text: post.caption || '',
+    image: post.media_url ? post.media_url : null,
+    colorCode: '',
+    thumbnail: post.thumbnail_url || '',
+    permalink: post.permalink || ''
+  }))
+  
+  items.push(...instaPosts)
+  
+  console.log(items)
   return {
     props: { items, contact: contactItems[0] },
 

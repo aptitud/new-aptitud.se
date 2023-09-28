@@ -6,6 +6,7 @@ import { getFellows } from '../../domain/contentful/service'
 import Link from 'next/link'
 import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
+import { type } from 'os'
 
 type SocialLink = Awaited<
   Required<ReturnType<typeof getFellows>>
@@ -17,7 +18,7 @@ type SharedCardProps = {
   image: string | null
   colorCode: string
 }
-export type CardProps = FellowCardProps | PostsCardProps
+export type CardProps = FellowCardProps | PostsCardProps | AptigramProps
 
 type PostsCardProps = SharedCardProps & {
   type: 'post'
@@ -30,37 +31,50 @@ type FellowCardProps = SharedCardProps & {
   socialLinks: SocialLink[]
 }
 
+type AptigramProps = SharedCardProps & {
+  type: 'aptigram'
+  thumbnail: string
+  permalink: string
+}
+
 
 
 // TODO: why does cards get too tall in mobile?
 
 export const Card = ({ item }: { item: CardProps }) => {
   return (
-    <Dialog.Root>
-      <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 md:grid md:place-items-center overflow-y-auto">
-          <Dialog.Content
-            className="relative min-h-full w-full md:min-h-[60vh] md:w-[80vw] p-5 md:rounded-lg"
-            style={{ backgroundColor: `var(--${item.colorCode})` }}
-          >
-            <DetailCard {...item} />
-            <Dialog.Close className="absolute flex justify-center items-center rounded top-2 right-2 w-10 h-10 bg-white md:-top-2 md:-right-2">
-              <Cross2Icon />
-            </Dialog.Close>
-          </Dialog.Content>
-        </Dialog.Overlay>
-      </Dialog.Portal>
-      <Dialog.Trigger asChild>
-        {item.type === 'fellow' ?
-          <FellowCard  {...item} />
-          : <PostCard  {...item} />
-        }
-      </Dialog.Trigger>
-    </Dialog.Root>
+    item.type === 'aptigram' ?
+      <Aptigram {...item} />
+      :<Dialog.Root>
+        <Dialog.Portal>
+          <Dialog.Overlay className="fixed inset-0 md:grid md:place-items-center overflow-y-auto">
+            <Dialog.Content
+              className="relative min-h-full w-full md:min-h-[60vh] md:w-[80vw] p-5 md:rounded-lg"
+              style={{ backgroundColor: `var(--${item.colorCode})` }}
+            >
+              <DetailCard {...item} />
+              <Dialog.Close className="absolute flex justify-center items-center rounded top-2 right-2 w-10 h-10 bg-white md:-top-2 md:-right-2">
+                <Cross2Icon />
+              </Dialog.Close>
+            </Dialog.Content>
+          </Dialog.Overlay>
+        </Dialog.Portal>
+        <Dialog.Trigger asChild>
+          {
+            item.type === 'fellow' ?
+              <FellowCard  {...item} />
+              : <PostCard  {...item} />
+          }
+        </Dialog.Trigger>
+      </Dialog.Root>
   )
 }
 
 const DetailCard = (props: CardProps) => {
+  if(props.type === 'aptigram') {
+    return <></>
+  }
+  
   if (props.type === 'fellow') {
     const { title, text, colorCode, image, socialLinks } = props
     return (
@@ -78,6 +92,7 @@ const DetailCard = (props: CardProps) => {
     )
   }
 
+
   const { title, text, colorCode, image, postContent } = props
   return (
     <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_2fr] gap-3">
@@ -93,6 +108,7 @@ const DetailCard = (props: CardProps) => {
       </div>
     </div>
   )
+
 }
 
 const SocialLinks = ({
@@ -221,10 +237,44 @@ const PostCard = ({
       }
       <div className={`h-2/3 text-white m-0 p-0`}>
         <h3 className="text-xl md:text-2xl mb-2 font-bold truncate">{title}</h3>
-        <span className={`line-clamp-3 md:line-clamp-[${image?8:10}]`}>
-            <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
+        <span className={`line-clamp-3 md:line-clamp-[${image ? 8 : 10}]`}>
+          <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
         </span>
       </div>
     </div>
+  )
+}
+
+const Aptigram = ({
+  image,
+  title,
+  text,
+  colorCode,
+  thumbnail,
+  permalink
+}: AptigramProps) => {
+  const bgImage: CSSProperties = {
+    backgroundImage: ` linear-gradient(to bottom, #fff0 50%, var(--aptitud-petrol) 90%), url('${thumbnail ? thumbnail : image}')`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  }
+
+  return (
+    <a
+      role={'button'}
+      className={`rounded-lg h-52 md:h-96 p-2 cursor-pointer`}
+      style={bgImage}
+      href= { permalink}
+      target='_blank'
+    >
+      <div className="h-2/3"></div>
+      <div className={`h-1/3 text-white m-0 p-0`}>
+        <div className="grid grid-cols-1 relative h-full">
+          <span className='line-clamp-3 md:line-clamp-5'>
+            <p>{text}</p>
+          </span>
+        </div>
+      </div>
+    </a>
   )
 }
