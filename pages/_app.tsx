@@ -2160,7 +2160,10 @@ function MyApp({ Component, pageProps }: AppProps) {
           content: '\f2e0';
         }
       `}</style>
-      <div className="w-screen bg-gradient-to-r from-aptitud-pink-red to-aptitud-orange">
+      <div className="w-screen"
+        style={{
+          background: `linear-gradient(to right, var(--aptitud-cerise), var(--aptitud-orange))`,
+        }} >
         <Component {...pageProps} />
       </div>
     </>
