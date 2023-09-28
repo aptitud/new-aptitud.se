@@ -6,6 +6,7 @@ import { getFellows } from '../../domain/contentful/service'
 import Link from 'next/link'
 import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
+import { type } from 'os'
 
 type SocialLink = Awaited<
   Required<ReturnType<typeof getFellows>>
@@ -17,7 +18,7 @@ type SharedCardProps = {
   image: string | null
   colorCode: string
 }
-export type CardProps = FellowCardProps | PostsCardProps
+export type CardProps = FellowCardProps | PostsCardProps | AptigramProps
 
 type PostsCardProps = SharedCardProps & {
   type: 'post'
@@ -28,6 +29,12 @@ type FellowCardProps = SharedCardProps & {
   type: 'fellow'
   //TODO: get rid of undefined values...
   socialLinks: SocialLink[]
+}
+
+type AptigramProps = SharedCardProps & {
+  type: 'aptigram'
+  thumbnail: string
+  permalink: string
 }
 
 
@@ -51,9 +58,12 @@ export const Card = ({ item }: { item: CardProps }) => {
         </Dialog.Overlay>
       </Dialog.Portal>
       <Dialog.Trigger asChild>
-        {item.type === 'fellow' ?
-          <FellowCard  {...item} />
-          : <PostCard  {...item} />
+        {
+          item.type === 'fellow' ?
+            <FellowCard  {...item} />
+            : item.type === "post" ?
+              <PostCard  {...item} />
+              : <Aptigram {...item} />
         }
       </Dialog.Trigger>
     </Dialog.Root>
@@ -78,21 +88,24 @@ const DetailCard = (props: CardProps) => {
     )
   }
 
-  const { title, text, colorCode, image, postContent } = props
-  return (
-    <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_2fr] gap-3">
-      {/* TODO:Fix image scaling */}
-      <div className="relative aspect-square">
-        <CardImage image={image} title={title} colorCode={colorCode} />
+  if (props.type === 'post') {
+    const { title, text, colorCode, image, postContent } = props
+    return (
+      <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_2fr] gap-3">
+        {/* TODO:Fix image scaling */}
+        <div className="relative aspect-square">
+          <CardImage image={image} title={title} colorCode={colorCode} />
+        </div>
+        <div className="text-white mt-2">
+          <h3 className="text-2xl mb-2 font-bold">{title}</h3>
+          <p className="">
+            <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
+          </p>
+        </div>
       </div>
-      <div className="text-white mt-2">
-        <h3 className="text-2xl mb-2 font-bold">{title}</h3>
-        <p className="">
-          <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
-        </p>
-      </div>
-    </div>
-  )
+    )
+  }
+  return (<></>)
 }
 
 const SocialLinks = ({
@@ -221,9 +234,41 @@ const PostCard = ({
       }
       <div className={`h-2/3 text-white m-0 p-0`}>
         <h3 className="text-xl md:text-2xl mb-2 font-bold truncate">{title}</h3>
-        <span className={`line-clamp-3 md:line-clamp-[${image?8:10}]`}>
-            <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
+        <span className={`line-clamp-3 md:line-clamp-[${image ? 8 : 10}]`}>
+          <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
         </span>
+      </div>
+    </div>
+  )
+}
+
+const Aptigram = ({
+  image,
+  title,
+  text,
+  colorCode,
+  thumbnail,
+  permalink
+}: AptigramProps) => {
+  const bgImage: CSSProperties = {
+    backgroundImage: ` linear-gradient(to bottom, #fff0 50%, var(--aptitud-petrol) 90%), url('${thumbnail?thumbnail:image}')`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  }
+
+  return (
+    <div
+      role={'button'}
+      className={`rounded-lg h-52 md:h-96 p-2 cursor-pointer`}
+      style={bgImage}
+    >
+      <div className="h-2/3"></div>
+      <div className={`h-1/3 text-white m-0 p-0`}>
+        <div className="grid grid-cols-1 relative h-full">
+          <span className='line-clamp-1 md:line-clamp-3'>
+          <ReactMarkdown>{text}</ReactMarkdown>
+          </span>
+        </div>
       </div>
     </div>
   )
