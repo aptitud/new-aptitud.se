@@ -210,7 +210,7 @@ const FellowCard = ({
   return (
     <div
       role={'button'}
-      className={`rounded-lg h-52 md:h-96 p-2 cursor-pointer`}
+      className={`rounded-lg h-52 md:h-96 p-5 cursor-pointer`}
       style={imageWithGradient}
       tabIndex={0}
       onKeyDown={onKeyDown}
@@ -219,7 +219,7 @@ const FellowCard = ({
       <div className="h-2/3"></div>
       <div className={`h-1/3 text-white m-0 p-0`}>
         <div className="grid grid-cols-1 relative h-full">
-          <h3 className="text-2xl mb-2 font-bold truncate">{title}</h3>
+          <h3 className="text-xl md:text-2xl mb-2 font-medium truncate">{title}</h3>
           <span className='line-clamp-1 md:line-clamp-3'>
             {text}
           </span>
@@ -246,7 +246,7 @@ const PostCard = ({
   return (
     <div
       role={'button'}
-      className={`rounded-lg h-52 md:h-96 cursor-pointer m-0 p-2`}
+      className={`rounded-lg h-52 md:h-96 cursor-pointer m-0 p-5`}
       style={backgroundStyle}
       tabIndex={0}
       {...props}
@@ -263,7 +263,7 @@ const PostCard = ({
         : <></>
       }
       <div className={`${height} text-white m-0 p-0`}>
-        <h3 className="text-xl md:text-2xl mb-2 font-bold truncate">{title}</h3>
+        <h3 className="text-xl md:text-2xl mb-2 font-medium truncate">{title}</h3>
         <span className={`line-clamp-3 md:${lineClamp}`}>
           <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
         </span>
@@ -291,7 +291,7 @@ const Aptigram = ({
   return (
     <a
       role={'button'}
-      className={`rounded-lg h-52 md:h-96 p-2 cursor-pointer`}
+      className={`rounded-lg h-52 md:h-96 p-5 cursor-pointer`}
       style={bgImage}
       href={permalink}
       target='_blank'
