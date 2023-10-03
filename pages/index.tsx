@@ -125,7 +125,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
   const insta = await getInstagramPosts();
 
   const instaPosts: CardProps[] = insta.map((post : any) => ({
-    title: randomUUID(),
+    title: post.permalink,
     type: 'aptigram',
     text: post.caption || '',
     image: post.media_url ? post.media_url : null,
