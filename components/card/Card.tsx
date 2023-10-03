@@ -1,6 +1,6 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { Cross2Icon } from '@radix-ui/react-icons'
-import { CSSProperties } from 'react'
+import { CSSProperties, useState } from 'react'
 import { CardImage } from './CardImage'
 import { getFellows } from '../../domain/contentful/service'
 import Link from 'next/link'
@@ -17,12 +17,13 @@ type SharedCardProps = {
   text: string
   image: string | null
   colorCode: string
+  onKeyDown: any
 }
 export type CardProps = FellowCardProps | PostsCardProps | AptigramProps
 
 type PostsCardProps = SharedCardProps & {
   type: 'post'
-  postContent: string
+  postContent: string,
 }
 
 type FellowCardProps = SharedCardProps & {
@@ -42,10 +43,26 @@ type AptigramProps = SharedCardProps & {
 // TODO: why does cards get too tall in mobile?
 
 export const Card = ({ item }: { item: CardProps }) => {
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onClick = (e : KeyboardEvent) => {
+    e.preventDefault();
+    setIsOpen(true);
+  }
+  
+  const onKeyDown = (e : KeyboardEvent) => {   
+    if (e.key === " " || e.key === "Enter" || e.key === "Spacebar") {
+      onClick(e);
+    }
+  }
+
+  item.onKeyDown = onKeyDown;
+
   return (
     item.type === 'aptigram' ?
       <Aptigram {...item} />
-      :<Dialog.Root>
+      :<Dialog.Root open={isOpen} onOpenChange={setIsOpen} >
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 md:grid md:place-items-center overflow-y-auto">
             <Dialog.Content
@@ -69,6 +86,7 @@ export const Card = ({ item }: { item: CardProps }) => {
       </Dialog.Root>
   )
 }
+
 
 const DetailCard = (props: CardProps) => {
   if(props.type === 'aptigram') {
@@ -176,6 +194,7 @@ const FellowCard = ({
   text,
   colorCode,
   socialLinks,
+  onKeyDown,
   ...props
 }: FellowCardProps) => {
   const imageWithGradient: CSSProperties = image
@@ -186,13 +205,15 @@ const FellowCard = ({
     }
     : {
       backgroundColor: `var(--${colorCode})`,
-    }
+    }  
 
   return (
     <div
       role={'button'}
       className={`rounded-lg h-52 md:h-96 p-2 cursor-pointer`}
       style={imageWithGradient}
+      tabIndex={0}
+      onKeyDown={onKeyDown}
       {...props}
     >
       <div className="h-2/3"></div>
@@ -213,6 +234,7 @@ const PostCard = ({
   text,
   colorCode,
   postContent,
+  onKeyDown,
   ...props
 }: PostsCardProps) => {
   const backgroundStyle: CSSProperties = {
@@ -224,7 +246,9 @@ const PostCard = ({
       role={'button'}
       className={`rounded-lg h-52 md:h-96 cursor-pointer m-0 p-2`}
       style={backgroundStyle}
+      tabIndex={0}
       {...props}
+      onKeyDown={onKeyDown}
     >
 
       {image ?
@@ -243,6 +267,8 @@ const PostCard = ({
       </div>
     </div>
   )
+
+
 }
 
 const Aptigram = ({
@@ -267,6 +293,7 @@ const Aptigram = ({
       href= { permalink}
       target='_blank'
       rel="noreferrer"
+      tabIndex={0}
     >
       <div className="h-2/3"></div>
       <div className={`h-1/3 text-white m-0 p-0`}>
