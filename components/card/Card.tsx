@@ -241,6 +241,8 @@ const PostCard = ({
     backgroundColor: `var(--${colorCode})`,
   }
 
+  const height = image ? 'h-2/3' : 'h-full'
+  const lineClamp = image ? 'line-clamp-[8]' : 'line-clamp-[10]'
   return (
     <div
       role={'button'}
@@ -257,12 +259,13 @@ const PostCard = ({
             <Image src={`https:${image}`} layout='fill' alt={title} className='object-fill' />
           </div>
         </div>
+        
         : <></>
       }
-      <div className={`h-2/3 text-white m-0 p-0`}>
+      <div className={`${height} text-white m-0 p-0`}>
         <h3 className="text-xl md:text-2xl mb-2 font-bold truncate">{title}</h3>
-        <span className={`line-clamp-3 md:line-clamp-[${image ? 8 : 10}]`}>
-          <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
+        <span className={`line-clamp-3 md:${lineClamp}`}>
+            <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
         </span>
       </div>
     </div>

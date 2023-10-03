@@ -62,6 +62,7 @@ const getRandomColor = (): string => {
 }
 
 const randomizeOrder =  (postsItems: CardProps[], fellowItems: CardProps[]): CardProps[]  => {
+
   const fivePosts = postsItems.splice(0, postsItems.length > 5 ? 5 : postsItems.length)
 
   const fiveFellows = fellowItems
@@ -73,7 +74,6 @@ const randomizeOrder =  (postsItems: CardProps[], fellowItems: CardProps[]): Car
     .sort(() => (Math.random() > 0.5 ? 1 : -1))
     .concat(fellowItems.concat(postsItems).sort(() => (Math.random() > 0.5 ? 1 : -1)))
   return items
-
 }
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
@@ -98,6 +98,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     image: fellow.image ? fellow.image?.fields.file.url : null,
     colorCode: getRandomColor(),
     socialLinks: fellow.services,
+    onKeyDown: null
   }))
 
   const postsItems: CardProps[] = sortedPosts.map((post) => ({
@@ -106,7 +107,8 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     text: post.description,
     image: post.image ? post.image?.fields.file.url : null,
     colorCode: getRandomColor(),
-    postContent: post.postContent ? post.postContent : ''
+    postContent: post.postContent ? post.postContent : '',
+    onKeyDown: null
   }))
 
   const contactItems: ContactCardProps[] = contacts.map((contact) => ({
@@ -116,6 +118,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     text: contact.visitingAddress ? contact.visitingAddress : '',
     image: contact.image ? contact.image?.fields.file.url : null,
     colorCode: getRandomColor(),
+    onKeyDown: null
   }))
 
   const items = randomizeOrder(postsItems, fellowItems)
@@ -133,7 +136,6 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
   
   items.push(...instaPosts)
   
-  console.log(items)
   return {
     props: { 
       items, 

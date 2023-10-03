@@ -2,8 +2,6 @@ import * as Dialog from '@radix-ui/react-dialog'
 import { Cross2Icon } from '@radix-ui/react-icons'
 import { CSSProperties, useState } from 'react'
 import { CardImage } from './CardImage'
-import { getFellows } from '../../domain/contentful/service'
-import Link from 'next/link'
 import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 
@@ -32,6 +30,7 @@ export const Contact = ({ item }: { item: ContactCardProps }) => {
     }
   }
   item.onKeyDown = onKeyDown;
+  
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Portal>
