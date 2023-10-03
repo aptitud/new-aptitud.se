@@ -31,7 +31,7 @@ export const Contact = ({ item }: { item: ContactCardProps }) => {
       onClick(e);
     }
   }
-  
+  item.onKeyDown = onKeyDown;
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Portal>
@@ -48,7 +48,7 @@ export const Contact = ({ item }: { item: ContactCardProps }) => {
         </Dialog.Overlay>
       </Dialog.Portal>
       <Dialog.Trigger asChild>
-          <ContactSummary onKeyDown={onKeyDown} {...item} />
+          <ContactSummary {...item} />
       </Dialog.Trigger>
     </Dialog.Root>
   )
