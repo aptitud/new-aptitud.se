@@ -100,10 +100,10 @@ const DetailCard = (props: CardProps) => {
         {/* TODO:Fix image scaling */}
         <div className="relative aspect-square">
           <CardImage image={image} title={title} colorCode={colorCode} />
-          <SocialLinks name={title} socialLinks={socialLinks} />
+          <SocialLinks name={title} socialLinks={socialLinks} />   
         </div>
-        <div className="text-white mt-2">
-          <h3 className="text-2xl mb-2 font-bold">{title}</h3>
+        <div className="text-white mt-8 md:mt-2">
+          <h3 className="text-xl md:text2xl mb-2 font-medium">{title}</h3>
           <p className="">{text}</p>
         </div>
       </div>
@@ -119,7 +119,7 @@ const DetailCard = (props: CardProps) => {
         <CardImage image={image} title={title} colorCode={colorCode} />
       </div>
       <div className="text-white mt-2">
-        <h3 className="text-2xl mb-2 font-bold">{title}</h3>
+        <h3 className="text-xl md:text2xl mb-2 font-medium">{title}</h3>
         <p className="">
           <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
         </p>
@@ -157,7 +157,7 @@ const SocialLinks = ({
   }
 
   return (
-    <div className="absolute top-60 inline-flex bg-aptitud-light-grey rounded-lg gap-2 p-2">
+    <div className="absolute -bottom-5 inline-flex bg-aptitud-light-grey rounded-lg gap-2 p-2">
       <Link
         target="_blank"
         key={name}
