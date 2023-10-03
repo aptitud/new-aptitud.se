@@ -46,12 +46,12 @@ export const Card = ({ item }: { item: CardProps }) => {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const onClick = (e : KeyboardEvent) => {
+  const onClick = (e: KeyboardEvent) => {
     e.preventDefault();
     setIsOpen(true);
   }
-  
-  const onKeyDown = (e : KeyboardEvent) => {   
+
+  const onKeyDown = (e: KeyboardEvent) => {
     if (e.key === " " || e.key === "Enter" || e.key === "Spacebar") {
       onClick(e);
     }
@@ -62,7 +62,7 @@ export const Card = ({ item }: { item: CardProps }) => {
   return (
     item.type === 'aptigram' ?
       <Aptigram {...item} />
-      :<Dialog.Root open={isOpen} onOpenChange={setIsOpen} >
+      : <Dialog.Root open={isOpen} onOpenChange={setIsOpen} >
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 md:grid md:place-items-center overflow-y-auto">
             <Dialog.Content
@@ -89,10 +89,10 @@ export const Card = ({ item }: { item: CardProps }) => {
 
 
 const DetailCard = (props: CardProps) => {
-  if(props.type === 'aptigram') {
+  if (props.type === 'aptigram') {
     return <></>
   }
-  
+
   if (props.type === 'fellow') {
     const { title, text, colorCode, image, socialLinks } = props
     return (
@@ -205,7 +205,7 @@ const FellowCard = ({
     }
     : {
       backgroundColor: `var(--${colorCode})`,
-    }  
+    }
 
   return (
     <div
@@ -259,13 +259,13 @@ const PostCard = ({
             <Image src={`https:${image}`} layout='fill' alt={title} className='object-fill' />
           </div>
         </div>
-        
+
         : <></>
       }
       <div className={`${height} text-white m-0 p-0`}>
         <h3 className="text-xl md:text-2xl mb-2 font-bold truncate">{title}</h3>
         <span className={`line-clamp-3 md:${lineClamp}`}>
-            <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
+          <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
         </span>
       </div>
     </div>
@@ -293,7 +293,7 @@ const Aptigram = ({
       role={'button'}
       className={`rounded-lg h-52 md:h-96 p-2 cursor-pointer`}
       style={bgImage}
-      href= { permalink}
+      href={permalink}
       target='_blank'
       rel="noreferrer"
       tabIndex={0}
