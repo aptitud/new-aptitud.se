@@ -1,9 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { Cross2Icon } from '@radix-ui/react-icons'
-import { CSSProperties } from 'react'
+import { CSSProperties, useState } from 'react'
 import { CardImage } from './CardImage'
-import { getFellows } from '../../domain/contentful/service'
-import Link from 'next/link'
 import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 
@@ -14,11 +12,27 @@ export type ContactCardProps = {
   text: string
   image: string | null
   colorCode: string
+  onKeyDown: any
 }
 
 export const Contact = ({ item }: { item: ContactCardProps }) => {
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onClick = (e : KeyboardEvent) => {
+    e.preventDefault();
+    setIsOpen(true);
+  }
+  
+  const onKeyDown = (e : KeyboardEvent) => {   
+    if (e.key === " " || e.key === "Enter" || e.key === "Spacebar") {
+      onClick(e);
+    }
+  }
+  item.onKeyDown = onKeyDown;
+  
   return (
-    <Dialog.Root>
+    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 md:grid md:place-items-center overflow-y-auto">
           <Dialog.Content
@@ -63,6 +77,7 @@ const ContactSummary = ({
     text,
     colorCode,
     summaryTitle,
+    onKeyDown,
     ...props
   }: ContactCardProps) => {
     const backgroundStyle: CSSProperties =  {
@@ -74,6 +89,8 @@ const ContactSummary = ({
         role={'button'}
         className={`rounded-lg w-16 h-16 md:h-24 md:w-24 xl:h-36 xl:w-36 p-2 cursor-pointer m-0 p-0`}
         style={backgroundStyle}
+        tabIndex={0}
+        onKeyDown={onKeyDown}
         {...props}
       >
         <div className="relative h-full w-full">

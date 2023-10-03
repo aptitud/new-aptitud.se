@@ -7,6 +7,7 @@ import { getFellows, getPosts, getContacts } from '../domain/contentful/service'
 import { useState } from 'react'
 
 import { getInstagramPosts } from '../domain/instagram/service'
+import { randomUUID } from 'crypto'
 
 interface HomeProps {
   items: CardProps[],
@@ -18,11 +19,13 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
   const [filter, setFilter] = useState('')
 
   function filteredCards(items: CardProps[]): JSX.Element[] {
-    return items
-      .filter(item => filter === '' || item.type === filter)
-      .map((item) => {
-        return <Card key={item.title} item={item} />
-      })
+    
+    const filtered =  items
+        .filter(item => filter === '' || item.type === filter)
+        .map((item) => {
+          return <Card key={item.title} item={item} />
+        })
+    return filtered;
   }
 
   function clickHandler(filterItem: string) {
@@ -115,22 +118,24 @@ const getRandomColor = (): string => {
   return colors.sort(() => (Math.random() > 0.5 ? 1 : -1))[0]
 }
 
-const randomizeOrder = (postsItems: CardProps[], fellowItems: CardProps[]): CardProps[] => {
-  const fivePosts = postsItems.splice(0, postsItems.length > 5 ? 5 : postsItems.length)
-
-  const fiveFellows = fellowItems
-    .sort(() => (Math.random() > 0.5 ? 1 : -1))
-    .splice(0, 5)
-
-  const items = fiveFellows
-    .concat(fivePosts)
-    .sort(() => (Math.random() > 0.5 ? 1 : -1))
-    .concat(fellowItems.concat(postsItems).sort(() => (Math.random() > 0.5 ? 1 : -1)))
-  return items
-
+const randomizeOrder =  (postsItems: CardProps[], fellowItems: CardProps[]): CardProps[]  => {
+  let offset = 0;
+  do {
+   const seed = Math.floor(Math.random() * 3)+offset
+  
+   fellowItems.splice(seed >= fellowItems.length ? fellowItems.length-1 : seed , 0, postsItems.pop() as CardProps)
+   offset += 4
+   console.log(`${offset} <> ${fellowItems.length}`)
+  } while(offset < fellowItems.length && postsItems.length > 0)
+ 
+   fellowItems.push(...postsItems.reverse())
+   console.log(fellowItems)
+   return fellowItems
+ 
 }
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
+
   const fellows = await getFellows()
 
   const posts = await getPosts()
@@ -139,11 +144,11 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
 
   const sortedPosts = posts
     .sort((a, b) => {
-      if (a.sticky != b.sticky) {
-        return a.sticky ? -1 : 1;
-      }
-      return Date.parse(b.ts) - Date.parse(a.ts)
-    })
+     if(a.sticky != b.sticky) {
+      return a.sticky ? -1 : 1; 
+     } 
+     return Date.parse(b.ts) - Date.parse(a.ts)
+    }).reverse()
 
   const fellowItems: CardProps[] = fellows.map((fellow) => ({
     title: fellow.name,
@@ -152,6 +157,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     image: fellow.image ? fellow.image?.fields.file.url : null,
     colorCode: getRandomColor(),
     socialLinks: fellow.services,
+    onKeyDown: null
   }))
 
   const postsItems: CardProps[] = sortedPosts.map((post) => ({
@@ -160,7 +166,8 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     text: post.description,
     image: post.image ? post.image?.fields.file.url : null,
     colorCode: getRandomColor(),
-    postContent: post.postContent ? post.postContent : ''
+    postContent: post.postContent ? post.postContent : '',
+    onKeyDown: null
   }))
 
   const contactItems: ContactCardProps[] = contacts.map((contact) => ({
@@ -170,13 +177,14 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     text: contact.visitingAddress ? contact.visitingAddress : '',
     image: contact.image ? contact.image?.fields.file.url : null,
     colorCode: getRandomColor(),
+    onKeyDown: null
   }))
 
   const items = randomizeOrder(postsItems, fellowItems)
   const insta = await getInstagramPosts();
 
   const instaPosts: CardProps[] = insta.map((post : any) => ({
-    title: '',
+    title: randomUUID(),
     type: 'aptigram',
     text: post.caption || '',
     image: post.media_url ? post.media_url : null,
@@ -187,10 +195,11 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
   
   items.push(...instaPosts)
   
-  console.log(items)
   return {
-    props: { items, contact: contactItems[0] },
-
+    props: { 
+      items, 
+      contact: contactItems[0],
+    },
   }
 }
 

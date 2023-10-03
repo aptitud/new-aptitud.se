@@ -1,6 +1,6 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { Cross2Icon } from '@radix-ui/react-icons'
-import { CSSProperties } from 'react'
+import { CSSProperties, useState } from 'react'
 import { CardImage } from './CardImage'
 import { getFellows } from '../../domain/contentful/service'
 import Link from 'next/link'
@@ -17,12 +17,13 @@ type SharedCardProps = {
   text: string
   image: string | null
   colorCode: string
+  onKeyDown: any
 }
 export type CardProps = FellowCardProps | PostsCardProps | AptigramProps
 
 type PostsCardProps = SharedCardProps & {
   type: 'post'
-  postContent: string
+  postContent: string,
 }
 
 type FellowCardProps = SharedCardProps & {
@@ -42,10 +43,26 @@ type AptigramProps = SharedCardProps & {
 // TODO: why does cards get too tall in mobile?
 
 export const Card = ({ item }: { item: CardProps }) => {
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onClick = (e : KeyboardEvent) => {
+    e.preventDefault();
+    setIsOpen(true);
+  }
+  
+  const onKeyDown = (e : KeyboardEvent) => {   
+    if (e.key === " " || e.key === "Enter" || e.key === "Spacebar") {
+      onClick(e);
+    }
+  }
+
+  item.onKeyDown = onKeyDown;
+
   return (
     item.type === 'aptigram' ?
       <Aptigram {...item} />
-      :<Dialog.Root>
+      :<Dialog.Root open={isOpen} onOpenChange={setIsOpen} >
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 md:grid md:place-items-center overflow-y-auto">
             <Dialog.Content
@@ -69,6 +86,7 @@ export const Card = ({ item }: { item: CardProps }) => {
       </Dialog.Root>
   )
 }
+
 
 const DetailCard = (props: CardProps) => {
   if(props.type === 'aptigram') {
@@ -127,7 +145,7 @@ const SocialLinks = ({
       .replace('ö', 'o')
       .replace('ü', 'u')
 
-  const mapIcons: Record<SocialLink['name'], string> = {
+  const mapIcons: Record<SocialLink['name'], string> = {  
     blog: 'fa fa-fw fa-globe',
     'stack-overflow': 'fa fa-fw fa-stack-overflow',
     github: 'fa fa-fw fa-github',
@@ -176,6 +194,7 @@ const FellowCard = ({
   text,
   colorCode,
   socialLinks,
+  onKeyDown,
   ...props
 }: FellowCardProps) => {
   const imageWithGradient: CSSProperties = image
@@ -186,13 +205,15 @@ const FellowCard = ({
     }
     : {
       backgroundColor: `var(--${colorCode})`,
-    }
+    }  
 
   return (
     <div
       role={'button'}
       className={`rounded-lg h-52 md:h-96 p-2 cursor-pointer`}
       style={imageWithGradient}
+      tabIndex={0}
+      onKeyDown={onKeyDown}
       {...props}
     >
       <div className="h-2/3"></div>
@@ -213,18 +234,23 @@ const PostCard = ({
   text,
   colorCode,
   postContent,
+  onKeyDown,
   ...props
 }: PostsCardProps) => {
   const backgroundStyle: CSSProperties = {
     backgroundColor: `var(--${colorCode})`,
   }
 
+  const height = image ? 'h-2/3' : 'h-full'
+  const lineClamp = image ? 'line-clamp-[8]' : 'line-clamp-[10]'
   return (
     <div
       role={'button'}
       className={`rounded-lg h-52 md:h-96 cursor-pointer m-0 p-2`}
       style={backgroundStyle}
+      tabIndex={0}
       {...props}
+      onKeyDown={onKeyDown}
     >
 
       {image ?
@@ -233,16 +259,19 @@ const PostCard = ({
             <Image src={`https:${image}`} layout='fill' alt={title} className='object-fill' />
           </div>
         </div>
+        
         : <></>
       }
-      <div className={`h-2/3 text-white m-0 p-0`}>
+      <div className={`${height} text-white m-0 p-0`}>
         <h3 className="text-xl md:text-2xl mb-2 font-bold truncate">{title}</h3>
-        <span className={`line-clamp-3 md:line-clamp-[${image ? 8 : 10}]`}>
-          <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
+        <span className={`line-clamp-3 md:${lineClamp}`}>
+            <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
         </span>
       </div>
     </div>
   )
+
+
 }
 
 const Aptigram = ({
@@ -260,10 +289,13 @@ const Aptigram = ({
   }
 
   return (
-    <a
+    <div
       role={'button'}
       className={`rounded-lg h-52 md:h-96 p-2 cursor-pointer`}
       style={bgImage}
+      tabIndex={0}
+    >
+    <a
       href= { permalink}
       target='_blank'
       rel="noreferrer"
@@ -277,5 +309,6 @@ const Aptigram = ({
         </div>
       </div>
     </a>
+    </div>
   )
 }
