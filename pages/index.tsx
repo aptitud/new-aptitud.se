@@ -62,18 +62,19 @@ const getRandomColor = (): string => {
 }
 
 const randomizeOrder =  (postsItems: CardProps[], fellowItems: CardProps[]): CardProps[]  => {
-
-  const fivePosts = postsItems.splice(0, postsItems.length > 5 ? 5 : postsItems.length)
-
-  const fiveFellows = fellowItems
-    .sort(() => (Math.random() > 0.5 ? 1 : -1))
-    .splice(0, 5)
-
-  const items = fiveFellows
-    .concat(fivePosts)
-    .sort(() => (Math.random() > 0.5 ? 1 : -1))
-    .concat(fellowItems.concat(postsItems).sort(() => (Math.random() > 0.5 ? 1 : -1)))
-  return items
+  let offset = 0;
+  do {
+   const seed = Math.floor(Math.random() * 3)+offset
+  
+   fellowItems.splice(seed >= fellowItems.length ? fellowItems.length-1 : seed , 0, postsItems.pop() as CardProps)
+   offset += 4
+   console.log(`${offset} <> ${fellowItems.length}`)
+  } while(offset < fellowItems.length && postsItems.length > 0)
+ 
+   fellowItems.push(...postsItems.reverse())
+   console.log(fellowItems)
+   return fellowItems
+ 
 }
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
@@ -89,7 +90,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
       return a.sticky ? -1 : 1; 
      } 
      return Date.parse(b.ts) - Date.parse(a.ts)
-    })
+    }).reverse()
 
   const fellowItems: CardProps[] = fellows.map((fellow) => ({
     title: fellow.name,
