@@ -87,18 +87,15 @@ const ContactSummary = ({
     return (
       <div
         role={'button'}
-        className={`rounded-lg w-16 h-16 md:h-24 md:w-24 p-2 cursor-pointer m-0 p-0`}
+        className={`rounded-lg p-2 cursor-pointer m-0 p-0`}
         style={backgroundStyle}
         tabIndex={0}
         onKeyDown={onKeyDown}
         {...props}
       >
         <div className="relative h-full w-full">
-          { image ?
-            <Image src={`https:${image}`} layout='fill' alt={summaryTitle} className='object-cover object-left-top'/>
-            : <Image src="/logo.svg" alt="aptitud"  layout='fill' />
-          }
-          </div>
+          <Image src={'/logo.svg'} height="302px" width="500px" />
+        </div>
       
       </div>
     )

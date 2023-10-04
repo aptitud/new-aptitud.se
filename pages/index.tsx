@@ -23,15 +23,16 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
 
       <main>
         <div className="grid grid-cols-2 gap-4 xl:grid-cols-4">
-          <div className="w-full h-full col-span-2 xl:col-span-4 ml-auto mr-auto my-2">
-            <div className="grid grid-cols-4 gap-4">
+          <div className="w-full h-full col-span-2 xl:col-span-4 ml-auto mr-auto my-2 p-5">
+            <div className="grid grid-cols-1">
               <div></div>
               <div className="col-span-2 flex justify-center">
-                <Image src={'/logo.svg'} height="302px" width="500px" />
+                
+                <Contact key={contact.title} item={contact} />
               </div>
               <div className='relative w-full h-full'>
                 <div className="absolute bottom-0 right-0">
-                  <Contact key={contact.title} item={contact} />
+                  
                 </div>
               </div>
             </div>
