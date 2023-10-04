@@ -6,7 +6,6 @@ import { getFellows } from '../../domain/contentful/service'
 import Link from 'next/link'
 import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
-import { type } from 'os'
 
 type SocialLink = Awaited<
   Required<ReturnType<typeof getFellows>>
@@ -277,9 +276,7 @@ const PostCard = ({
 
 const Aptigram = ({
   image,
-  title,
   text,
-  colorCode,
   thumbnail,
   permalink
 }: AptigramProps) => {
@@ -290,23 +287,30 @@ const Aptigram = ({
   }
 
   return (
-    <a
-      role={'button'}
-      className={`rounded-lg h-52 md:h-96 p-3 md:p-6 cursor-pointer`}
-      style={bgImage}
-      href={permalink}
-      target='_blank'
-      rel="noreferrer"
-      tabIndex={0}
+    <div className="rounded-lg h-52 md:h-96 p-3 md:p-6 cursor-pointer" 
+        tabIndex={0} 
+        style={bgImage}
+        onKeyDown={(e) => {
+          if (e.key === " " || e.key === "Enter" || e.key === "Spacebar") {
+            window.open(permalink, '_blank');
+          }
+        }}
     >
-      <div className="h-3/5"></div>
-      <div className={`h-2/5 text-white m-0 p-0`}>
-        <div className="grid grid-cols-1 relative h-full">
-          <span className='text-base md:text-2xl line-clamp-3 md:line-clamp-4'>
-            <p>{text}</p>
-          </span>
+      <a
+        role={'button'}
+        href={permalink}
+        target='_blank'
+        rel="noreferrer"    
+      >
+        <div className="h-3/5"></div>
+        <div className={`h-2/5 text-white m-0 p-0`}>
+          <div className="grid grid-cols-1 relative h-full">
+            <span className='text-base md:text-2xl line-clamp-3 md:line-clamp-4'>
+              <p>{text}</p>
+            </span>
+          </div>
         </div>
-      </div>
-    </a>
+      </a>
+    </div>
   )
 }
