@@ -63,7 +63,9 @@ const getRandomColor = (): string => {
 }
 
 const randomizeOrder =  (postsItems: CardProps[], fellowItems: CardProps[]): CardProps[]  => {
+  fellowItems.sort(() => (Math.random() > 0.5 ? 1 : -1))
   let offset = 0;
+
   do {
    const seed = Math.floor(Math.random() * 3)+offset
   
