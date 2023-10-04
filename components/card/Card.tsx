@@ -103,7 +103,7 @@ const DetailCard = (props: CardProps) => {
           <SocialLinks name={title} socialLinks={socialLinks} />   
         </div>
         <div className="text-white mt-8 md:mt-2">
-          <h3 className="text-xl md:text2xl mb-2 font-medium">{title}</h3>
+          <h3 className="text-xl md:text-2xl mb-2 font-medium">{title}</h3>
           <p className="">{text}</p>
         </div>
       </div>
@@ -119,7 +119,7 @@ const DetailCard = (props: CardProps) => {
         <CardImage image={image} title={title} colorCode={colorCode} />
       </div>
       <div className="text-white mt-2">
-        <h3 className="text-xl md:text2xl mb-2 font-medium">{title}</h3>
+        <h3 className="text-xl md:text-2xl mb-2 font-medium">{title}</h3>
         <p className="">
           <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
         </p>
@@ -210,17 +210,18 @@ const FellowCard = ({
   return (
     <div
       role={'button'}
-      className={`rounded-lg h-72 md:h-96 p-5 cursor-pointer`}
+      className={`rounded-lg h-52 md:h-96 p-3 md:p-6 cursor-pointer`}
       style={imageWithGradient}
       tabIndex={0}
       onKeyDown={onKeyDown}
+      title={title}
       {...props}
     >
-      <div className="h-2/3"></div>
-      <div className={`h-1/3 text-white m-0 p-0`}>
+      <div className="h-3/5"></div>
+      <div className={`h-2/5 text-white m-0 p-0`}>
         <div className="grid grid-cols-1 relative h-full">
-          <h3 className="text-xl md:text-2xl mb-2 font-medium truncate">{title}</h3>
-          <span className='line-clamp-2 md:line-clamp-3'>
+          <h3 className="text-base md:text-2xl mb-1 md:mb-2 font-medium truncate">{title}</h3>
+          <span className='text-xs md:text-lg line-clamp-3  md:line-clamp-3'>
             {text}
           </span>
         </div>
@@ -242,11 +243,11 @@ const PostCard = ({
   }
 
   const height = image ? 'h-2/3' : 'h-full'
-  const lineClamp = image ? 'line-clamp-[8]' : 'line-clamp-[10]'
+  const lineClamp = image ? 'line-clamp-[6]' : 'line-clamp-[8]'
   return (
     <div
       role={'button'}
-      className={`rounded-lg h-72 md:h-96 cursor-pointer m-0 p-5`}
+      className={`rounded-lg h-52 md:h-96 cursor-pointer m-0 p-3 md:p-6`}
       style={backgroundStyle}
       tabIndex={0}
       {...props}
@@ -263,8 +264,8 @@ const PostCard = ({
         : <></>
       }
       <div className={`${height} text-white m-0 p-0`}>
-        <h3 className="text-xl md:text-2xl mb-2 font-medium truncate">{title}</h3>
-        <span className={`line-clamp-3 md:${lineClamp}`}>
+        <h3 className="text-base md:text-2xl mb-1 md:mb-2 font-medium truncate">{title}</h3>
+        <span className={`text-xs md:text-lg ${lineClamp}`}>
           <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
         </span>
       </div>
@@ -291,17 +292,17 @@ const Aptigram = ({
   return (
     <a
       role={'button'}
-      className={`rounded-lg h-72 md:h-96 p-5 cursor-pointer`}
+      className={`rounded-lg h-52 md:h-96 p-3 md:p-6 cursor-pointer`}
       style={bgImage}
       href={permalink}
       target='_blank'
       rel="noreferrer"
       tabIndex={0}
     >
-      <div className="h-2/3"></div>
-      <div className={`h-1/3 text-white m-0 p-0`}>
+      <div className="h-3/5"></div>
+      <div className={`h-2/5 text-white m-0 p-0`}>
         <div className="grid grid-cols-1 relative h-full">
-          <span className='line-clamp-3 md:line-clamp-5'>
+          <span className='text-base md:text-2xl line-clamp-3 md:line-clamp-4'>
             <p>{text}</p>
           </span>
         </div>

@@ -14,7 +14,7 @@ interface HomeProps {
 
 const Home: NextPage<HomeProps> = ({ items, contact }) => {
   return (
-    <div className="w-10/12 max-w-7xl ml-auto mr-auto">
+    <div className="w-11/12 max-w-7xl ml-auto mr-auto">
       <Head>
         <title>Aptitud: Enklare, gladare, roligare</title>
         <meta name="description" content="Aptitud. Enklare, gladare, roligare" />
