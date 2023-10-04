@@ -39,8 +39,8 @@ export const CardImage = ({
         video && showVideo ? 
         <CardVideo url={video} />
         : image? 
-          <Image src={`https:${image}`} layout="fill" objectFit="cover" alt="asdf" />
-          : <Image src="/logo.svg" alt="asdf" layout="fill" />
+          <Image src={`https:${image}`} layout="fill" objectFit="cover" alt="asdf" className={"rounded-lg"} />
+          : <Image src="/logo.svg" alt="asdf" layout="fill" className={"rounded-lg"} />
       }
     </div>
   )
