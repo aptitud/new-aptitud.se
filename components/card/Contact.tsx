@@ -62,7 +62,7 @@ const ContactDetail = (props: ContactCardProps) => {
         <CardImage image={image} title={title} colorCode={colorCode} />
       </div>
       <div className="text-white mt-2">
-        <h3 className="text-2xl mb-2 font-bold">{title}</h3>
+        <h3 className="text-xl md:text2xl mb-2 font-medium">{title}</h3>
         <p className="">
             <ReactMarkdown>{text}</ReactMarkdown>
         </p>

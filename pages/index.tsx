@@ -125,11 +125,9 @@ const randomizeOrder =  (postsItems: CardProps[], fellowItems: CardProps[]): Car
   
    fellowItems.splice(seed >= fellowItems.length ? fellowItems.length-1 : seed , 0, postsItems.pop() as CardProps)
    offset += 4
-   console.log(`${offset} <> ${fellowItems.length}`)
   } while(offset < fellowItems.length && postsItems.length > 0)
  
    fellowItems.push(...postsItems.reverse())
-   console.log(fellowItems)
    return fellowItems
  
 }
@@ -184,7 +182,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
   const insta = await getInstagramPosts();
 
   const instaPosts: CardProps[] = insta.map((post : any) => ({
-    title: randomUUID(),
+    title: post.permalink,
     type: 'aptigram',
     text: post.caption || '',
     image: post.media_url ? post.media_url : null,
