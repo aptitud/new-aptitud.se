@@ -44,6 +44,7 @@ export interface TypeFellowFields {
   phone?: Contentful.EntryFields.Symbol
   services?: Contentful.Entry<TypeServiceFields>[]
   image?: Contentful.Asset
+  video?: Contentful.Asset
 }
 
 export type TypeFellow = Contentful.Entry<TypeFellowFields>

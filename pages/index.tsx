@@ -98,7 +98,8 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     image: fellow.image ? fellow.image?.fields.file.url : null,
     colorCode: getRandomColor(),
     socialLinks: fellow.services,
-    onKeyDown: null
+    onKeyDown: null,
+    video: fellow.video ? fellow.video?.fields.file.url : null
   }))
 
   const postsItems: CardProps[] = sortedPosts.map((post) => ({

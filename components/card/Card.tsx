@@ -2,6 +2,7 @@ import * as Dialog from '@radix-ui/react-dialog'
 import { Cross2Icon } from '@radix-ui/react-icons'
 import { CSSProperties, useState } from 'react'
 import { CardImage } from './CardImage'
+import { CardVideo } from './CardVideo' 
 import { getFellows } from '../../domain/contentful/service'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -30,6 +31,7 @@ type FellowCardProps = SharedCardProps & {
   type: 'fellow'
   //TODO: get rid of undefined values...
   socialLinks: SocialLink[]
+  video: string | null
 }
 
 type AptigramProps = SharedCardProps & {
@@ -94,12 +96,12 @@ const DetailCard = (props: CardProps) => {
   }
 
   if (props.type === 'fellow') {
-    const { title, text, colorCode, image, socialLinks } = props
+    const { title, text, colorCode, image, socialLinks, video } = props
     return (
       <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_2fr] gap-3">
         {/* TODO:Fix image scaling */}
         <div className="relative aspect-square">
-          <CardImage image={image} title={title} colorCode={colorCode} />
+          <CardImage image={image} title={title} colorCode={colorCode} video = { video }/>
           <SocialLinks name={title} socialLinks={socialLinks} />   
         </div>
         <div className="text-white mt-8 md:mt-2">
@@ -116,7 +118,7 @@ const DetailCard = (props: CardProps) => {
     <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_2fr] gap-3">
       {/* TODO:Fix image scaling */}
       <div className="relative aspect-square">
-        <CardImage image={image} title={title} colorCode={colorCode} />
+        <CardImage image={image} title={title} colorCode={colorCode} video = { null } />
       </div>
       <div className="text-white mt-2">
         <h3 className="text-xl md:text-2xl mb-2 font-medium">{title}</h3>
