@@ -67,7 +67,7 @@ export const Card = ({ item }: { item: CardProps }) => {
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 md:grid md:place-items-center overflow-y-auto">
             <Dialog.Content
-              className="relative min-h-full w-full md:min-h-[40vh] md:w-[60vw] p-5 md:rounded-lg"
+              className="relative min-h-full w-full md:min-h-[60vh] md:w-[80vw] p-5 md:rounded-lg"
               style={{ backgroundColor: `var(--${item.colorCode})` }}
             >
               <DetailCard {...item} />
@@ -97,16 +97,15 @@ const DetailCard = (props: CardProps) => {
   if (props.type === 'fellow') {
     const { title, text, colorCode, image, socialLinks, video } = props
     return (
-      <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[2fr_3fr] gap-3">
+      <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_2fr] gap-3">
         {/* TODO:Fix image scaling */}
         <div className="relative aspect-square">
           <CardImage image={image} title={title} colorCode={colorCode} video = { video }/>
+          <SocialLinks name={title} socialLinks={socialLinks} />   
         </div>
-        <div className="text-white mt-8 md:mt-2 w-full align-center">
+        <div className="text-white mt-8 md:mt-2">
           <h3 className="text-xl md:text-2xl mb-2 font-medium">{title}</h3>
           <p className="">{text}</p>
-      
-          <SocialLinks name={title} socialLinks={socialLinks} />   
         </div>
       </div>
     )
@@ -159,7 +158,7 @@ const SocialLinks = ({
   }
 
   return (
-    <div className="relative mt-10 lg:bottom-6 inline-flex bg-aptitud-light-grey rounded-lg gap-2 p-2">
+    <div className="absolute -bottom-5 inline-flex bg-aptitud-light-grey rounded-lg gap-2 p-2">
       <Link
         target="_blank"
         key={name}
