@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { CardVideo } from './CardVideo'
 import React, { useState, useEffect, useRef, CSSProperties } from 'react';
 
@@ -16,7 +15,6 @@ export const CardImage = ({
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    console.log('triggered')
     timeoutRef.current = setTimeout(() => {
       setShowVideo(false);
     }, 3150);

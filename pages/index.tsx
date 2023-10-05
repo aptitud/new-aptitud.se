@@ -5,7 +5,6 @@ import { Card, CardProps} from '../components/card/Card'
 import { Contact, ContactCardProps } from '../components/card/Contact'
 import { getFellows, getPosts, getContacts } from '../domain/contentful/service'
 import { getInstagramPosts } from '../domain/instagram/service'
-import { randomUUID } from 'crypto'
 
 interface HomeProps {
   items: CardProps[],
