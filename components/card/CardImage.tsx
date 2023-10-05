@@ -11,13 +11,19 @@ export const CardImage = ({
   colorCode: string
 }) => {
 
-  const [showVideo, setShowVideo] = useState<boolean>(true);
+  const [showVideo, setShowVideo] = useState<boolean>(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
+  
+
     timeoutRef.current = setTimeout(() => {
-      setShowVideo(false);
-    }, 3150);
+      setShowVideo(true);
+      timeoutRef.current = setTimeout(() => { 
+          setShowVideo(false) 
+        }, 
+        3500);
+    }, 1000);
 
     return () => {
       clearTimeout(timeoutRef.current!);
