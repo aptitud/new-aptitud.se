@@ -5,7 +5,6 @@ import { Card, CardProps} from '../components/card/Card'
 import { Contact, ContactCardProps } from '../components/card/Contact'
 import { getFellows, getPosts, getContacts } from '../domain/contentful/service'
 import { getInstagramPosts } from '../domain/instagram/service'
-import { randomUUID } from 'crypto'
 
 interface HomeProps {
   items: CardProps[],
@@ -63,7 +62,9 @@ const getRandomColor = (): string => {
 }
 
 const randomizeOrder =  (postsItems: CardProps[], fellowItems: CardProps[]): CardProps[]  => {
+  fellowItems.sort(() => (Math.random() > 0.5 ? 1 : -1))
   let offset = 0;
+
   do {
    const seed = Math.floor(Math.random() * 3)+offset
   
@@ -98,7 +99,8 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     image: fellow.image ? fellow.image?.fields.file.url : null,
     colorCode: getRandomColor(),
     socialLinks: fellow.services,
-    onKeyDown: null
+    onKeyDown: null,
+    video: fellow.video ? fellow.video?.fields.file.url : null
   }))
 
   const postsItems: CardProps[] = sortedPosts.map((post) => ({

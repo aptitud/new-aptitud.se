@@ -17,3 +17,12 @@
 	--aptitud-very-light-grey: #cccccc;
 	--aptitud-transparent: #ffffff00;
 }
+.fellow-video {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	object-position: center;
+	object-fit: cover;
+}

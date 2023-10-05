@@ -59,7 +59,7 @@ const ContactDetail = (props: ContactCardProps) => {
     <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_2fr] gap-3">
       {/* TODO:Fix image scaling */}
       <div className="relative aspect-square">
-        <CardImage image={image} title={title} colorCode={colorCode} />
+        <CardImage image={image} title={title} colorCode={colorCode} video = { null }/>
       </div>
       <div className="text-white mt-2">
         <h3 className="text-xl md:text2xl mb-2 font-medium">{title}</h3>
