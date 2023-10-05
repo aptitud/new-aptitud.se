@@ -19,7 +19,7 @@ export const CardImage = ({
     console.log('triggered')
     timeoutRef.current = setTimeout(() => {
       setShowVideo(false);
-    }, 3000);
+    }, 3150);
 
     return () => {
       clearTimeout(timeoutRef.current!);
