@@ -8,6 +8,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'images.ctfassets.net',
       },
+      {
+        protocol: 'https',
+        hostname: 'scontent-cph2-1.cdninstagram.com',
+      },
     ],
   },
 }
