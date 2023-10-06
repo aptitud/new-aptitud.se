@@ -308,9 +308,9 @@ const Aptigram = ({
         rel="noreferrer"    
       >
         <div className="h-4/6 p-0 overflow-hidden rounded-md flex">
-          <img className='w-full align-centre object-cover' 
+          <Image className='w-full align-centre object-cover' 
             src= { thumbnail ? thumbnail : image ? image : '' } >
-          </img>
+          </Image>
         </div>
         <div className={`h-2/6 text-white m-0 px-2 py-4 md:py-5`}>
           <div className="grid grid-cols-1 relative h-full overflow-hidden">
