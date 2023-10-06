@@ -211,7 +211,7 @@ const FellowCard = ({
   return (
     <div
       role={'button'}
-      className={`rounded-lg h-52 md:h-96 p-3 md:p-6 cursor-pointer`}
+      className={`rounded-lg h-60 md:h-96 px-3 pb-3 pt-10 md:px-4 md:pb-6 md:pt-8 cursor-pointer`}
       style={imageWithGradient}
       tabIndex={0}
       onKeyDown={onKeyDown}
@@ -221,7 +221,7 @@ const FellowCard = ({
       <div className="h-3/5"></div>
       <div className={`h-2/5 text-white m-0 p-0`}>
         <div className="grid grid-cols-1 relative h-full">
-          <h3 className="text-base md:text-2xl mb-1 md:mb-2 font-medium truncate">{title}</h3>
+          <h3 className="text-base md:text-2xl mb-1 md:mb-1 font-medium truncate">{title}</h3>
           <span className='text-xs md:text-lg line-clamp-3  md:line-clamp-3'>
             {text}
           </span>
@@ -248,7 +248,7 @@ const PostCard = ({
   return (
     <div
       role={'button'}
-      className={`rounded-lg h-52 md:h-96 cursor-pointer m-0 p-3 md:p-6`}
+      className={`rounded-lg h-60 md:h-96 cursor-pointer m-0 p-3 md:p-4`}
       style={backgroundStyle}
       tabIndex={0}
       {...props}
@@ -280,18 +280,21 @@ const Aptigram = ({
   image,
   text,
   thumbnail,
-  permalink
+  permalink,
+  colorCode,
 }: AptigramProps) => {
-  const bgImage: CSSProperties = {
-    backgroundImage: ` linear-gradient(to bottom, #fff0 50%, var(--aptitud-petrol) 90%), url('${thumbnail ? thumbnail : image}')`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
+  
+
+  const polaroidBackground: CSSProperties = {
+    backgroundColor: `var(--${colorCode})`,
   }
 
+
+  
   return (
-    <div className="rounded-lg h-52 md:h-96 p-3 md:p-6 cursor-pointer" 
+    <div className="rounded-lg h-60 md:h-96 p-2 md:p-2 cursor-pointer" 
         tabIndex={0} 
-        style={bgImage}
+        style={polaroidBackground}
         onKeyDown={(e) => {
           if (e.key === " " || e.key === "Enter" || e.key === "Spacebar") {
             window.open(permalink, '_blank');
@@ -304,11 +307,16 @@ const Aptigram = ({
         target='_blank'
         rel="noreferrer"    
       >
-        <div className="h-3/5"></div>
-        <div className={`h-2/5 text-white m-0 p-0`}>
-          <div className="grid grid-cols-1 relative h-full">
-            <span className='text-base md:text-2xl line-clamp-3 md:line-clamp-4'>
-              <p>{text}</p>
+        <div className="h-4/6 p-0 overflow-hidden rounded-md flex">
+          <img className='w-full align-centre object-cover' 
+            src= { thumbnail ? thumbnail : image ? image : '' } >
+          </img>
+        </div>
+        <div className={`h-2/6 text-white m-0 px-2 py-4 md:py-5`}>
+          <div className="grid grid-cols-1 relative h-full overflow-hidden">
+            <span className='text-base text-xs md:text-lg md:text-2xl line-clamp-3 md:line-clamp-3 text-white'>
+              <p className=' w-full'>{text}
+              </p>
             </span>
           </div>
         </div>

@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 :root {
-	--aptitud-pink-red: #F65058;
+	--aptitud-salmon: #F65058;
 	--aptitud-cerise: #DB0A5B;
-	--aptitud-orange:#DC4405;
+	--aptitud-orange:#e55e16;
 	--aptitud-yellow:#F1B434;
-	--aptitud-pink:#784E90;
+	--aptitud-purple:#784E90;
 	--aptitud-green:#67823A;
 	--aptitud-petrol:#4E87A0;
 	--aptitud-blue_green:#008CA0;
@@ -25,4 +25,10 @@
 	left: 0;
 	object-position: center;
 	object-fit: cover;
+}
+
+.aptigram-text {
+	text-decoration: none;
+	text-align: left;
+	color: #333;
 }
