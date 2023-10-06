@@ -6,7 +6,7 @@ export const CardVideo = ({
   url: string
 }) => {
   return  (
-        <video autoPlay src= { url } muted className="fellow-video rounded-lg">
+        <video src= { url } muted className="fellow-video rounded-lg">
           Your browser does not support the video tag.
         </video>
   )

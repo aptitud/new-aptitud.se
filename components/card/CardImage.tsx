@@ -20,6 +20,7 @@ export const CardImage = ({
 
     timeoutRef.current = setTimeout(() => {
       setShowVideo(true);
+      (document.getElementsByClassName('fellow-video')[0] as HTMLVideoElement).play()
       timeoutRef.current = setTimeout(() => { 
           setShowVideo(false) 
         }, 
