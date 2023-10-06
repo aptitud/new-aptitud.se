@@ -312,7 +312,7 @@ const Aptigram = ({
             src= { thumbnail ? thumbnail : image ? image : '' } >
           </img>
         </div>
-        <div className={`h-2/6 text-white m-0 px-2 py-4 md:py-5`}>
+        <div className={`h-2/6 text-white m-0 px-2 py-3 md:py-5`}>
           <div className="grid grid-cols-1 relative h-full overflow-hidden">
             <span className='text-base text-xs md:text-lg md:text-2xl line-clamp-3 md:line-clamp-3 text-white'>
               <p className=' w-full'>{text}
