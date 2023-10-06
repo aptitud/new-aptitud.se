@@ -26,7 +26,7 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
             <div className="grid grid-cols-4 gap-4">
               <div></div>
               <div className="col-span-2 flex justify-center">
-                <Image src={'/logo.svg'} height="302px" width="500px"/>
+                <Image src={'/logo.png'} height="302px" width="500px"/>
               </div>
               <div className='relative w-full h-full'>
                 <div className="absolute bottom-0 right-0">
