@@ -21,7 +21,7 @@ export const CardImage = ({
   return (
 
     <div className='h-full w-full rounded-lg'>
-      <div className="absolute h-full w-full rounded-lg" style={imageBg}>
+      <div className="absolute h-full w-full rounded-lg" >
           <Image src={image ?'https://'+image : '/logo.svg'} layout='fill' />
       </div>
     </div>

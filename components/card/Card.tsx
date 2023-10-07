@@ -100,7 +100,7 @@ const DetailCard = (props: CardProps) => {
     return (
       <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_2fr] gap-3">
         {/* TODO:Fix image scaling */}
-        <div className="relative aspect-square">
+        <div className="relative aspect-[3/4]">
           <CardVideo image={image} title={title} colorCode={colorCode} video = { video }/>
           <SocialLinks name={title} socialLinks={socialLinks} />   
         </div>
@@ -117,7 +117,7 @@ const DetailCard = (props: CardProps) => {
   return (
     <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_2fr] gap-3">
       {/* TODO:Fix image scaling */}
-      <div className="relative aspect-square">
+      <div className="relative aspect-[3/4]">
         <CardImage image={image} title={title} colorCode={colorCode} />
       </div>
       <div className="text-white mt-2">
