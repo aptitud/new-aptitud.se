@@ -1,18 +1,17 @@
-import Image from 'next/image'
-
+import Image from "next/image"
 export const CardImage = ({
-  image,
-  colorCode,
-  title,
+  image, 
+  title
 }: {
   image: string | null
   title?: string
-  colorCode: string
 }) => {
-  if (!image) {
-    return <Image src="/logo.svg" alt="asdf" layout="fill" />
-  }
+
   return (
-    <Image src={`https:${image}`} layout="fill" objectFit="cover" alt="asdf" />
+    <div className='h-full w-full rounded-lg' >
+      <div className="absolute h-full w-full " >
+        <Image src={`https:${image}`} layout='fill' alt={title} className='object-fill rounded-sm' />
+      </div>
+    </div>
   )
 }

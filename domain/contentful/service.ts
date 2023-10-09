@@ -14,13 +14,13 @@ export const getFellows = async () => {
   })
   return res.items.map((fellow) => {
     const {
-      fields: { name, description, image, phone, services },
+      fields: { name, description, image, phone, services, video },
     } = fellow
-
     return {
       name,
       description,
       image,
+      video, 
       phone,
       services:
         services?.map((x) => ({

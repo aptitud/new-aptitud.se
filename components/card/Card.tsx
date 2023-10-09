@@ -1,12 +1,12 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { Cross2Icon } from '@radix-ui/react-icons'
 import { CSSProperties, useState } from 'react'
+import { CardVideo } from './CardVideo'
 import { CardImage } from './CardImage'
 import { getFellows } from '../../domain/contentful/service'
 import Link from 'next/link'
 import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
-import { type } from 'os'
 
 type SocialLink = Awaited<
   Required<ReturnType<typeof getFellows>>
@@ -30,6 +30,7 @@ type FellowCardProps = SharedCardProps & {
   type: 'fellow'
   //TODO: get rid of undefined values...
   socialLinks: SocialLink[]
+  video: string | null
 }
 
 type AptigramProps = SharedCardProps & {
@@ -66,7 +67,7 @@ export const Card = ({ item }: { item: CardProps }) => {
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 md:grid md:place-items-center overflow-y-auto">
             <Dialog.Content
-              className="relative min-h-full w-full md:min-h-[60vh] md:w-[80vw] p-5 md:rounded-lg"
+              className="relative min-h-full w-full md:min-h-[40vh] md:w-[80vw] p-5 md:rounded-lg"
               style={{ backgroundColor: `var(--${item.colorCode})` }}
             >
               <DetailCard {...item} />
@@ -94,16 +95,16 @@ const DetailCard = (props: CardProps) => {
   }
 
   if (props.type === 'fellow') {
-    const { title, text, colorCode, image, socialLinks } = props
+    const { title, text, colorCode, image, socialLinks, video } = props
     return (
       <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_2fr] gap-3">
         {/* TODO:Fix image scaling */}
-        <div className="relative aspect-square">
-          <CardImage image={image} title={title} colorCode={colorCode} />
+        <div className="relative aspect-[3/4] h-96 md:h-full">
+          <CardVideo image={image} title={title} colorCode={colorCode} video = { video }/>
           <SocialLinks name={title} socialLinks={socialLinks} />   
         </div>
         <div className="text-white mt-8 md:mt-2">
-          <h3 className="text-xl md:text2xl mb-2 font-medium">{title}</h3>
+          <h3 className="text-xl md:text-2xl mb-2 font-medium">{title}</h3>
           <p className="">{text}</p>
         </div>
       </div>
@@ -115,11 +116,11 @@ const DetailCard = (props: CardProps) => {
   return (
     <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_2fr] gap-3">
       {/* TODO:Fix image scaling */}
-      <div className="relative aspect-square">
-        <CardImage image={image} title={title} colorCode={colorCode} />
+      <div className="relative aspect-[3/4]">
+        <CardImage  image={image} title={title} />
       </div>
       <div className="text-white mt-2">
-        <h3 className="text-xl md:text2xl mb-2 font-medium">{title}</h3>
+        <h3 className="text-xl md:text-2xl mb-2 font-medium">{title}</h3>
         <p className="">
           <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
         </p>
@@ -210,17 +211,18 @@ const FellowCard = ({
   return (
     <div
       role={'button'}
-      className={`rounded-lg h-72 md:h-96 p-5 cursor-pointer`}
+      className={`rounded-lg h-52 md:h-96 p-3 md:p-6 cursor-pointer`}
       style={imageWithGradient}
       tabIndex={0}
       onKeyDown={onKeyDown}
+      title={title}
       {...props}
     >
-      <div className="h-2/3"></div>
-      <div className={`h-1/3 text-white m-0 p-0`}>
+      <div className="h-3/5"></div>
+      <div className={`h-2/5 text-white m-0 p-0`}>
         <div className="grid grid-cols-1 relative h-full">
-          <h3 className="text-xl md:text-2xl mb-2 font-medium truncate">{title}</h3>
-          <span className='line-clamp-2 md:line-clamp-3'>
+          <h3 className="text-base md:text-2xl mb-1 md:mb-2 font-medium truncate">{title}</h3>
+          <span className='text-xs md:text-lg line-clamp-3  md:line-clamp-3'>
             {text}
           </span>
         </div>
@@ -242,11 +244,11 @@ const PostCard = ({
   }
 
   const height = image ? 'h-2/3' : 'h-full'
-  const lineClamp = image ? 'line-clamp-[8]' : 'line-clamp-[10]'
+  const lineClamp = image ? 'line-clamp-[6]' : 'line-clamp-[8]'
   return (
     <div
       role={'button'}
-      className={`rounded-lg h-72 md:h-96 cursor-pointer m-0 p-5`}
+      className={`rounded-lg h-52 md:h-96 cursor-pointer m-0 p-3 md:p-6`}
       style={backgroundStyle}
       tabIndex={0}
       {...props}
@@ -256,15 +258,15 @@ const PostCard = ({
       {image ?
         <div className="relative h-1/3" >
           <div className="relative aspect-square h-full">
-            <Image src={`https:${image}`} layout='fill' alt={title} className='object-fill' />
+            <Image src={`https:${image}`} layout='fill' alt={title} className='object-fill rounded-sm' />
           </div>
         </div>
 
         : <></>
       }
       <div className={`${height} text-white m-0 p-0`}>
-        <h3 className="text-xl md:text-2xl mb-2 font-medium truncate">{title}</h3>
-        <span className={`line-clamp-3 md:${lineClamp}`}>
+        <h3 className="text-base md:text-2xl mb-1 md:mb-2 font-medium truncate">{title}</h3>
+        <span className={`text-xs md:text-lg ${lineClamp}`}>
           <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
         </span>
       </div>
@@ -276,9 +278,7 @@ const PostCard = ({
 
 const Aptigram = ({
   image,
-  title,
   text,
-  colorCode,
   thumbnail,
   permalink
 }: AptigramProps) => {
@@ -289,26 +289,30 @@ const Aptigram = ({
   }
 
   return (
-    <div
-      role={'button'}
-      className={`rounded-lg h-72 md:h-96 p-5 cursor-pointer`}
-      style={bgImage}
-      tabIndex={0}
+    <div className="rounded-lg h-52 md:h-96 p-3 md:p-6 cursor-pointer" 
+        tabIndex={0} 
+        style={bgImage}
+        onKeyDown={(e) => {
+          if (e.key === " " || e.key === "Enter" || e.key === "Spacebar") {
+            window.open(permalink, '_blank');
+          }
+        }}
     >
-    <a
-      href={permalink}
-      target='_blank'
-      rel="noreferrer"
-    >
-      <div className="h-2/3"></div>
-      <div className={`h-1/3 text-white m-0 p-0`}>
-        <div className="grid grid-cols-1 relative h-full">
-          <span className='line-clamp-3 md:line-clamp-5'>
-            <p>{text}</p>
-          </span>
+      <a
+        role={'button'}
+        href={permalink}
+        target='_blank'
+        rel="noreferrer"    
+      >
+        <div className="h-3/5"></div>
+        <div className={`h-2/5 text-white m-0 p-0`}>
+          <div className="grid grid-cols-1 relative h-full">
+            <span className='text-base md:text-2xl line-clamp-3 md:line-clamp-4'>
+              <p>{text}</p>
+            </span>
+          </div>
         </div>
-      </div>
-    </a>
+      </a>
     </div>
   )
 }

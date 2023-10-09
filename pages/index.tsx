@@ -8,7 +8,6 @@ import { useState } from 'react'
 import { DoubleArrowRightIcon } from '@radix-ui/react-icons'
 
 import { getInstagramPosts } from '../domain/instagram/service'
-import { randomUUID } from 'crypto'
 
 interface HomeProps {
   items: CardProps[],
@@ -37,7 +36,7 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
   }
 
   return (
-    <div className="w-10/12 max-w-7xl ml-auto mr-auto">{/*  */}
+    <div className="w-11/12 max-w-7xl ml-auto mr-auto">
       <Head>
         <title>Aptitud: Enklare, gladare, roligare</title>
         <meta name="description" content="Aptitud. Enklare, gladare, roligare" />
@@ -121,7 +120,9 @@ const getRandomColor = (): string => {
 }
 
 const randomizeOrder =  (postsItems: CardProps[], fellowItems: CardProps[]): CardProps[]  => {
+  fellowItems.sort(() => (Math.random() > 0.5 ? 1 : -1))
   let offset = 0;
+
   do {
    const seed = Math.floor(Math.random() * 3)+offset
   
@@ -157,7 +158,8 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     image: fellow.image ? fellow.image?.fields.file.url : null,
     colorCode: getRandomColor(),
     socialLinks: fellow.services,
-    onKeyDown: null
+    onKeyDown: null,
+    video: fellow.video ? fellow.video?.fields.file.url : null
   }))
 
   const postsItems: CardProps[] = sortedPosts.map((post) => ({
