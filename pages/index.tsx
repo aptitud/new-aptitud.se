@@ -5,7 +5,7 @@ import { Card, CardProps} from '../components/card/Card'
 import { Contact, ContactCardProps } from '../components/card/Contact'
 import { getFellows, getPosts, getContacts } from '../domain/contentful/service'
 import { useState } from 'react'
-import { DoubleArrowRightIcon } from '@radix-ui/react-icons'
+import { DoubleArrowRightIcon, StarIcon } from '@radix-ui/react-icons'
 
 import { getInstagramPosts } from '../domain/instagram/service'
 
@@ -85,7 +85,7 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
                     <li className={`p-0 md:pr-2 hover:border-aptitud-petrol border-b-2 border-white`}>
                       <div className='flex p-1' role={'button'}>
                       <span className='mr-2 mt-2'>
-                        <svg className="h-4 w-4 text-white-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" stroke-linecap="round" strokeLinejoin="round">  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg>
+                        <StarIcon />
                       </span>
                       <span className='hidden md:block truncate mt-1' >
                       <Contact key={contact.title} item={contact} />
