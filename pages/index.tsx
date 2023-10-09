@@ -51,7 +51,7 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
                 <div className='flex'>
                   <div className='peer cursor-pointer rounded-tr-sm rounded-br-sm bg-white text-black p-3 bg-opacity-80 hover:bg-opacity-0'><DoubleArrowRightIcon /></div>
                   <ul className='w-0 invisible rounded-tr-sm rounded-br-sm transition-all peer-hover:w-60 peer-hover:visible peer-hover:z-1 hover:w-36 hover:visible absolute top-0 left-0 bg-white text-black p-3'>
-                    <li className={`p-0 md:pr-2 ${filter === 'post' ? ' border-b-2 border-aptitud-petrol' : 'border-b-2 border-white'}`}>
+                    <li className={`p-0 md:pr-2 hover:border-aptitud-petrol ${filter === 'post' ? ' border-b-2 border-aptitud-petrol' : 'border-b-2 border-white'}`}>
                       <div className='flex p-1' role={'button'} onClick={() => clickHandler('post')} >
                       <span className='mr-2 mt-2' >
                         <svg className="h-4 w-4 text-white-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -62,7 +62,7 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
                         Om oss
                       </span>
                     </div></li>
-                    <li className={`p-0 md:pr-2  ${filter === 'fellow' ? 'border-b-2 border-aptitud-petrol' : 'border-b-2 border-white'}`}>
+                    <li className={`p-0 md:pr-2 hover:border-aptitud-petrol ${filter === 'fellow' ? 'border-b-2 border-aptitud-petrol' : 'border-b-2 border-white'}`}>
                       <div className='flex p-1'  role={'button'} onClick={() => clickHandler('fellow')}>
                       <span className='mr-2 mt-2' >
                         <svg className="h-4 w-4 text-white-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -73,7 +73,7 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
                         Konsulter
                       </span>
                     </div></li>
-                    <li className={`p-0 md:pr-2 ${filter === 'aptigram' ? 'border-b-2 border-aptitud-petrol' : 'border-b-2 border-white'}`}>
+                    <li className={`p-0 md:pr-2 hover:border-aptitud-petrol ${filter === 'aptigram' ? 'border-b-2 border-aptitud-petrol' : 'border-b-2 border-white'}`}>
                       <div className='flex p-1' role={'button'} onClick={() => clickHandler('aptigram')}>
                       <span className='mr-2 mt-2'>
                         <svg className="h-4 w-4 text-white-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" stroke-linecap="round" strokeLinejoin="round">  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg>
@@ -82,17 +82,20 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
                         Instagram
                       </span>
                     </div></li>
+                    <li className={`p-0 md:pr-2 hover:border-aptitud-petrol border-b-2 border-white`}>
+                      <div className='flex p-1' role={'button'}>
+                      <span className='mr-2 mt-2'>
+                        <svg className="h-4 w-4 text-white-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" stroke-linecap="round" strokeLinejoin="round">  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg>
+                      </span>
+                      <span className='hidden md:block truncate mt-1' >
+                      <Contact key={contact.title} item={contact} />
+                      </span>
+                    </div></li>
                   </ul>
                 </div>
               </div>
-              <div className='col-span-1'></div>
-              <div className="col-span-2 m-auto">
+              <div className="col-span-full m-auto">
                 <Image src={'/logo.png'} height="302px" width="500px" />
-              </div>
-              <div className='relative w-full h-full mt-2'>
-                <div className="absolute top-2 right-0">
-                  <Contact key={contact.title} item={contact} />
-                </div>
               </div>
             </div>
           </div>

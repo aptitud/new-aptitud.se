@@ -80,26 +80,16 @@ const ContactSummary = ({
     onKeyDown,
     ...props
   }: ContactCardProps) => {
-    const backgroundStyle: CSSProperties =  {
-          backgroundColor: `var(--aptitud-transparent)`,
-        }
   
     return (
-      <div
+      <span
         role={'button'}
-        className={`rounded-lg w-16 h-16 md:h-24 md:w-24 xl:h-36 xl:w-36 p-2 cursor-pointer m-0 p-0`}
-        style={backgroundStyle}
+        className={``}
         tabIndex={0}
         onKeyDown={onKeyDown}
         {...props}
       >
-        <div className="relative h-full w-full">
-          { image ?
-            <Image src={`https:${image}`} layout='fill' alt={summaryTitle} className='object-cover object-left-top'/>
-            : <Image src="/logo.svg" alt="aptitud"  layout='fill' />
-          }
-          </div>
-      
-      </div>
+       Kontakt
+      </span>
     )
 }
