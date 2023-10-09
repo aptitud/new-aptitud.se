@@ -1,6 +1,6 @@
 import { CardVideo } from './CardVideo'
 import Image from 'next/image'
-import React, { useState, useEffect, useRef, CSSProperties } from 'react';
+import React, { CSSProperties } from 'react';
 
 export const CardImage = ({
   image
@@ -20,9 +20,8 @@ export const CardImage = ({
 
   return (
 
-    <div className='h-full w-full rounded-lg'>
+    <div className='h-full w-full rounded-lg' style={imageBg}>
       <div className="absolute h-full w-full rounded-lg" >
-          <Image src={image ?'https://'+image : '/logo.svg'} layout='fill' />
       </div>
     </div>
   )
