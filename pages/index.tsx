@@ -21,12 +21,12 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
       </Head>
 
       <main>
-        <div className="grid grid-cols-2 gap-4 xl:grid-cols-4">
-          <div className="w-full h-full col-span-2 xl:col-span-4 ml-auto mr-auto my-2">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4">
+          <div className="w-full h-full col-span-2 md:col-span-3 xl:col-span-4 ml-auto mr-auto my-2">
             <div className="grid grid-cols-4 gap-4">
               <div></div>
               <div className="col-span-2 flex justify-center">
-                <Image src={'/logo.svg'} height="302px" width="500px" />
+                <Image src={'/logo.png'} height="302px" width="500px"/>
               </div>
               <div className='relative w-full h-full'>
                 <div className="absolute bottom-0 right-0">
@@ -49,15 +49,17 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
     </div>
   )
 }
+const availableColors = [
+  'aptitud-yellow',
+  'aptitud-green',
+  'aptitud-petrol',
+  'aptitud-cerise',
+  'aptitud-purple',
+  'aptitud-blue_green',
+  'aptitud-blue_dim',
+]
+const getRandomColor = (colors : string []): string => {
 
-const getRandomColor = (): string => {
-  const colors = [
-    'aptitud-yellow',
-    'aptitud-green',
-    'aptitud-petrol',
-    'aptitud-blue_green',
-    'aptitud-blue_dim',
-  ]
   return colors.sort(() => (Math.random() > 0.5 ? 1 : -1))[0]
 }
 
@@ -97,7 +99,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     type: 'fellow',
     text: fellow.description,
     image: fellow.image ? fellow.image?.fields.file.url : null,
-    colorCode: getRandomColor(),
+    colorCode: getRandomColor(availableColors),
     socialLinks: fellow.services,
     onKeyDown: null,
     video: fellow.video ? fellow.video?.fields.file.url : null
@@ -108,7 +110,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     type: 'post',
     text: post.description,
     image: post.image ? post.image?.fields.file.url : null,
-    colorCode: getRandomColor(),
+    colorCode: getRandomColor(availableColors),
     postContent: post.postContent ? post.postContent : '',
     onKeyDown: null
   }))
@@ -119,7 +121,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     type: 'contact',
     text: contact.visitingAddress ? contact.visitingAddress : '',
     image: contact.image ? contact.image?.fields.file.url : null,
-    colorCode: getRandomColor(),
+    colorCode: getRandomColor(availableColors),
     onKeyDown: null
   }))
 
@@ -131,7 +133,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     type: 'aptigram',
     text: post.caption || '',
     image: post.media_url ? post.media_url : null,
-    colorCode: '',
+    colorCode: getRandomColor(availableColors.filter(color => color !== 'aptitud-yellow')),
     thumbnail: post.thumbnail_url || '',
     permalink: post.permalink || ''
   }))

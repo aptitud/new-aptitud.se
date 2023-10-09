@@ -7,11 +7,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'aptitud-pink-red': 'var(--aptitud-pink)',
+        'aptitud-salmon': 'var(--aptitud-purple)',
         'aptitud-cerise': 'var(--aptitud-cerise)',
         'aptitud-orange': 'var(--aptitud-orange)',
         'aptitud-yellow': 'var(--aptitud-yellow)',
-        'aptitud-pink': 'var(--aptitud-pink)',
+        'aptitud-purple': 'var(--aptitud-purple)',
         'aptitud-green': 'var(--aptitud-green)',
         'aptitud-petrol': 'var(--aptitud-petrol)',
         'aptitud-blue_green': 'var(--aptitud-blue_green)',
