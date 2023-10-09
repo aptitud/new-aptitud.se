@@ -53,7 +53,6 @@ const availableColors = [
   'aptitud-yellow',
   'aptitud-green',
   'aptitud-petrol',
-  'aptitud-cerise',
   'aptitud-purple',
   'aptitud-blue_green',
   'aptitud-blue_dim',
