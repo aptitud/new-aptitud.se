@@ -67,7 +67,7 @@ export const Card = ({ item }: { item: CardProps }) => {
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 md:grid md:place-items-center overflow-y-auto">
             <Dialog.Content
-              className="relative min-h-full w-full md:min-h-[60vh] md:w-[80vw] p-5 md:rounded-lg"
+              className="relative min-h-full w-full md:min-h-[40vh] md:w-[80vw] p-5 md:rounded-lg"
               style={{ backgroundColor: `var(--${item.colorCode})` }}
             >
               <DetailCard {...item} />
@@ -99,7 +99,7 @@ const DetailCard = (props: CardProps) => {
     return (
       <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_2fr] gap-3">
         {/* TODO:Fix image scaling */}
-        <div className="relative aspect-[3/4]">
+        <div className="relative aspect-[3/4] h-96 md:h-full">
           <CardVideo image={image} title={title} colorCode={colorCode} video = { video }/>
           <SocialLinks name={title} socialLinks={socialLinks} />   
         </div>
