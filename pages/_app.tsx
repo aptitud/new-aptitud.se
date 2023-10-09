@@ -2160,9 +2160,9 @@ function MyApp({ Component, pageProps }: AppProps) {
           content: '\f2e0';
         }
       `}</style>
-      <div className="w-screen"
-        style={{
-          background: `var(--aptitud-orange)`,
+      <div        
+          style={{
+          background: `var(--aptitud-background)`,
         }} >
         <Component {...pageProps} />
       </div>

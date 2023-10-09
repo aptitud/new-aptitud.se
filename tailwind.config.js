@@ -7,6 +7,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        'aptitud-overlay': 'var(--aptitud-overlay)',
         'aptitud-salmon': 'var(--aptitud-purple)',
         'aptitud-cerise': 'var(--aptitud-cerise)',
         'aptitud-orange': 'var(--aptitud-orange)',
