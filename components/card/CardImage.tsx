@@ -1,19 +1,18 @@
-
+import Image from "next/image"
 export const CardImage = ({
-  image
+  image, 
+  title
 }: {
   image: string | null
   title?: string
-  colorCode: string
 }) => {
 
 
 
   return (
-
     <div className='h-full w-full rounded-lg' >
       <div className="absolute h-full w-full " >
-          <img src={image ?'https://'+image : '/logo.svg'} className='object-fill rounded-lg' />
+        <Image src={`https:${image}`} layout='fill' alt={title} className='object-fill rounded-sm' />
       </div>
     </div>
   )

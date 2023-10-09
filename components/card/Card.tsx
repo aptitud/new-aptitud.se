@@ -118,7 +118,7 @@ const DetailCard = (props: CardProps) => {
     <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_2fr] gap-3">
       {/* TODO:Fix image scaling */}
       <div className="relative aspect-[3/4]">
-        <CardImage image={image} title={title} colorCode={colorCode} />
+        <CardImage image={image} title={title} />
       </div>
       <div className="text-white mt-2">
         <h3 className="text-xl md:text-2xl mb-2 font-medium">{title}</h3>
@@ -259,7 +259,7 @@ const PostCard = ({
       {image ?
         <div className="relative h-1/3" >
           <div className="relative aspect-square h-full">
-            <Image src={`https:${image}`} layout='fill' alt={title} className='object-fill' />
+            <Image src={`https:${image}`} layout='fill' alt={title} className='object-fill rounded-sm' />
           </div>
         </div>
 
