@@ -5,7 +5,7 @@ import { Card, CardProps } from '../components/card/Card'
 import { Contact, ContactCardProps } from '../components/card/Contact'
 import { getFellows, getPosts, getContacts } from '../domain/contentful/service'
 import { useState } from 'react'
-import { DoubleArrowRightIcon, StarIcon } from '@radix-ui/react-icons'
+import { DoubleArrowRightIcon, StarIcon, InstagramLogoIcon, PersonIcon, FileTextIcon } from '@radix-ui/react-icons'
 
 import { getInstagramPosts } from '../domain/instagram/service'
 
@@ -49,30 +49,26 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
             <ul className='w-0 shadow-lg invisible rounded-tr-sm rounded-br-sm transition-all duration-500 peer-hover:w-36 peer-hover:visible hover:w-36 hover:visible absolute top-0 left-0 bg-white text-black p-3'>
               <li className={`p-0 md:pr-2 invisible w-0 group-hover:w-full group-hover:visible overflow-hidden hover:border-aptitud-petrol ${filter === 'post' ? ' border-b-2 border-aptitud-petrol' : 'border-b-2 border-white'}`}>
                 <div className='flex p-1' role={'button'} onClick={() => clickHandler('post')} >
-                  <span className='mr-2 mt-2' >
-                    <svg className="h-4 w-4 text-white-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-                    </svg>
+                <span className='mr-2 mt-2' >
+                    <FileTextIcon />
                   </span>
                   <span className='mt-1' >
-                    Om oss
+                    Nyheter
                   </span>
                 </div></li>
               <li className={`p-0 md:pr-2 invisible w-0 group-hover:w-full group-hover:visible overflow-hidden hover:border-aptitud-petrol ${filter === 'fellow' ? 'border-b-2 border-aptitud-petrol' : 'border-b-2 border-white'}`}>
                 <div className='flex p-1' role={'button'} onClick={() => clickHandler('fellow')}>
                   <span className='mr-2 mt-2' >
-                    <svg className="h-4 w-4 text-white-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                    </svg>
+                    <PersonIcon />
                   </span>
                   <span className='mt-1' >
-                    Konsulter
+                    Om oss
                   </span>
                 </div></li>
               <li className={`p-0 md:pr-2 invisible w-0 group-hover:w-full group-hover:visible overflow-hidden hover:border-aptitud-petrol ${filter === 'aptigram' ? 'border-b-2 border-aptitud-petrol' : 'border-b-2 border-white'}`}>
                 <div className='flex p-1' role={'button'} onClick={() => clickHandler('aptigram')}>
-                  <span className='mr-2 mt-2'>
-                    <svg className="h-4 w-4 text-white-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" stroke-linecap="round" strokeLinejoin="round">  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg>
+                  <span className='mr-2 mt-2' >
+                    <InstagramLogoIcon />
                   </span>
                   <span className='mt-1' >
                     Instagram
