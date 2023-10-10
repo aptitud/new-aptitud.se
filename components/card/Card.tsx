@@ -65,7 +65,7 @@ export const Card = ({ item }: { item: CardProps }) => {
       <Aptigram {...item} />
       : <Dialog.Root open={isOpen} onOpenChange={setIsOpen} >
         <Dialog.Portal>
-          <Dialog.Overlay className="fixed inset-0 md:grid md:place-items-center overflow-y-auto">
+          <Dialog.Overlay className="fixed inset-0 md:grid md:place-items-center overflow-y-auto bg-aptitud-overlay">
             <Dialog.Content
               className="relative min-h-full w-full md:min-h-[40vh] md:w-[80vw] p-5 md:rounded-lg"
               style={{ backgroundColor: `var(--${item.colorCode})` }}
