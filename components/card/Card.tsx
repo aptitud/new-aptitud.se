@@ -3,41 +3,11 @@ import { Cross2Icon } from '@radix-ui/react-icons'
 import { CSSProperties, useState } from 'react'
 import { CardVideo } from './CardVideo'
 import { CardImage } from './CardImage'
-import { getFellows } from '../../domain/contentful/service'
 import Link from 'next/link'
 import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
-
-type SocialLink = Awaited<
-  Required<ReturnType<typeof getFellows>>
->['0']['services'][0]
-
-type SharedCardProps = {
-  title: string
-  text: string
-  image: string | null
-  colorCode: string
-  onKeyDown: any
-}
-export type CardProps = FellowCardProps | PostsCardProps | AptigramProps
-
-type PostsCardProps = SharedCardProps & {
-  type: 'post'
-  postContent: string,
-}
-
-type FellowCardProps = SharedCardProps & {
-  type: 'fellow'
-  //TODO: get rid of undefined values...
-  socialLinks: SocialLink[]
-  video: string | null
-}
-
-type AptigramProps = SharedCardProps & {
-  type: 'aptigram'
-  thumbnail: string
-  permalink: string
-}
+import { CardProps, AptigramProps, FellowCardProps, PostsCardProps, SocialLink } from './types'
+import { FellowCard } from './FellowCard'
 
 
 
@@ -189,47 +159,7 @@ const SocialLinks = ({
   )
 }
 
-const FellowCard = ({
-  image,
-  title,
-  text,
-  colorCode,
-  socialLinks,
-  onKeyDown,
-  ...props
-}: FellowCardProps) => {
-  const imageWithGradient: CSSProperties = image
-    ? {
-      backgroundImage: `linear-gradient(to bottom, #fff0 50%, var(--aptitud-petrol) 90%), url('${image}')`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-    }
-    : {
-      backgroundColor: `var(--${colorCode})`,
-    }
 
-  return (
-    <div
-      role={'button'}
-      className={`rounded-lg h-60 md:h-96 px-3 pb-3 pt-10 md:px-4 md:pb-6 md:pt-8 cursor-pointer`}
-      style={imageWithGradient}
-      tabIndex={0}
-      onKeyDown={onKeyDown}
-      title={title}
-      {...props}
-    >
-      <div className="h-3/5"></div>
-      <div className={`h-2/5 text-white m-0 p-0`}>
-        <div className="grid grid-cols-1 relative h-full">
-          <h3 className="text-base md:text-2xl mb-1 md:mb-1 font-medium truncate">{title}</h3>
-          <span className='text-xs md:text-lg line-clamp-3  md:line-clamp-3'>
-            {text}
-          </span>
-        </div>
-      </div>
-    </div>
-  )
-}
 const PostCard = ({
   image,
   title,
