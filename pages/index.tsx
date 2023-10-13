@@ -54,7 +54,7 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
                     <FileTextIcon />
                   </span>
                   <span className='mt-1' >
-                    Nyheter
+                    Om Aptitud
                   </span>
                 </div></li>
               <li className={`p-0 md:pr-2 invisible w-0 group-hover:w-full group-hover:visible overflow-hidden hover:border-aptitud-petrol ${filter === 'fellow' ? 'border-b-2 border-aptitud-petrol' : 'border-b-2 border-white'}`}>
@@ -63,7 +63,7 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
                     <PersonIcon />
                   </span>
                   <span className='mt-1' >
-                    Om oss
+                    Vilka är vi
                   </span>
                 </div></li>
               <li className={`p-0 md:pr-2 invisible w-0 group-hover:w-full group-hover:visible overflow-hidden hover:border-aptitud-petrol ${filter === 'aptigram' ? 'border-b-2 border-aptitud-petrol' : 'border-b-2 border-white'}`}>
