@@ -11,7 +11,7 @@ export const FellowCard = ({
   video,
   ...props
 }: FellowCardProps) => {
-  const [videoDisplay, setVideoDisplay] = useState('none')
+  const [displayVideo, setVideoDisplay] = useState(false)
   const [isRendered , setIsRendered] = useState(false)
 
 
@@ -30,19 +30,19 @@ export const FellowCard = ({
     const options = {
       root: null, // Use the viewport as the root
       rootMargin: '0px',
-      threshold: 0.2, // Trigger when at least 50% of the element is in the viewport
+      threshold: 0.7, // Trigger when at least 50% of the element is in the viewport
     };
     
     const target = document.getElementById(image || '');
-    console.log(videoDisplay, image);
     
     const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        const queryParams = new URLSearchParams(document.location.search).get('mode');
-        setVideoDisplay(queryParams === 'active' ? 'block' : 'none')
+      const queryParams = new URLSearchParams(document.location.search).get('mode');
+    
+      if (entries[0].isIntersecting && queryParams === 'active') {
+        setVideoDisplay(true)
         setIsRendered(true)
       } else {
-        setVideoDisplay('none')
+        setVideoDisplay(false)
       }
     }, options);
 
@@ -70,11 +70,24 @@ export const FellowCard = ({
       {...props}
     >
 
-      <div className='relative h-full w-full' >
+      <div className='relative h-full w-full'
+        style= {{
+          backgroundColor: `var(--aptitud-transparent)`,
+      
+        }} >
         {
-          videoDisplay == 'block' || isRendered ?
+          /*
+            lazy load av videor för att inte behöva vänta på att alla ska laddas ner innan sidan kan visas
+            sätt display till block när videon är i viewporten men none när den är utanför så inte de tar upp onödiga 
+            resurser i browsern när de ändå inte syns. Satt till att 20% av kortet ska vara i viewport.
+
+            Använder isRendered för att inte plocka bort komponenten och trigga en ny nerladdning när den visas nästa gång.
+          
+
+          */
+          displayVideo || isRendered ?
             <div className="absolute h-full w-full" style = { {
-                display :videoDisplay
+                display : displayVideo ? 'block' : 'none'
             }} >
               <video src={video || ''} muted autoPlay className='fellow-video rounded-lg' poster={image || ''} playsInline loop >
                 Your browser does not support the video tag.
