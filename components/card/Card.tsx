@@ -82,7 +82,7 @@ const DetailCard = (props: CardProps) => {
   }
 
 
-  const { title, text, colorCode, image, postContent } = props
+  const { title, text, image, postContent } = props
   return (
     <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_2fr] gap-3">
       {/* TODO:Fix image scaling */}
