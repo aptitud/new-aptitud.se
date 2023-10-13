@@ -6,7 +6,7 @@ import { CardImage } from './CardImage'
 import Link from 'next/link'
 import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
-import { CardProps, AptigramProps, FellowCardProps, PostsCardProps, SocialLink } from './types'
+import { CardProps, AptigramProps, PostsCardProps, SocialLink } from './types'
 import { FellowCard } from './FellowCard'
 
 
