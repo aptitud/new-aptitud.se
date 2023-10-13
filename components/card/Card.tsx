@@ -23,7 +23,7 @@ export type CardProps = FellowCardProps | PostsCardProps | AptigramProps
 
 type PostsCardProps = SharedCardProps & {
   type: 'post'
-  postContent: string,
+  postContent: string
 }
 
 type FellowCardProps = SharedCardProps & {
@@ -39,55 +39,51 @@ type AptigramProps = SharedCardProps & {
   permalink: string
 }
 
-
-
 // TODO: why does cards get too tall in mobile?
 
 export const Card = ({ item }: { item: CardProps }) => {
-
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
 
   const onClick = (e: KeyboardEvent) => {
-    e.preventDefault();
-    setIsOpen(true);
+    e.preventDefault()
+    setIsOpen(true)
   }
 
   const onKeyDown = (e: KeyboardEvent) => {
-    if (e.key === " " || e.key === "Enter" || e.key === "Spacebar") {
-      onClick(e);
+    if (e.key === ' ' || e.key === 'Enter' || e.key === 'Spacebar') {
+      onClick(e)
     }
   }
 
-  item.onKeyDown = onKeyDown;
+  item.onKeyDown = onKeyDown
 
-  return (
-    item.type === 'aptigram' ?
-      <Aptigram {...item} />
-      : <Dialog.Root open={isOpen} onOpenChange={setIsOpen} >
-        <Dialog.Portal>
-          <Dialog.Overlay className="fixed inset-0 md:grid md:place-items-center overflow-y-auto bg-aptitud-overlay">
-            <Dialog.Content
-              className="relative min-h-full w-full md:min-h-[40vh] md:w-[80vw] p-5 md:rounded-lg"
-              style={{ backgroundColor: `var(--${item.colorCode})` }}
-            >
-              <DetailCard {...item} />
-              <Dialog.Close className="absolute flex justify-center items-center rounded top-2 right-2 w-10 h-10 bg-white md:-top-2 md:-right-2">
-                <Cross2Icon />
-              </Dialog.Close>
-            </Dialog.Content>
-          </Dialog.Overlay>
-        </Dialog.Portal>
-        <Dialog.Trigger asChild>
-          {
-            item.type === 'fellow' ?
-              <FellowCard  {...item} />
-              : <PostCard  {...item} />
-          }
-        </Dialog.Trigger>
-      </Dialog.Root>
+  return item.type === 'aptigram' ? (
+    <Aptigram {...item} />
+  ) : (
+    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+      <Dialog.Portal>
+        <Dialog.Overlay className="fixed inset-0 md:grid md:place-items-center overflow-y-auto bg-aptitud-overlay">
+          <Dialog.Content
+            className="relative min-h-full w-full md:min-h-[40vh] md:w-[80vw] p-5 md:rounded-lg"
+            style={{ backgroundColor: `var(--${item.colorCode})` }}
+          >
+            <DetailCard {...item} />
+            <Dialog.Close className="absolute flex justify-center items-center rounded top-2 right-2 w-10 h-10 bg-white md:-top-2 md:-right-2">
+              <Cross2Icon />
+            </Dialog.Close>
+          </Dialog.Content>
+        </Dialog.Overlay>
+      </Dialog.Portal>
+      <Dialog.Trigger asChild>
+        {item.type === 'fellow' ? (
+          <FellowCard {...item} />
+        ) : (
+          <PostCard {...item} />
+        )}
+      </Dialog.Trigger>
+    </Dialog.Root>
   )
 }
-
 
 const DetailCard = (props: CardProps) => {
   if (props.type === 'aptigram') {
@@ -97,11 +93,16 @@ const DetailCard = (props: CardProps) => {
   if (props.type === 'fellow') {
     const { title, text, colorCode, image, socialLinks, video } = props
     return (
-      <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_2fr] gap-3">
+      <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_2fr] gap-6">
         {/* TODO:Fix image scaling */}
         <div className="relative aspect-[3/4] h-96 md:h-full">
-          <CardVideo image={image} title={title} colorCode={colorCode} video = { video }/>
-          <SocialLinks name={title} socialLinks={socialLinks} />   
+          <CardVideo
+            image={image}
+            title={title}
+            colorCode={colorCode}
+            video={video}
+          />
+          <SocialLinks name={title} socialLinks={socialLinks} />
         </div>
         <div className="text-white mt-8 md:mt-2">
           <h3 className="text-xl md:text-2xl mb-2 font-medium">{title}</h3>
@@ -111,13 +112,12 @@ const DetailCard = (props: CardProps) => {
     )
   }
 
-
   const { title, text, colorCode, image, postContent } = props
   return (
-    <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_2fr] gap-3">
+    <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_2fr] gap-6">
       {/* TODO:Fix image scaling */}
       <div className="relative aspect-[3/4]">
-        <CardImage  image={image} title={title} />
+        <CardImage image={image} title={title} />
       </div>
       <div className="text-white mt-2">
         <h3 className="text-xl md:text-2xl mb-2 font-medium">{title}</h3>
@@ -127,7 +127,6 @@ const DetailCard = (props: CardProps) => {
       </div>
     </div>
   )
-
 }
 
 const SocialLinks = ({
@@ -146,7 +145,7 @@ const SocialLinks = ({
       .replace('ö', 'o')
       .replace('ü', 'u')
 
-  const mapIcons: Record<SocialLink['name'], string> = {  
+  const mapIcons: Record<SocialLink['name'], string> = {
     blog: 'fa fa-fw fa-globe',
     'stack-overflow': 'fa fa-fw fa-stack-overflow',
     github: 'fa fa-fw fa-github',
@@ -200,13 +199,13 @@ const FellowCard = ({
 }: FellowCardProps) => {
   const imageWithGradient: CSSProperties = image
     ? {
-      backgroundImage: `linear-gradient(to bottom, #fff0 50%, var(--aptitud-petrol) 90%), url('${image}')`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-    }
+        backgroundImage: `linear-gradient(to bottom, #fff0 50%, var(--aptitud-petrol) 90%), url('${image}')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }
     : {
-      backgroundColor: `var(--${colorCode})`,
-    }
+        backgroundColor: `var(--${colorCode})`,
+      }
 
   return (
     <div
@@ -221,8 +220,10 @@ const FellowCard = ({
       <div className="h-3/5"></div>
       <div className={`h-2/5 text-white m-0 p-0`}>
         <div className="grid grid-cols-1 relative h-full">
-          <h3 className="text-base md:text-2xl mb-1 md:mb-1 font-medium truncate">{title}</h3>
-          <span className='text-xs md:text-lg line-clamp-3  md:line-clamp-3'>
+          <h3 className="text-base md:text-2xl mb-1 md:mb-1 font-medium truncate">
+            {title}
+          </h3>
+          <span className="text-xs md:text-lg line-clamp-3  md:line-clamp-3">
             {text}
           </span>
         </div>
@@ -254,26 +255,30 @@ const PostCard = ({
       {...props}
       onKeyDown={onKeyDown}
     >
-
-      {image ?
-        <div className="relative h-1/3" >
+      {image ? (
+        <div className="relative h-1/3">
           <div className="relative aspect-square h-full">
-            <Image src={`https:${image}`} layout='fill' alt={title} className='object-fill rounded-sm' />
+            <Image
+              src={`https:${image}`}
+              layout="fill"
+              alt={title}
+              className="object-fill rounded-sm"
+            />
           </div>
         </div>
-
-        : <></>
-      }
+      ) : (
+        <></>
+      )}
       <div className={`${height} text-white m-0 p-0`}>
-        <h3 className="text-base md:text-2xl mb-1 md:mb-2 font-medium truncate">{title}</h3>
+        <h3 className="text-base md:text-2xl mb-1 md:mb-2 font-medium truncate">
+          {title}
+        </h3>
         <span className={`text-xs md:text-lg ${lineClamp}`}>
           <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
         </span>
       </div>
     </div>
   )
-
-
 }
 
 const Aptigram = ({
@@ -283,40 +288,32 @@ const Aptigram = ({
   permalink,
   colorCode,
 }: AptigramProps) => {
-  
-
   const polaroidBackground: CSSProperties = {
     backgroundColor: `var(--${colorCode})`,
   }
 
-
-  
   return (
-    <div className="rounded-lg h-60 md:h-96 p-2 md:p-2 cursor-pointer" 
-        tabIndex={0} 
-        style={polaroidBackground}
-        onKeyDown={(e) => {
-          if (e.key === " " || e.key === "Enter" || e.key === "Spacebar") {
-            window.open(permalink, '_blank');
-          }
-        }}
+    <div
+      className="rounded-lg h-60 md:h-96 p-2 md:p-2 cursor-pointer"
+      tabIndex={0}
+      style={polaroidBackground}
+      onKeyDown={(e) => {
+        if (e.key === ' ' || e.key === 'Enter' || e.key === 'Spacebar') {
+          window.open(permalink, '_blank')
+        }
+      }}
     >
-      <a
-        role={'button'}
-        href={permalink}
-        target='_blank'
-        rel="noreferrer"    
-      >
+      <a role={'button'} href={permalink} target="_blank" rel="noreferrer">
         <div className="h-4/6 p-0 overflow-hidden rounded-md flex">
-          <img className='w-full align-centre object-cover' 
-            src= { thumbnail ? thumbnail : image ? image : '' } >
-          </img>
+          <img
+            className="w-full align-centre object-cover"
+            src={thumbnail ? thumbnail : image ? image : ''}
+          ></img>
         </div>
         <div className={`h-2/6 text-white m-0 px-2 py-3 md:py-5`}>
           <div className="grid grid-cols-1 relative h-full overflow-hidden">
-            <span className='text-base text-xs md:text-lg md:text-2xl line-clamp-3 md:line-clamp-3 text-white'>
-              <p className=' w-full'>{text}
-              </p>
+            <span className="text-base text-xs md:text-lg md:text-2xl line-clamp-3 md:line-clamp-3 text-white">
+              <p className="w-full">{text}</p>
             </span>
           </div>
         </div>
