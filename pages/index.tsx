@@ -93,7 +93,7 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
           <div className="w-full h-full col-span-2 md:col-span-3 xl:col-span-4 ml-auto mr-auto my-2">
             <div className="grid grid-cols-4 gap-4">
               <div className="col-span-full m-auto">
-                <Image src={'/logo.png'} height="302px" width="500px" />
+                <Image src={'/logo.png'} height="302" width="500" alt="Aptitud"/>
               </div>
             </div>
           </div>
