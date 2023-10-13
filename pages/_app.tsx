@@ -2162,7 +2162,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       `}</style>
       <div        
           style={{
-            background: `var(--aptitud-background)`,
+            background: `linear-gradient(to right, var(--aptitud-cerise) 0, 5%, var(--aptitud-salmon) 20%, var(--aptitud-background) 75%, var(--aptitud-orange) 100%)`,
         }} >
         <Component {...pageProps} />
       </div>
