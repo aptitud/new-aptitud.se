@@ -12,6 +12,7 @@ export const FellowCard = ({
   ...props
 }: FellowCardProps) => {
   const [videoDisplay, setVideoDisplay] = useState('none')
+  const [isRendered , setIsRendered] = useState(false)
 
 
   const imageWithGradient: CSSProperties = image
@@ -39,6 +40,7 @@ export const FellowCard = ({
       if (entries[0].isIntersecting) {
         const queryParams = new URLSearchParams(document.location.search).get('mode');
         setVideoDisplay(queryParams === 'active' ? 'block' : 'none')
+        setIsRendered(true)
       } else {
         setVideoDisplay('none')
       }
@@ -70,8 +72,10 @@ export const FellowCard = ({
 
       <div className='relative h-full w-full' >
         {
-          videoDisplay == 'block' ?
-            <div className="absolute h-full w-full">
+          videoDisplay == 'block' || isRendered ?
+            <div className="absolute h-full w-full" style = { {
+                display :videoDisplay
+            }} >
               <video src={video || ''} muted autoPlay className='fellow-video rounded-lg' poster={image || ''} playsInline loop >
                 Your browser does not support the video tag.
               </video>
