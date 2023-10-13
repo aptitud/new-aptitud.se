@@ -4,7 +4,7 @@ import { CSSProperties, useState } from 'react'
 import { CardVideo } from './CardVideo'
 import { CardImage } from './CardImage'
 import Link from 'next/link'
-import Image from 'next/image'
+import Image from "next/legacy/image"
 import ReactMarkdown from 'react-markdown'
 import { CardProps, AptigramProps, PostsCardProps, SocialLink } from './types'
 import { FellowCard } from './FellowCard'

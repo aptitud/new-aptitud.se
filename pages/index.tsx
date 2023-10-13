@@ -1,6 +1,6 @@
 import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
+import Image from "next/legacy/image"
 import { Card } from '../components/card/Card'
 import { CardProps } from '../components/card/types'
 import { Contact, ContactCardProps } from '../components/card/Contact'

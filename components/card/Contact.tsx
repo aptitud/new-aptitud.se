@@ -2,7 +2,7 @@ import * as Dialog from '@radix-ui/react-dialog'
 import { Cross2Icon } from '@radix-ui/react-icons'
 import { CSSProperties, useState } from 'react'
 import { CardVideo } from './CardVideo'
-import Image from 'next/image'
+import Image from "next/legacy/image"
 import ReactMarkdown from 'react-markdown'
 
 
