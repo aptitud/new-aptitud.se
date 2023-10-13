@@ -118,6 +118,7 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
             <div className="grid grid-cols-4 gap-4">
               <div className="col-span-full m-auto">
                 <Image
+                  priority
                   src={'/logo.png'}
                   height="302"
                   width="500"

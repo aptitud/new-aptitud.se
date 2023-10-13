@@ -192,7 +192,11 @@ const PostCard = ({
       {image ? (
         <div className="relative h-1/3">
           <div className="relative aspect-square h-full">
-            <Image src={`https:${image}`} layout='fill' alt={title} className='object-fill rounded-sm' />
+            <Image 
+              src={`https:${image}`}
+              alt={title || ''} 
+              fill
+              sizes="100vw" />
           </div>
         </div>
       ) : (

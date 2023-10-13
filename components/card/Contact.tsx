@@ -54,7 +54,7 @@ const ContactDetail = (props: ContactCardProps) => {
   return (
     <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_2fr] gap-6">
       {/* TODO:Fix image scaling */}
-      <div className="relative aspect-square">
+      <div className="relative h-96">
         <CardImage { ...props } />
       </div>
       <div className="text-white mt-2">
