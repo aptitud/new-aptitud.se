@@ -11,7 +11,7 @@ export const FellowCard = ({
   video,
   ...props
 }: FellowCardProps) => {
-  const [videoDisplay, setVideoDisplay]  = useState('none') 
+  const [videoDisplay, setVideoDisplay] = useState('none')
 
 
   const imageWithGradient: CSSProperties = image
@@ -24,10 +24,37 @@ export const FellowCard = ({
       backgroundColor: `var(--${colorCode})`,
     }
 
-    useEffect(() =>  {
-      const queryParams = new URLSearchParams(document.location.search).get('mode');
-      setVideoDisplay( queryParams === 'active' ? 'block' : 'none')
-    })
+  useEffect(() => {
+    
+    const options = {
+      root: null, // Use the viewport as the root
+      rootMargin: '0px',
+      threshold: 0.5, // Trigger when at least 50% of the element is in the viewport
+    };
+    
+    const target = document.getElementById(image || '');
+    console.log(videoDisplay, image);
+    
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        const queryParams = new URLSearchParams(document.location.search).get('mode');
+        setVideoDisplay(queryParams === 'active' ? 'block' : 'none')
+      } else {
+        setVideoDisplay('none')
+      }
+    }, options);
+
+    if (target) {
+      observer.observe(target);
+    }
+
+    return () => {
+      if (target) {
+        observer.unobserve(target);
+      }
+    };
+
+  }, []);
 
   return (
     <div
@@ -37,19 +64,19 @@ export const FellowCard = ({
       tabIndex={0}
       onKeyDown={onKeyDown}
       title={title}
+      id={image || ''}
       {...props}
     >
 
       <div className='relative h-full w-full' >
-        <div className="absolute h-full w-full" style={
-          {
-            display: `${videoDisplay}`
-          }
-        }>
-          <video src={video || ''} muted autoPlay className='fellow-video rounded-lg' poster={image || ''} playsInline loop >
-            Your browser does not support the video tag.
-          </video>
-        </div>
+        {
+          videoDisplay == 'block' ?
+            <div className="absolute h-full w-full">
+              <video src={video || ''} muted autoPlay className='fellow-video rounded-lg' poster={image || ''} playsInline loop >
+                Your browser does not support the video tag.
+              </video>
+            </div> : <></>
+        }
         <div className="h-3/5">
 
         </div>
