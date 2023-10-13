@@ -133,30 +133,34 @@ const SocialLinks = ({
         target="_blank"
         key={name}
         href={`mailto:${email(name)}@aptitud.se`}
-      >
-        <a target="_blank" className="bg-white rounded-lg flex p-4">
+        className="bg-white rounded-lg flex p-4">
+
+        <i
+          //TODO: fontawesome hell
+          style={{ fontSize: '18px' }}
+          className={
+            'fa fa-fw fa-envelope md:text-6xl justify-center align-center text-black'
+          }
+        />
+
+      </Link>
+      {socialLinks.map(({ url, name }) => (
+        (<Link
+          target="_blank"
+          key={name}
+          href={url}
+          className="bg-white rounded-lg flex p-4">
+
           <i
             //TODO: fontawesome hell
             style={{ fontSize: '18px' }}
-            className={
-              'fa fa-fw fa-envelope md:text-6xl justify-center align-center text-black'
-            }
+            className={`${mapIcons[name]} md:text-6xl justify-center align-center text-black`}
           />
-        </a>
-      </Link>
-      {socialLinks.map(({ url, name }) => (
-        <Link target="_blank" key={name} href={url}>
-          <a target="_blank" className="bg-white rounded-lg flex p-4">
-            <i
-              //TODO: fontawesome hell
-              style={{ fontSize: '18px' }}
-              className={`${mapIcons[name]} md:text-6xl justify-center align-center text-black`}
-            />
-          </a>
-        </Link>
+
+        </Link>)
       ))}
     </div>
-  )
+  );
 }
 
 
