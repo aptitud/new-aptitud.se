@@ -6,51 +6,73 @@ import { CardProps } from '../components/card/types'
 import { Contact, ContactCardProps } from '../components/card/Contact'
 import { getFellows, getPosts, getContacts } from '../domain/contentful/service'
 import { useState } from 'react'
-import { DoubleArrowRightIcon, StarIcon, InstagramLogoIcon, PersonIcon, FileTextIcon } from '@radix-ui/react-icons'
+import {
+  DoubleArrowRightIcon,
+  StarIcon,
+  InstagramLogoIcon,
+  PersonIcon,
+  FileTextIcon,
+} from '@radix-ui/react-icons'
 
 import { getInstagramPosts } from '../domain/instagram/service'
 
 interface HomeProps {
-  items: CardProps[],
+  items: CardProps[]
   contact: ContactCardProps
 }
 
 const Home: NextPage<HomeProps> = ({ items, contact }) => {
-
   const [filter, setFilter] = useState('')
 
   function filteredCards(items: CardProps[]): JSX.Element[] {
-
     const filtered = items
-      .filter(item => filter === '' || item.type === filter)
+      .filter((item) => filter === '' || item.type === filter)
       .map((item) => {
         return <Card key={item.title} item={item} />
       })
-    return filtered;
+    return filtered
   }
 
   function clickHandler(filterItem: string) {
     if (filterItem === filter) {
       return setFilter('')
     }
-    return setFilter(filterItem);
+    return setFilter(filterItem)
   }
 
   return (
     <div className="w-11/12 max-w-7xl ml-auto mr-auto">
       <Head>
         <title>Aptitud: Enklare, gladare, roligare</title>
-        <meta name="description" content="Aptitud. Enklare, gladare, roligare" />
+        <meta
+          name="description"
+          content="Aptitud. Enklare, gladare, roligare"
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <nav>
-        <div className='fixed top-8 left-0 z-10 group'>
-          <div className='flex'>
-            <div className='peer cursor-pointer rounded-tr-sm rounded-br-sm bg-white text-black p-3 bg-opacity-80 hover:bg-opacity-0'><DoubleArrowRightIcon /></div>
-            <ul className='w-0 shadow-lg invisible rounded-tr-sm rounded-br-sm transition-all duration-500 peer-hover:w-36 peer-hover:visible hover:w-36 hover:visible absolute top-0 left-0 bg-white text-black p-3'>
-              <li className={`p-0 md:pr-2 invisible w-0 group-hover:w-full group-hover:visible overflow-hidden hover:border-aptitud-petrol ${filter === 'post' ? ' border-b-2 border-aptitud-petrol' : 'border-b-2 border-white'}`}>
-                <div className='flex p-1' role={'button'} onClick={() => clickHandler('post')} >
-                <span className='mr-2 mt-2' >
+        <div className="fixed top-8 left-0 z-10 group">
+          <div className="flex">
+            {filter !== '' && (
+              <div className="bg-aptitud-petrol rounded-full h-3 w-3 absolute -right-1 -top-1"></div>
+            )}
+            <div className="peer cursor-pointer rounded-tr-sm rounded-br-sm bg-white text-black p-3 bg-opacity-80 hover:bg-opacity-0">
+              <DoubleArrowRightIcon />
+            </div>
+            <ul className="w-0 shadow-lg invisible rounded-tr-sm rounded-br-sm transition-all duration-500 peer-hover:w-36 peer-hover:visible hover:w-36 hover:visible absolute top-0 left-0 bg-white text-black p-3">
+              <li
+                className={`p-0 md:pr-2 invisible w-0 group-hover:w-full group-hover:visible overflow-hidden hover:border-aptitud-petrol ${
+                  filter === 'post'
+                    ? ' border-b-2 border-aptitud-petrol'
+                    : 'border-b-2 border-white'
+                }`}
+              >
+                <div
+                  className="flex p-1"
+                  role={'button'}
+                  onClick={() => clickHandler('post')}
+                >
+                  <span className="mr-2 mt-2">
                     <FileTextIcon />
                   </span>
                   <span className='mt-1' >
@@ -71,19 +93,21 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
                   <span className='mr-2 mt-2' >
                     <InstagramLogoIcon />
                   </span>
-                  <span className='mt-1' >
-                    Instagram
-                  </span>
-                </div></li>
-              <li className={`p-0 md:pr-2 invisible w-0 group-hover:w-full group-hover:visible overflow-hidden hover:border-aptitud-petrol border-b-2 border-white`}>
-                <div className='flex p-1' role={'button'}>
-                  <span className='mr-2 mt-2'>
+                  <span className="mt-1">Instagram</span>
+                </div>
+              </li>
+              <li
+                className={`p-0 md:pr-2 invisible w-0 group-hover:w-full group-hover:visible overflow-hidden hover:border-aptitud-petrol border-b-2 border-white`}
+              >
+                <div className="flex p-1" role={'button'}>
+                  <span className="mr-2 mt-2">
                     <StarIcon />
                   </span>
-                  <span className='mt-1' >
+                  <span className="mt-1">
                     <Contact key={contact.title} item={contact} />
                   </span>
-                </div></li>
+                </div>
+              </li>
             </ul>
           </div>
         </div>
@@ -110,7 +134,7 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
       </main>
       <footer>
         <div className="w-full">
-          <span className='h-full p-4 m-4'>&nbsp;</span>
+          <span className="h-full p-4 m-4">&nbsp;</span>
         </div>
       </footer>
     </div>
@@ -125,28 +149,32 @@ const availableColors = [
   'aptitud-blue_dim',
 ]
 const getRandomColor = (colors: string[]): string => {
-
   return colors.sort(() => (Math.random() > 0.5 ? 1 : -1))[0]
 }
 
-const randomizeOrder = (postsItems: CardProps[], fellowItems: CardProps[]): CardProps[] => {
+const randomizeOrder = (
+  postsItems: CardProps[],
+  fellowItems: CardProps[]
+): CardProps[] => {
   fellowItems.sort(() => (Math.random() > 0.5 ? 1 : -1))
-  let offset = 0;
+  let offset = 0
 
   do {
     const seed = Math.floor(Math.random() * 3) + offset
 
-    fellowItems.splice(seed >= fellowItems.length ? fellowItems.length - 1 : seed, 0, postsItems.pop() as CardProps)
+    fellowItems.splice(
+      seed >= fellowItems.length ? fellowItems.length - 1 : seed,
+      0,
+      postsItems.pop() as CardProps
+    )
     offset += 4
   } while (offset < fellowItems.length && postsItems.length > 0)
 
   fellowItems.push(...postsItems.reverse())
   return fellowItems
-
 }
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
-
   const fellows = await getFellows()
 
   const posts = await getPosts()
@@ -156,10 +184,11 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
   const sortedPosts = posts
     .sort((a, b) => {
       if (a.sticky != b.sticky) {
-        return a.sticky ? -1 : 1;
+        return a.sticky ? -1 : 1
       }
       return Date.parse(b.ts) - Date.parse(a.ts)
-    }).reverse()
+    })
+    .reverse()
 
   const fellowItems: CardProps[] = fellows.map((fellow) => ({
     title: fellow.name,
@@ -169,7 +198,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     colorCode: getRandomColor(availableColors),
     socialLinks: fellow.services,
     onKeyDown: null,
-    video: fellow.video ? fellow.video?.fields.file.url : null
+    video: fellow.video ? fellow.video?.fields.file.url : null,
   }))
 
   const postsItems: CardProps[] = sortedPosts.map((post) => ({
@@ -179,7 +208,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     image: post.image ? post.image?.fields.file.url : null,
     colorCode: getRandomColor(availableColors),
     postContent: post.postContent ? post.postContent : '',
-    onKeyDown: null
+    onKeyDown: null,
   }))
 
   const contactItems: ContactCardProps[] = contacts.map((contact) => ({
@@ -189,20 +218,22 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     text: contact.visitingAddress ? contact.visitingAddress : '',
     image: contact.image ? contact.image?.fields.file.url : null,
     colorCode: getRandomColor(availableColors),
-    onKeyDown: null
+    onKeyDown: null,
   }))
 
   const items = randomizeOrder(postsItems, fellowItems)
-  const insta = await getInstagramPosts();
+  const insta = await getInstagramPosts()
 
   const instaPosts: CardProps[] = insta.map((post: any) => ({
     title: post.permalink,
     type: 'aptigram',
     text: post.caption || '',
     image: post.media_url ? post.media_url : null,
-    colorCode: getRandomColor(availableColors.filter(color => color !== 'aptitud-yellow')),
+    colorCode: getRandomColor(
+      availableColors.filter((color) => color !== 'aptitud-yellow')
+    ),
     thumbnail: post.thumbnail_url || '',
-    permalink: post.permalink || ''
+    permalink: post.permalink || '',
   }))
 
   items.push(...instaPosts)
@@ -214,7 +245,5 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     },
   }
 }
-
-
 
 export default Home
