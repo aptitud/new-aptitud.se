@@ -146,7 +146,7 @@ const SocialLinks = ({
       .replace('ö', 'o')
       .replace('ü', 'u')
 
-  const mapIcons: Record<SocialLink['name'], string> = {
+  const mapIcons: Record<SocialLink['name'], string> = {  
     blog: 'fa fa-fw fa-globe',
     'stack-overflow': 'fa fa-fw fa-stack-overflow',
     github: 'fa fa-fw fa-github',
