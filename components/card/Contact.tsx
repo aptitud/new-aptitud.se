@@ -14,21 +14,20 @@ export type ContactCardProps = {
 }
 
 export const Contact = ({ item }: { item: ContactCardProps }) => {
+  const [isOpen, setIsOpen] = useState(false)
 
-  const [isOpen, setIsOpen] = useState(false);
-
-  const onClick = (e : KeyboardEvent) => {
-    e.preventDefault();
-    setIsOpen(true);
+  const onClick = (e: KeyboardEvent) => {
+    e.preventDefault()
+    setIsOpen(true)
   }
-  
-  const onKeyDown = (e : KeyboardEvent) => {   
-    if (e.key === " " || e.key === "Enter" || e.key === "Spacebar") {
-      onClick(e);
+
+  const onKeyDown = (e: KeyboardEvent) => {
+    if (e.key === ' ' || e.key === 'Enter' || e.key === 'Spacebar') {
+      onClick(e)
     }
   }
-  item.onKeyDown = onKeyDown;
-  
+  item.onKeyDown = onKeyDown
+
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Portal>
@@ -45,23 +44,23 @@ export const Contact = ({ item }: { item: ContactCardProps }) => {
         </Dialog.Overlay>
       </Dialog.Portal>
       <Dialog.Trigger asChild>
-          <ContactSummary {...item} />
+        <ContactSummary {...item} />
       </Dialog.Trigger>
     </Dialog.Root>
   )
 }
 
 const ContactDetail = (props: ContactCardProps) => {
-  const { title, text, colorCode, image } = props
+  const { title, text, image } = props
   return (
     <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[2fr_2fr] gap-6">
       <div className="relative h-96">
-        <Image  src={`https:${image}`} layout='fill' alt={title} />
+        <Image src={`https:${image}`} layout="fill" alt={title} />
       </div>
       <div className="text-white mt-2">
         <h3 className="text-xl md:text2xl mb-2 font-medium">{title}</h3>
-        <div className='my-3'>
-            <ReactMarkdown>{text}</ReactMarkdown>
+        <div className="my-3">
+          <ReactMarkdown>{text}</ReactMarkdown>
         </div>
       </div>
     </div>
@@ -69,24 +68,23 @@ const ContactDetail = (props: ContactCardProps) => {
 }
 
 const ContactSummary = ({
-    image,
-    title,
-    text,
-    colorCode,
-    summaryTitle,
-    onKeyDown,
-    ...props
-  }: ContactCardProps) => {
-  
-    return (
-      <span
-        role={'button'}
-        className={``}
-        tabIndex={0}
-        onKeyDown={onKeyDown}
-        {...props}
-      >
-       Kontakt
-      </span>
-    )
+  image,
+  title,
+  text,
+  colorCode,
+  summaryTitle,
+  onKeyDown,
+  ...props
+}: ContactCardProps) => {
+  return (
+    <span
+      role={'button'}
+      className={``}
+      tabIndex={0}
+      onKeyDown={onKeyDown}
+      {...props}
+    >
+      Kontakt
+    </span>
+  )
 }
