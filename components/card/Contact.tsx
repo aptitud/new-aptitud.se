@@ -2,8 +2,8 @@ import * as Dialog from '@radix-ui/react-dialog'
 import { Cross2Icon } from '@radix-ui/react-icons'
 import { CSSProperties, useState } from 'react'
 import { CardVideo } from './CardVideo'
-import Image from "next/legacy/image"
 import ReactMarkdown from 'react-markdown'
+import { CardImage } from './CardImage'
 
 
 export type ContactCardProps = {
@@ -59,7 +59,7 @@ const ContactDetail = (props: ContactCardProps) => {
     <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_2fr] gap-3">
       {/* TODO:Fix image scaling */}
       <div className="relative aspect-square">
-        <CardVideo image={image} title={title} colorCode={colorCode} video = { null }/>
+        <CardImage { ...props } />
       </div>
       <div className="text-white mt-2">
         <h3 className="text-xl md:text2xl mb-2 font-medium">{title}</h3>

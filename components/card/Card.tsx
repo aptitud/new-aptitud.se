@@ -4,7 +4,7 @@ import { CSSProperties, useState } from 'react'
 import { CardVideo } from './CardVideo'
 import { CardImage } from './CardImage'
 import Link from 'next/link'
-import Image from "next/legacy/image"
+import Image from "next/image"
 import ReactMarkdown from 'react-markdown'
 import { CardProps, AptigramProps, PostsCardProps, SocialLink } from './types'
 import { FellowCard } from './FellowCard'
@@ -192,7 +192,12 @@ const PostCard = ({
       {image ?
         <div className="relative h-1/3" >
           <div className="relative aspect-square h-full">
-            <Image src={`https:${image}`} layout='fill' alt={title} className='object-fill rounded-sm' />
+            <Image
+              src={`https:${image}`}
+              alt={title}
+              className='object-fill rounded-sm'
+              fill
+              sizes="100vw" />
           </div>
         </div>
 
@@ -205,7 +210,7 @@ const PostCard = ({
         </span>
       </div>
     </div>
-  )
+  );
 
 
 }

@@ -1,6 +1,6 @@
 import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
-import Image from "next/legacy/image"
+import Image from "next/image"
 import { Card } from '../components/card/Card'
 import { CardProps } from '../components/card/types'
 import { Contact, ContactCardProps } from '../components/card/Contact'
@@ -54,7 +54,7 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
                     <FileTextIcon />
                   </span>
                   <span className='mt-1' >
-                    Om Aptitud
+                    Om oss
                   </span>
                 </div></li>
               <li className={`p-0 md:pr-2 invisible w-0 group-hover:w-full group-hover:visible overflow-hidden hover:border-aptitud-petrol ${filter === 'fellow' ? 'border-b-2 border-aptitud-petrol' : 'border-b-2 border-white'}`}>
@@ -93,7 +93,15 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
           <div className="w-full h-full col-span-2 md:col-span-3 xl:col-span-4 ml-auto mr-auto my-2">
             <div className="grid grid-cols-4 gap-4">
               <div className="col-span-full m-auto">
-                <Image src={'/logo.png'} height="302" width="500" alt="Aptitud"/>
+                <Image
+                  src={'/logo.png'}
+                  height="302"
+                  width="500"
+                  alt="Aptitud"
+                  style={{
+                    maxWidth: "100%",
+                    height: "auto"
+                  }} />
               </div>
             </div>
           </div>
@@ -106,7 +114,7 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
         </div>
       </footer>
     </div>
-  )
+  );
 }
 const availableColors = [
   'aptitud-yellow',

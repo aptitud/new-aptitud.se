@@ -1,4 +1,4 @@
-import Image from "next/legacy/image"
+import Image from "next/image"
 export const CardImage = ({
   image, 
   title
@@ -12,10 +12,20 @@ export const CardImage = ({
       <div className="absolute h-full w-full " >
         {
           image ?  
-          <Image src={`https:${image}`} layout='fill' alt={title} className='object-fill rounded-sm' />
-          : <Image src='/logo.svg' layout='fill' alt={title} className='object-fill rounded-sm' />
+          <Image
+            src={`https:${image}`}
+            alt={title || ''}
+            className='object-fill rounded-sm'
+            fill
+            sizes="100vw" />
+          : <Image
+            src='/logo.svg'
+            alt={title || ''}
+            className='object-fill rounded-sm'
+            fill
+            sizes="100vw" />
         }
       </div>
     </div>
-  )
+  );
 }
