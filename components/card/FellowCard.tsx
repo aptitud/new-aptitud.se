@@ -43,21 +43,21 @@ export const FellowCard = ({
 
   useEffect(() => {
 
-    const queryParams = new URLSearchParams(document.location.search).get('mode');
+
 
     if (!inView) {
       setIsShowingVideo(false)
+      return;
+    } 
+    
+    if (showVideo) {
+      displayVideo()
     } else {
-      if (queryParams === 'active' || showVideo) {
-        displayVideo() 
-      } else {
-        hideVideo()
-      }
+      hideVideo()
     }
 
 
-    return () => {
-    };
+
 
   }, [inView, showVideo]);
 

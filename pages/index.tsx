@@ -48,10 +48,13 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
   }
 
   const randomizeVideo = () => {
+
+    const mode = new URLSearchParams(document.location.search).get('mode');
+
     const fellows = items.filter((item) => item.type === 'fellow');
     const randomFellow = Math.floor(Math.random() * fellows.length);
     fellows.forEach((fellow, pos) => {
-     (fellow as FellowCardProps).showVideo = (pos===randomFellow)
+     (fellow as FellowCardProps).showVideo = ( mode == 'active' ||  pos===randomFellow)
     });
     filterCards(items);
     setTimeoutId(setTimeout(randomizeVideo, 3250))
@@ -59,8 +62,7 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
 
   useEffect(() => {
     console.log('useEffect')
-    filterCards(items);
-    setTimeoutId(setTimeout(randomizeVideo, 3250))
+    randomizeVideo()
     return () => {
       if (timeoutId) {
         clearTimeout(timeoutId)
