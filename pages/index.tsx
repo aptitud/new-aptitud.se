@@ -27,17 +27,12 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null)
 
   function filterCards(items: CardProps[]) {
-    console.log('filtering')
     const filtered = items
     .filter((item) => filter === '' || item.type === filter)
     .map((item) => {
-      if((item as FellowCardProps).showVideo) {
-        console.log(item);
-      }
       return <Card key={item.title} item={item} />
     })
     setCardList(filtered)
-    console.log('filtering - done')
   }
 
   function clickHandler(filterItem: string) {
@@ -230,6 +225,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     socialLinks: fellow.services,
     onKeyDown: null,
     video: fellow.video ? fellow.video?.fields.file.url : null,
+    showVideo:false
   }))
 
   const postsItems: CardProps[] = sortedPosts.map((post) => ({
