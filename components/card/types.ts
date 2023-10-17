@@ -24,6 +24,7 @@ export type FellowCardProps = SharedCardProps & {
   //TODO: get rid of undefined values...
   socialLinks: SocialLink[]
   video: string | null
+  showVideo: boolean
 }
 
 export type AptigramProps = SharedCardProps & {

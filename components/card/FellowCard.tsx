@@ -1,5 +1,6 @@
 import React, { CSSProperties, useEffect, useState } from 'react'
 import { FellowCardProps } from './types'
+import { useInView } from 'react-intersection-observer';
 
 export const FellowCard = ({
   image,
@@ -9,11 +10,26 @@ export const FellowCard = ({
   socialLinks,
   onKeyDown,
   video,
+  showVideo,
   ...props
 }: FellowCardProps) => {
-  const [displayVideo, setVideoDisplay] = useState(false)
-  const [isRendered , setIsRendered] = useState(false)
+  const [isShowingVideo, setIsShowingVideo] = useState(false)
+  const [isRendered, setIsRendered] = useState(false)
+  const [ref, inView] = useInView({
+    triggerOnce: false, // Fire the event only once
+    root: null, // Use the viewport as the root
+    rootMargin: '0px',
+    threshold: 0.7, // Trigger when at least 50% of the element is in the viewport
+  });
 
+  const displayVideo = () => {
+    setIsShowingVideo(true)
+    setIsRendered(true)
+  }
+
+  const hideVideo = () => {
+    setIsShowingVideo(false)
+  }
 
   const imageWithGradient: CSSProperties = image
     ? {
@@ -26,37 +42,24 @@ export const FellowCard = ({
     }
 
   useEffect(() => {
-    
-    const options = {
-      root: null, // Use the viewport as the root
-      rootMargin: '0px',
-      threshold: 0.7, // Trigger when at least 50% of the element is in the viewport
-    };
-    
-    const target = document.getElementById(image || '');
-    
-    const observer = new IntersectionObserver((entries) => {
-      const queryParams = new URLSearchParams(document.location.search).get('mode');
-    
-      if (entries[0].isIntersecting && queryParams === 'active') {
-        setVideoDisplay(true)
-        setIsRendered(true)
-      } else {
-        setVideoDisplay(false)
-      }
-    }, options);
 
-    if (target) {
-      observer.observe(target);
+    const queryParams = new URLSearchParams(document.location.search).get('mode');
+
+    if (!inView) {
+      setIsShowingVideo(false)
+    } else {
+      if (queryParams === 'active' || showVideo) {
+        displayVideo() 
+      } else {
+        hideVideo()
+      }
     }
 
+
     return () => {
-      if (target) {
-        observer.unobserve(target);
-      }
     };
 
-  }, []);
+  }, [inView, showVideo]);
 
   return (
     <div
@@ -68,12 +71,13 @@ export const FellowCard = ({
       title={title}
       id={image || ''}
       {...props}
+      ref={ref}
     >
 
       <div className='relative h-full w-full'
-        style= {{
+        style={{
           backgroundColor: `var(--aptitud-transparent)`,
-      
+
         }} >
         {
           /*
@@ -85,9 +89,9 @@ export const FellowCard = ({
           
 
           */
-          displayVideo || isRendered ?
-            <div className="absolute h-full w-full" style = { {
-                display : displayVideo ? 'block' : 'none'
+          isShowingVideo || isRendered ?
+            <div className="absolute h-full w-full" style={{
+              display: isShowingVideo ? 'block' : 'none'
             }} >
               <video src={video || ''} muted autoPlay className='fellow-video rounded-lg' poster={image || ''} playsInline loop >
                 Your browser does not support the video tag.
