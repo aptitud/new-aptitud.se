@@ -39,8 +39,6 @@ type AptigramProps = SharedCardProps & {
   permalink: string
 }
 
-// TODO: why does cards get too tall in mobile?
-
 export const Card = ({ item }: { item: CardProps }) => {
   const [isOpen, setIsOpen] = useState(false)
 
@@ -281,22 +279,12 @@ const PostCard = ({
   )
 }
 
-const Aptigram = ({
-  image,
-  text,
-  thumbnail,
-  permalink,
-  colorCode,
-}: AptigramProps) => {
-  const polaroidBackground: CSSProperties = {
-    backgroundColor: `var(--${colorCode})`,
-  }
-
+const Aptigram = ({ image, text, thumbnail, permalink }: AptigramProps) => {
   return (
     <div
       className="rounded-lg h-60 md:h-96 p-2 md:p-2 cursor-pointer"
       tabIndex={0}
-      style={polaroidBackground}
+      style={{ backgroundColor: 'var(--aptitud-petrol)' }}
       onKeyDown={(e) => {
         if (e.key === ' ' || e.key === 'Enter' || e.key === 'Spacebar') {
           window.open(permalink, '_blank')
