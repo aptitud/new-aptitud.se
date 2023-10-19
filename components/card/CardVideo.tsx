@@ -14,7 +14,9 @@ export const CardVideo = ({
 
   useEffect(() => {
     timeoutRef.current = setTimeout(() => {
-      (document.getElementsByClassName('fellow-video')[0] as HTMLVideoElement).play()
+      let videoElement = (document.getElementById(`detailvid-${video}`) as HTMLVideoElement)
+      console.log(videoElement);
+      videoElement.play()
     }, 1000);
 
     return () => {
@@ -25,7 +27,7 @@ export const CardVideo = ({
 
   return (
     <div className='absolute h-full w-full' >
-      <video src={video || ''} muted className='fellow-video rounded-lg' poster={image || '' } playsInline>
+      <video id= { `detailvid-${video}`} src={video || ''} muted className='fellow-video rounded-lg' poster={image || '' } playsInline>
         Your browser does not support the video tag.
       </video>
     </div>
