@@ -29,15 +29,15 @@ export const FilterMenu = ({ contact }: FilterMenuProps) => {
 
   return (
     <nav>
-      <div className="fixed top-8 left-0 z-10 group">
+      <div className="fixed right-0 top-60 md:top-8 md:left-0 md:right-auto z-30 group">
         <div className="flex">
           {filter !== '' && (
             <div className="bg-aptitud-petrol rounded-full h-3 w-3 absolute -right-1 -top-1 group-hover:invisible"></div>
           )}
-          <div className="peer cursor-pointer rounded-tr-sm rounded-br-sm bg-white text-black p-3 bg-opacity-80 hover:bg-opacity-0">
+          <div className="peer cursor-pointer  rounded-tl-sm rounded-bl-sm md:rounded-tr-sm md:rounded-br-sm bg-white text-black p-3 bg-opacity-80 hover:bg-opacity-0">
             <DoubleArrowRightIcon />
           </div>
-          <ul className="w-0 shadow-lg invisible rounded-tr-sm rounded-br-sm transition-all duration-500 peer-hover:w-36 peer-hover:visible hover:w-36 hover:visible absolute top-0 left-0 bg-white text-black p-3">
+          <ul className="w-0 shadow-lg invisible rounded-tl-sm rounded-bl-sm md:rounded-tr-sm md:rounded-br-sm transition-all duration-500 peer-hover:w-36 peer-hover:visible hover:w-36 hover:visible absolute top-0 right-0 md:right-auto md:left-0 bg-white text-black p-3 text-md">
             <li
               className={`p-0 md:pr-2 invisible w-0 group-hover:w-full group-hover:visible overflow-hidden hover:border-aptitud-petrol ${
                 filter === 'post'
@@ -50,8 +50,8 @@ export const FilterMenu = ({ contact }: FilterMenuProps) => {
                 role={'button'}
                 onClick={() => filterItems('post')}
               >
-                <span className="mr-2 mt-2">
-                  <FileTextIcon />
+                <span className="mr-2 mt-2 text-aptitud-petrol">
+                  <FileTextIcon width={22} />
                 </span>
                 <span className="mt-1">Om oss</span>
               </div>
@@ -68,8 +68,8 @@ export const FilterMenu = ({ contact }: FilterMenuProps) => {
                 role={'button'}
                 onClick={() => filterItems('fellow')}
               >
-                <span className="mr-2 mt-2">
-                  <PersonIcon />
+                <span className="mr-2 mt-2 text-aptitud-petrol">
+                  <PersonIcon width={22} />
                 </span>
                 <span className="mt-1">Vilka är vi</span>
               </div>
@@ -86,8 +86,8 @@ export const FilterMenu = ({ contact }: FilterMenuProps) => {
                 role={'button'}
                 onClick={() => filterItems('aptigram')}
               >
-                <span className="mr-2 mt-2">
-                  <InstagramLogoIcon />
+                <span className="mr-2 mt-2 text-aptitud-petrol">
+                  <InstagramLogoIcon width={22} />
                 </span>
                 <span className="mt-1">Instagram</span>
               </div>
@@ -96,8 +96,8 @@ export const FilterMenu = ({ contact }: FilterMenuProps) => {
               className={`p-0 md:pr-2 invisible w-0 group-hover:w-full group-hover:visible overflow-hidden hover:border-aptitud-petrol border-b-2 border-white`}
             >
               <div className="flex p-1" role={'button'}>
-                <span className="mr-2 mt-2">
-                  <StarIcon />
+                <span className="mr-2 mt-2 text-aptitud-petrol">
+                  <StarIcon width={22} />
                 </span>
                 <span className="mt-1">
                   <Contact key={contact.title} item={contact} />
