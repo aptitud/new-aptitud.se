@@ -64,14 +64,14 @@ const DetailCard = (props: CardProps) => {
             alt="aptigram"
           />
         </div>
-        <div className="text-white mt-2">
-          <p className="mb-2 text-xl">
-            <ReactMarkdown>{text}</ReactMarkdown>
-          </p>
-          <a className="flex p-1 text-xl" href={permalink} target="_blank" rel="">
-            <InstagramLogoIcon className="mr-2 mt-1" width="20" height="20" />
+        <div className="text-white mt-1">
+          <a className="flex text-xl" href={permalink} target="_blank" rel="">
+            <InstagramLogoIcon className="mr-2 mt-1" width="24" height="24" />
             Se på Instagram
           </a>
+          <p className="mt-3 text-xl">
+            <ReactMarkdown>{text}</ReactMarkdown>
+          </p>
         </div>
       </div>
     )
