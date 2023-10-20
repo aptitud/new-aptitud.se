@@ -45,7 +45,7 @@ export const FellowCard = ({
 
   const imageWithGradient: CSSProperties = image
     ? {
-        backgroundImage: `linear-gradient(to bottom, #fff0 50%, var(--aptitud-petrol) 90%), url('${image}')`,
+        backgroundImage: `linear-gradient(to bottom, #fff0 40%, var(--aptitud-petrol) 75%), url('${image}')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }
@@ -114,7 +114,7 @@ export const FellowCard = ({
                 className="absolute z-10 h-full w-full"
                 style={{
                   background:
-                    'linear-gradient(to bottom, #fff0 50%, var(--aptitud-petrol) 90%)',
+                    'linear-gradient(to bottom, #fff0 40%, var(--aptitud-petrol) 75%)',
                 }}
               ></div>
             </div>
