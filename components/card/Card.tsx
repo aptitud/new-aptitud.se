@@ -176,7 +176,7 @@ const PostCard = ({
   return (
     <div
       role={'button'}
-      className={`rounded-lg h-60 md:h-96 cursor-pointer m-0 p-3 md:p-4`}
+      className={`rounded-lg h-60 md:h-96 cursor-pointer m-0 p-3 md:p-4 shadow-md`}
       style={backgroundStyle}
       tabIndex={0}
       {...props}
@@ -211,9 +211,9 @@ const PostCard = ({
 const Aptigram = ({ image, text, thumbnail, permalink }: AptigramProps) => {
   return (
     <div
-      className="rounded-lg h-60 md:h-96 p-2 md:p-2 cursor-pointer"
+      className="rounded-lg h-60 md:h-96 p-2 md:p-2 cursor-pointer shadow-md"
       tabIndex={0}
-      style={{ backgroundColor: 'var(--aptitud-petrol)' }}
+      style={{ backgroundColor: 'var(--aptitud-blue_green)' }}
       onKeyDown={(e) => {
         if (e.key === ' ' || e.key === 'Enter' || e.key === 'Spacebar') {
           window.open(permalink, '_blank')

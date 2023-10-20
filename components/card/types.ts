@@ -1,5 +1,6 @@
 
 import { getFellows } from '../../domain/contentful/service'
+import {ContactCardProps}  from './Contact'
 
 export type SocialLink = Awaited<
   Required<ReturnType<typeof getFellows>>
@@ -27,6 +28,11 @@ export type FellowCardProps = SharedCardProps & {
   showVideo: boolean
 }
 
+export type FilterMenuProps = {
+  contact: ContactCardProps, 
+  setFilter: Function,
+  filter: string
+}
 export type AptigramProps = SharedCardProps & {
   type: 'aptigram'
   thumbnail: string

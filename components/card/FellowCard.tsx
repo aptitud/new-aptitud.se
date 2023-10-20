@@ -1,6 +1,6 @@
 import React, { CSSProperties, useEffect, useState } from 'react'
 import { FellowCardProps } from './types'
-import { useInView } from 'react-intersection-observer';
+import { useInView } from 'react-intersection-observer'
 
 export const FellowCard = ({
   image,
@@ -20,21 +20,23 @@ export const FellowCard = ({
     root: null, // Use the viewport as the root
     rootMargin: '0px',
     threshold: 0.7, // Trigger when at least 50% of the element is in the viewport
-  });
+  })
 
   const displayVideo = () => {
     setIsShowingVideo(true)
     setIsRendered(true)
     setTimeout(() => {
-      let videoElement = (document.getElementById(`fellow-card-vid-${title}`) as HTMLVideoElement)
+      let videoElement = document.getElementById(
+        `fellow-card-vid-${title}`
+      ) as HTMLVideoElement
       if (!videoElement) {
         console.log(`video element not found for ${title}`)
-        return;
+        return
       }
-      const mode = new URLSearchParams(document.location.search).get('mode');
-      videoElement.loop = (mode === 'active');
+      const mode = new URLSearchParams(document.location.search).get('mode')
+      videoElement.loop = mode === 'active'
       videoElement.play()
-    }, 250);
+    }, 250)
   }
 
   const hideVideo = () => {
@@ -43,18 +45,18 @@ export const FellowCard = ({
 
   const imageWithGradient: CSSProperties = image
     ? {
-      backgroundImage: `linear-gradient(to bottom, #fff0 50%, var(--aptitud-petrol) 90%), url('${image}')`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-    }
+        backgroundImage: `linear-gradient(to bottom, #fff0 50%, var(--aptitud-petrol) 90%), url('${image}')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }
     : {
-      backgroundColor: `var(--${colorCode})`,
-    }
+        backgroundColor: `var(--${colorCode})`,
+      }
 
   useEffect(() => {
     if (!inView) {
       setIsShowingVideo(false)
-      return;
+      return
     }
 
     if (showVideo) {
@@ -62,12 +64,12 @@ export const FellowCard = ({
     } else {
       hideVideo()
     }
-  }, [inView, showVideo]);
+  }, [inView, showVideo])
 
   return (
     <div
       role={'button'}
-      className={`rounded-lg h-60 md:h-96 m-0 p-0 cursor-pointer`}
+      className={`rounded-lg h-60 md:h-96 m-0 p-0 cursor-pointer shadow-md`}
       style={imageWithGradient}
       tabIndex={0}
       onKeyDown={onKeyDown}
@@ -76,12 +78,12 @@ export const FellowCard = ({
       {...props}
       ref={ref}
     >
-
-      <div className='relative h-full w-full'
+      <div
+        className="relative h-full w-full"
         style={{
           backgroundColor: `var(--aptitud-transparent)`,
-
-        }} >
+        }}
+      >
         {
           /*
             lazy load av videor för att inte behöva vänta på att alla ska laddas ner innan sidan kan visas
@@ -91,22 +93,35 @@ export const FellowCard = ({
             Använder isRendered för att inte plocka bort komponenten och trigga en ny nerladdning när den visas nästa gång.
         
           */
-          isShowingVideo || isRendered ?
-            <div className="absolute h-full w-full" style={{
-              display: isShowingVideo ? 'block' : 'none'
-            }} >
-              <video id={`fellow-card-vid-${title}`} src={video || ''} muted className='fellow-video rounded-lg' poster={image || ''} playsInline >
+          isShowingVideo || isRendered ? (
+            <div
+              className="absolute h-full w-full"
+              style={{
+                display: isShowingVideo ? 'block' : 'none',
+              }}
+            >
+              <video
+                id={`fellow-card-vid-${title}`}
+                src={video || ''}
+                muted
+                className="fellow-video rounded-lg"
+                poster={image || ''}
+                playsInline
+              >
                 Your browser does not support the video tag.
               </video>
-            </div> : <></>
+            </div>
+          ) : (
+            <></>
+          )
         }
-        <div className="h-3/5">
-
-        </div>
+        <div className="h-3/5"></div>
         <div className={`h-2/5 text-white px-3 pb-4 md:px-4 md:pb-6`}>
           <div className="grid grid-cols-1 relative h-full">
-            <h3 className="text-base md:text-2xl mb-1 md:mb-1 font-medium truncate">{title}</h3>
-            <span className='text-xs md:text-lg line-clamp-3  md:line-clamp-3'>
+            <h3 className="text-base md:text-2xl mb-1 md:mb-1 font-medium truncate">
+              {title}
+            </h3>
+            <span className="text-xs md:text-lg line-clamp-3  md:line-clamp-3">
               {text}
             </span>
           </div>
