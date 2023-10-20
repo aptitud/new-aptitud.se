@@ -110,6 +110,13 @@ export const FellowCard = ({
               >
                 Your browser does not support the video tag.
               </video>
+              <div
+                className="absolute z-10 h-full w-full"
+                style={{
+                  background:
+                    'linear-gradient(to bottom, #fff0 50%, var(--aptitud-petrol) 90%)',
+                }}
+              ></div>
             </div>
           ) : (
             <></>
@@ -117,7 +124,7 @@ export const FellowCard = ({
         }
         <div className="h-3/5"></div>
         <div className={`h-2/5 text-white px-3 pb-4 md:px-4 md:pb-6`}>
-          <div className="grid grid-cols-1 relative h-full">
+          <div className="grid grid-cols-1 relative h-full z-20">
             <h3 className="text-base md:text-2xl mb-1 md:mb-1 font-medium truncate">
               {title}
             </h3>
