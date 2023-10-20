@@ -9,6 +9,7 @@ import { getFellows, getPosts, getContacts } from '../domain/contentful/service'
 import { useEffect, useState } from 'react'
 
 import { getInstagramPosts } from '../domain/instagram/service'
+import { useSearchParams } from 'next/navigation'
 
 interface HomeProps {
   items: CardProps[]
@@ -17,7 +18,8 @@ interface HomeProps {
 
 const Home: NextPage<HomeProps> = ({ items, contact }) => {
   const [cardList, setCardList] = useState<JSX.Element[]>([])
-  const [filter, setFilter] = useState('')
+  const searchParams = useSearchParams()
+  const filter = searchParams.get('show') ?? ''
 
   function filterCards(items: CardProps[]) {
     const filtered = items
@@ -62,7 +64,7 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <FilterMenu contact={contact} setFilter={setFilter} filter={filter} />
+      <FilterMenu contact={contact} />
       <main>
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4">
           <div className="w-full h-full col-span-2 md:col-span-3 xl:col-span-4 ml-auto mr-auto my-2">

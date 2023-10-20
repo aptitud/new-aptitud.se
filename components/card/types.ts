@@ -29,9 +29,7 @@ export type FellowCardProps = SharedCardProps & {
 }
 
 export type FilterMenuProps = {
-  contact: ContactCardProps, 
-  setFilter: Function,
-  filter: string
+  contact: ContactCardProps
 }
 export type AptigramProps = SharedCardProps & {
   type: 'aptigram'

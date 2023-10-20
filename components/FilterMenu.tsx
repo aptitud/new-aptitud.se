@@ -1,6 +1,6 @@
 import { FilterMenuProps } from './card/types'
 import { Contact } from './card/Contact'
-import { useState } from 'react'
+import { useRouter } from 'next/router'
 import {
   DoubleArrowRightIcon,
   StarIcon,
@@ -8,13 +8,23 @@ import {
   PersonIcon,
   FileTextIcon,
 } from '@radix-ui/react-icons'
+import { useSearchParams } from 'next/navigation'
 
-export const FilterMenu = ({ contact, setFilter, filter }: FilterMenuProps) => {
+export const FilterMenu = ({ contact }: FilterMenuProps) => {
+  const router = useRouter()
+
+  const searchParams = useSearchParams()
+  const newParams = new URLSearchParams(searchParams.toString())
+  const filter = searchParams.get('show') ?? ''
+
   function filterItems(filterItem: string) {
     if (filterItem === filter) {
-      return setFilter('')
+      newParams.delete('show')
+      router.push('')
+    } else {
+      newParams.set('show', filterItem)
+      router.push('?' + newParams.toString())
     }
-    return setFilter(filterItem)
   }
 
   return (
