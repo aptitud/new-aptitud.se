@@ -27,7 +27,7 @@ export const CardVideo = ({
 
   return (
     <div className='absolute h-full w-full' >
-      <video id= { `detailvid-${video}`} src={video || ''} muted className='fellow-video rounded-lg' poster={image || '' } playsInline>
+      <video disableRemotePlayback id= { `detailvid-${video}`} src={video || ''} muted className='fellow-video rounded-lg' poster={image || '' } playsInline>
         Your browser does not support the video tag.
       </video>
     </div>
