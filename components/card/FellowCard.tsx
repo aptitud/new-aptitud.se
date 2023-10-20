@@ -31,8 +31,6 @@ export const FellowCard = ({
         console.log(`video element not found for ${title}`)
         return;
       }
-      const mode = new URLSearchParams(document.location.search).get('mode');
-      videoElement.loop = (mode === 'active');
       videoElement.play()
     }, 250);
   }
@@ -95,7 +93,7 @@ export const FellowCard = ({
             <div className="absolute h-full w-full" style={{
               display: isShowingVideo ? 'block' : 'none'
             }} >
-              <video id={`fellow-card-vid-${title}`} src={video || ''} muted className='fellow-video rounded-lg' poster={image || ''} playsInline >
+              <video id={`fellow-card-vid-${title}`} src={video || ''} muted className='fellow-video rounded-lg' poster={image || ''} playsInline>
                 Your browser does not support the video tag.
               </video>
             </div> : <></>
