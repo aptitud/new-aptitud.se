@@ -68,7 +68,7 @@ const DetailCard = (props: CardProps) => {
           <p className="mb-2 text-xl">
             <ReactMarkdown>{text}</ReactMarkdown>
           </p>
-          <a className="flex p-1 text-xl" href={permalink} target="_blank" rel="noreferrer">
+          <a className="flex p-1 text-xl" href={permalink} target="_blank" rel="">
             <InstagramLogoIcon className="mr-2 mt-1" width="20" height="20" />
             Se på Instagram
           </a>

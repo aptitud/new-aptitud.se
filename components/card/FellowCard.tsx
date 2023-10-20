@@ -100,7 +100,8 @@ export const FellowCard = ({
                 display: isShowingVideo ? 'block' : 'none',
               }}
             >
-              <video
+              <video 
+                disableRemotePlayback
                 id={`fellow-card-vid-${title}`}
                 src={video || ''}
                 muted
