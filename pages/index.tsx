@@ -108,24 +108,28 @@ const getRandomColor = (colors: string[]): string => {
 
 const randomizeOrder = (
   postsItems: CardProps[],
-  fellowItems: CardProps[]
+  fellowItems: CardProps[],
+  aptigramItems: CardProps[]
 ): CardProps[] => {
   fellowItems.sort(() => (Math.random() > 0.5 ? 1 : -1))
-  let offset = 0
+  const randomItems = [] as CardProps[]
 
   do {
-    const seed = Math.floor(Math.random() * 3) + offset
+    const row = [] as any
+    if (fellowItems?.length) row.push(fellowItems.pop())
+    if (fellowItems?.length) row.push(fellowItems.pop())
+    if (postsItems?.length) row.push(postsItems.pop())
+    if (aptigramItems?.length) row.push(aptigramItems.pop())
 
-    fellowItems.splice(
-      seed >= fellowItems.length ? fellowItems.length - 1 : seed,
-      0,
-      postsItems.pop() as CardProps
-    )
-    offset += 4
-  } while (offset < fellowItems.length && postsItems.length > 0)
+    row.sort(() => (Math.random() > 0.5 ? 1 : -1))
+    randomItems.push(...row)
+  } while (
+    fellowItems.length > 0 ||
+    postsItems.length > 0 ||
+    aptigramItems.length > 0
+  )
 
-  fellowItems.push(...postsItems.reverse())
-  return fellowItems
+  return randomItems
 }
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
@@ -176,7 +180,6 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     onKeyDown: null,
   }))
 
-  const items = randomizeOrder(postsItems, fellowItems)
   const insta = await getInstagramPosts()
 
   const instaPosts: CardProps[] = insta.map((post: any) => ({
@@ -184,14 +187,11 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     type: 'aptigram',
     text: post.caption || '',
     image: post.media_url ? post.media_url : null,
-    colorCode: getRandomColor(
-      availableColors.filter((color) => color !== 'aptitud-yellow')
-    ),
     thumbnail: post.thumbnail_url || '',
     permalink: post.permalink || '',
   }))
 
-  items.push(...instaPosts)
+  const items = randomizeOrder(postsItems, fellowItems, instaPosts)
 
   return {
     props: {
