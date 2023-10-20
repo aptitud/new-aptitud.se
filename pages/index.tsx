@@ -54,7 +54,7 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
         (fellow as FellowCardProps).showVideo = ( mode == 'active' ||  pos===randomFellow)
       });
       filterCards(items)
-      timeoutId = setTimeout(randomizeVideo, 3500)
+      timeoutId = setTimeout(randomizeVideo, 3250)
     }
 
     filterCards(items)

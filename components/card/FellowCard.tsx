@@ -25,14 +25,6 @@ export const FellowCard = ({
   const displayVideo = () => {
     setIsShowingVideo(true)
     setIsRendered(true)
-    setTimeout(() => {
-      let videoElement = (document.getElementById(`fellow-card-vid-${title}`) as HTMLVideoElement)
-      if (!videoElement) {
-        console.log(`video element not found for ${title}`)
-        return;
-      }
-      videoElement.play()
-    }, 250);
   }
 
   const hideVideo = () => {
@@ -50,16 +42,23 @@ export const FellowCard = ({
     }
 
   useEffect(() => {
+
+
+
     if (!inView) {
       setIsShowingVideo(false)
       return;
-    }
-
+    } 
+    
     if (showVideo) {
       displayVideo()
     } else {
       hideVideo()
     }
+
+
+
+
   }, [inView, showVideo]);
 
   return (
@@ -87,13 +86,14 @@ export const FellowCard = ({
             resurser i browsern när de ändå inte syns. 
             
             Använder isRendered för att inte plocka bort komponenten och trigga en ny nerladdning när den visas nästa gång.
-        
+          
+
           */
           isShowingVideo || isRendered ?
             <div className="absolute h-full w-full" style={{
               display: isShowingVideo ? 'block' : 'none'
             }} >
-              <video id={`fellow-card-vid-${title}`} src={video || ''} muted className='fellow-video rounded-lg' poster={image || ''} playsInline>
+              <video src={video || ''} muted autoPlay className='fellow-video rounded-lg' poster={image || ''} playsInline loop >
                 Your browser does not support the video tag.
               </video>
             </div> : <></>
