@@ -188,7 +188,7 @@ const PostCard = ({
             <Image
               src={`https:${image}`}
               alt={title || ''}
-              layout="fill"
+              fill
               sizes="100vw"
             />
           </div>
