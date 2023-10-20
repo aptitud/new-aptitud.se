@@ -4,12 +4,10 @@ import { CSSProperties, useState } from 'react'
 import { CardVideo } from './CardVideo'
 import { CardImage } from './CardImage'
 import Link from 'next/link'
-import Image from "next/image"
+import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 import { CardProps, AptigramProps, PostsCardProps, SocialLink } from './types'
 import { FellowCard } from './FellowCard'
-
-
 
 export const Card = ({ item }: { item: CardProps }) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -46,7 +44,7 @@ export const Card = ({ item }: { item: CardProps }) => {
       </Dialog.Portal>
       <Dialog.Trigger asChild>
         {item.type === 'fellow' ? (
-          <FellowCard {...item } showVideo={item.showVideo} />
+          <FellowCard {...item} showVideo={item.showVideo} />
         ) : (
           <PostCard {...item} />
         )}
@@ -132,8 +130,8 @@ const SocialLinks = ({
         target="_blank"
         key={name}
         href={`mailto:${email(name)}@aptitud.se`}
-        className="bg-white rounded-lg flex p-4">
-
+        className="bg-white rounded-lg flex p-4"
+      >
         <i
           //TODO: fontawesome hell
           style={{ fontSize: '18px' }}
@@ -141,25 +139,23 @@ const SocialLinks = ({
             'fa fa-fw fa-envelope md:text-6xl justify-center align-center text-black'
           }
         />
-
       </Link>
       {socialLinks.map(({ url, name }) => (
-        (<Link
+        <Link
           target="_blank"
           key={name}
           href={url}
-          className="bg-white rounded-lg flex p-4">
-
+          className="bg-white rounded-lg flex p-4"
+        >
           <i
             //TODO: fontawesome hell
             style={{ fontSize: '18px' }}
             className={`${mapIcons[name]} md:text-6xl justify-center align-center text-black`}
           />
-
-        </Link>)
+        </Link>
       ))}
     </div>
-  );
+  )
 }
 
 const PostCard = ({
@@ -189,11 +185,12 @@ const PostCard = ({
       {image ? (
         <div className="relative h-1/3">
           <div className="relative aspect-square h-full">
-            <Image 
+            <Image
               src={`https:${image}`}
-              alt={title || ''} 
-              fill
-              sizes="100vw" />
+              alt={title || ''}
+              layout="fill"
+              sizes="100vw"
+            />
           </div>
         </div>
       ) : (
@@ -209,8 +206,6 @@ const PostCard = ({
       </div>
     </div>
   )
-
-
 }
 
 const Aptigram = ({ image, text, thumbnail, permalink }: AptigramProps) => {
