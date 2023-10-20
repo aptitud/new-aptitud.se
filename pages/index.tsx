@@ -2,10 +2,10 @@ import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import Image from "next/image"
 import { Card } from '../components/card/Card'
-import { CardProps, FellowCardProps } from '../components/card/types'
+import { CardProps } from '../components/card/types'
 import { Contact, ContactCardProps } from '../components/card/Contact'
 import { getFellows, getPosts, getContacts } from '../domain/contentful/service'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import {
   DoubleArrowRightIcon,
   StarIcon,
@@ -23,21 +23,14 @@ interface HomeProps {
 
 const Home: NextPage<HomeProps> = ({ items, contact }) => {
   const [filter, setFilter] = useState('')
-  const [cardList, setCardList] = useState<JSX.Element[]>([])
-  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null)
 
-  function filterCards(items: CardProps[]) {
-    console.log('filtering')
+  function filteredCards(items: CardProps[]): JSX.Element[] {
     const filtered = items
-    .filter((item) => filter === '' || item.type === filter)
-    .map((item) => {
-      if((item as FellowCardProps).showVideo) {
-        console.log(item);
-      }
-      return <Card key={item.title} item={item} />
-    })
-    setCardList(filtered)
-    console.log('filtering - done')
+      .filter((item) => filter === '' || item.type === filter)
+      .map((item) => {
+        return <Card key={item.title} item={item} />
+      })
+    return filtered
   }
 
   function clickHandler(filterItem: string) {
@@ -46,27 +39,6 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
     }
     return setFilter(filterItem)
   }
-
-  const randomizeVideo = () => {
-    const fellows = items.filter((item) => item.type === 'fellow');
-    const randomFellow = Math.floor(Math.random() * fellows.length);
-    fellows.forEach((fellow, pos) => {
-     (fellow as FellowCardProps).showVideo = (pos===randomFellow)
-    });
-    filterCards(items);
-    setTimeoutId(setTimeout(randomizeVideo, 3250))
-  }
-
-  useEffect(() => {
-    console.log('useEffect')
-    filterCards(items);
-    setTimeoutId(setTimeout(randomizeVideo, 3250))
-    return () => {
-      if (timeoutId) {
-        clearTimeout(timeoutId)
-      }
-    } 
-  }, [filter]);
 
   return (
     <div className="w-11/12 max-w-7xl ml-auto mr-auto">
@@ -158,7 +130,7 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
               </div>
             </div>
           </div>
-          { cardList }
+          {filteredCards(items)}
         </div>
       </main>
       <footer>

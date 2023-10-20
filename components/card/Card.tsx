@@ -48,7 +48,7 @@ export const Card = ({ item }: { item: CardProps }) => {
       </Dialog.Portal>
       <Dialog.Trigger asChild>
         {item.type === 'fellow' ? (
-          <FellowCard {...item } showVideo={item.showVideo} />
+          <FellowCard {...item} />
         ) : (
           <PostCard {...item} />
         )}
