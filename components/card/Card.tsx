@@ -11,8 +11,6 @@ import { FellowCard } from './FellowCard'
 
 
 
-// TODO: why does cards get too tall in mobile?
-
 export const Card = ({ item }: { item: CardProps }) => {
   const [isOpen, setIsOpen] = useState(false)
 
@@ -36,7 +34,7 @@ export const Card = ({ item }: { item: CardProps }) => {
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 md:grid md:place-items-center overflow-y-auto bg-aptitud-overlay">
           <Dialog.Content
-            className="relative min-h-full w-full md:min-h-[40vh] md:w-[80vw] p-5 md:rounded-lg"
+            className="relative min-h-full w-full md:min-h-[40vh] md:w-[80vw] p-10 md:rounded-lg"
             style={{ backgroundColor: `var(--${item.colorCode})` }}
           >
             <DetailCard {...item} />
@@ -83,7 +81,6 @@ const DetailCard = (props: CardProps) => {
       </div>
     )
   }
-
 
   const { title, text, image, postContent } = props
   return (
@@ -216,22 +213,12 @@ const PostCard = ({
 
 }
 
-const Aptigram = ({
-  image,
-  text,
-  thumbnail,
-  permalink,
-  colorCode,
-}: AptigramProps) => {
-  const polaroidBackground: CSSProperties = {
-    backgroundColor: `var(--${colorCode})`,
-  }
-
+const Aptigram = ({ image, text, thumbnail, permalink }: AptigramProps) => {
   return (
     <div
       className="rounded-lg h-60 md:h-96 p-2 md:p-2 cursor-pointer"
       tabIndex={0}
-      style={polaroidBackground}
+      style={{ backgroundColor: 'var(--aptitud-petrol)' }}
       onKeyDown={(e) => {
         if (e.key === ' ' || e.key === 'Enter' || e.key === 'Spacebar') {
           window.open(permalink, '_blank')

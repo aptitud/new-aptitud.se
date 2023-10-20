@@ -80,7 +80,7 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
         <div className="fixed top-8 left-0 z-10 group">
           <div className="flex">
             {filter !== '' && (
-              <div className="bg-aptitud-petrol rounded-full h-3 w-3 absolute -right-1 -top-1"></div>
+              <div className="bg-aptitud-petrol rounded-full h-3 w-3 absolute -right-1 -top-1 group-hover:invisible"></div>
             )}
             <div className="peer cursor-pointer rounded-tr-sm rounded-br-sm bg-white text-black p-3 bg-opacity-80 hover:bg-opacity-0">
               <DoubleArrowRightIcon />
