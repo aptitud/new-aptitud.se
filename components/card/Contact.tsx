@@ -54,7 +54,7 @@ const ContactDetail = (props: ContactCardProps) => {
   const { title, text, image } = props
   return (
     <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[2fr_2fr] gap-6">
-      <div className="relative h-96">
+      <div className="relative aspect-square h-full">
         <Image src={`https:${image}`} layout="fill" alt={title} />
       </div>
       <div className="text-white mt-2">
