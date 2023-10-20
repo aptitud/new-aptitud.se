@@ -1,5 +1,5 @@
 import * as Dialog from '@radix-ui/react-dialog'
-import { Cross2Icon } from '@radix-ui/react-icons'
+import { Cross2Icon, InstagramLogoIcon } from '@radix-ui/react-icons'
 import { CSSProperties, useState } from 'react'
 import { CardVideo } from './CardVideo'
 import { CardImage } from './CardImage'
@@ -25,9 +25,7 @@ export const Card = ({ item }: { item: CardProps }) => {
 
   item.onKeyDown = onKeyDown
 
-  return item.type === 'aptigram' ? (
-    <Aptigram {...item} />
-  ) : (
+  return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 md:grid md:place-items-center overflow-y-auto bg-aptitud-overlay z-30">
@@ -45,6 +43,8 @@ export const Card = ({ item }: { item: CardProps }) => {
       <Dialog.Trigger asChild>
         {item.type === 'fellow' ? (
           <FellowCard {...item} showVideo={item.showVideo} />
+        ) : item.type === 'aptigram' ? (
+          <Aptigram {...item} />
         ) : (
           <PostCard {...item} />
         )}
@@ -55,14 +55,32 @@ export const Card = ({ item }: { item: CardProps }) => {
 
 const DetailCard = (props: CardProps) => {
   if (props.type === 'aptigram') {
-    return <></>
+    const { thumbnail, text, image, permalink } = props
+    return (
+      <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_2fr] gap-6">
+        <div className="relative aspect-[3/4]">
+          <img
+            src={thumbnail ? thumbnail : image ? image : ''}
+            alt="aptigram"
+          />
+        </div>
+        <div className="text-white mt-2">
+          <p className="mb-2 text-xl">
+            <ReactMarkdown>{text}</ReactMarkdown>
+          </p>
+          <a className="flex p-1 text-xl" href={permalink} target="_blank">
+            <InstagramLogoIcon className="mr-2 mt-1" width="20" height="20" />
+            Se på Instagram
+          </a>
+        </div>
+      </div>
+    )
   }
 
   if (props.type === 'fellow') {
     const { title, text, colorCode, image, socialLinks, video } = props
     return (
-      <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_2fr] gap-6">
-        {/* TODO:Fix image scaling */}
+      <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_2fr] gap-8">
         <div className="relative aspect-[3/4] h-96 md:h-full">
           <CardVideo
             image={image}
@@ -70,11 +88,11 @@ const DetailCard = (props: CardProps) => {
             colorCode={colorCode}
             video={video}
           />
-          <SocialLinks name={title} socialLinks={socialLinks} />
         </div>
-        <div className="text-white mt-8 md:mt-2">
-          <h3 className="text-xl md:text-2xl mb-2 font-medium">{title}</h3>
-          <p className="">{text}</p>
+        <div className="text-white mt-4 md:mt-2">
+          <h3 className="text-2xl md:text-3xl mb-2 font-medium">{title}</h3>
+          <p className="text-xl">{text}</p>
+          <SocialLinks name={title} socialLinks={socialLinks} />
         </div>
       </div>
     )
@@ -83,13 +101,12 @@ const DetailCard = (props: CardProps) => {
   const { title, text, image, postContent } = props
   return (
     <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_2fr] gap-6">
-      {/* TODO:Fix image scaling */}
       <div className="relative aspect-[3/4]">
         <CardImage image={image} title={title} />
       </div>
       <div className="text-white mt-2">
-        <h3 className="text-xl md:text-2xl mb-2 font-medium">{title}</h3>
-        <p className="">
+        <h3 className="text-2xl md:text-3xl mb-2 font-medium">{title}</h3>
+        <p className="text-xl">
           <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
         </p>
       </div>
@@ -125,7 +142,7 @@ const SocialLinks = ({
   }
 
   return (
-    <div className="absolute -bottom-5 inline-flex bg-aptitud-light-grey rounded-lg gap-2 p-2">
+    <div className="inline-flex bg-aptitud-light-grey rounded-lg gap-2 p-2 mt-4">
       <Link
         target="_blank"
         key={name}
@@ -208,33 +225,35 @@ const PostCard = ({
   )
 }
 
-const Aptigram = ({ image, text, thumbnail, permalink }: AptigramProps) => {
+const Aptigram = ({
+  image,
+  text,
+  thumbnail,
+  permalink,
+  onKeyDown,
+  ...props
+}: AptigramProps) => {
   return (
     <div
       className="rounded-lg h-60 md:h-96 p-2 md:p-2 cursor-pointer shadow-md"
       tabIndex={0}
       style={{ backgroundColor: 'var(--aptitud-blue_green)' }}
-      onKeyDown={(e) => {
-        if (e.key === ' ' || e.key === 'Enter' || e.key === 'Spacebar') {
-          window.open(permalink, '_blank')
-        }
-      }}
+      onKeyDown={onKeyDown}
+      {...props}
     >
-      <a role={'button'} href={permalink} target="_blank" rel="noreferrer">
-        <div className="h-4/6 p-0 overflow-hidden rounded-md flex">
-          <img
-            className="w-full align-centre object-cover"
-            src={thumbnail ? thumbnail : image ? image : ''}
-          ></img>
+      <div className="h-4/6 p-0 overflow-hidden rounded-md flex">
+        <img
+          className="w-full align-centre object-cover"
+          src={thumbnail ? thumbnail : image ? image : ''}
+        ></img>
+      </div>
+      <div className={`h-2/6 text-white m-0 px-2 py-3 md:py-5`}>
+        <div className="grid grid-cols-1 relative h-full overflow-hidden">
+          <span className="text-base text-xs md:text-lg md:text-2xl line-clamp-3 md:line-clamp-3 text-white">
+            <p className="w-full">{text}</p>
+          </span>
         </div>
-        <div className={`h-2/6 text-white m-0 px-2 py-3 md:py-5`}>
-          <div className="grid grid-cols-1 relative h-full overflow-hidden">
-            <span className="text-base text-xs md:text-lg md:text-2xl line-clamp-3 md:line-clamp-3 text-white">
-              <p className="w-full">{text}</p>
-            </span>
-          </div>
-        </div>
-      </a>
+      </div>
     </div>
   )
 }

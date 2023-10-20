@@ -35,4 +35,5 @@ export type AptigramProps = SharedCardProps & {
   type: 'aptigram'
   thumbnail: string
   permalink: string
+  onKeyDown: any
 }
