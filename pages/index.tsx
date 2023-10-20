@@ -1,10 +1,11 @@
 import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
-import { Card, CardProps } from '../components/card/Card'
+import Image from "next/image"
+import { Card } from '../components/card/Card'
+import { CardProps, FellowCardProps } from '../components/card/types'
 import { Contact, ContactCardProps } from '../components/card/Contact'
 import { getFellows, getPosts, getContacts } from '../domain/contentful/service'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   DoubleArrowRightIcon,
   StarIcon,
@@ -22,14 +23,15 @@ interface HomeProps {
 
 const Home: NextPage<HomeProps> = ({ items, contact }) => {
   const [filter, setFilter] = useState('')
+  const [cardList, setCardList] = useState<JSX.Element[]>([])
 
-  function filteredCards(items: CardProps[]): JSX.Element[] {
+  function filterCards(items: CardProps[]) {
     const filtered = items
-      .filter((item) => filter === '' || item.type === filter)
-      .map((item) => {
-        return <Card key={item.title} item={item} />
-      })
-    return filtered
+    .filter((item) => filter === '' || item.type === filter)
+    .map((item) => {
+      return <Card key={item.title} item={item} />
+    })
+    setCardList(filtered)
   }
 
   function clickHandler(filterItem: string) {
@@ -38,6 +40,31 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
     }
     return setFilter(filterItem)
   }
+
+  
+
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout | null = null
+
+    const randomizeVideo = () => {
+      const mode = new URLSearchParams(document.location.search).get('mode');
+      const fellows = items.filter((item) => item.type === 'fellow');
+      const randomFellow = Math.floor(Math.random() * fellows.length);
+      fellows.forEach((fellow, pos) => {
+        (fellow as FellowCardProps).showVideo = ( mode == 'active' ||  pos===randomFellow)
+      });
+      filterCards(items)
+      timeoutId = setTimeout(randomizeVideo, 3500)
+    }
+
+    filterCards(items)
+    randomizeVideo()
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId)
+      }
+    } 
+  }, [filter]);
 
   return (
     <div className="w-11/12 max-w-7xl ml-auto mr-auto">
@@ -74,40 +101,22 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
                   <span className="mr-2 mt-2">
                     <FileTextIcon />
                   </span>
-                  <span className="mt-1">Nyheter</span>
-                </div>
-              </li>
-              <li
-                className={`p-0 md:pr-2 invisible w-0 group-hover:w-full group-hover:visible overflow-hidden hover:border-aptitud-petrol ${
-                  filter === 'fellow'
-                    ? 'border-b-2 border-aptitud-petrol'
-                    : 'border-b-2 border-white'
-                }`}
-              >
-                <div
-                  className="flex p-1"
-                  role={'button'}
-                  onClick={() => clickHandler('fellow')}
-                >
-                  <span className="mr-2 mt-2">
+                  <span className='mt-1' >
+                    Om oss
+                  </span>
+                </div></li>
+              <li className={`p-0 md:pr-2 invisible w-0 group-hover:w-full group-hover:visible overflow-hidden hover:border-aptitud-petrol ${filter === 'fellow' ? 'border-b-2 border-aptitud-petrol' : 'border-b-2 border-white'}`}>
+                <div className='flex p-1' role={'button'} onClick={() => clickHandler('fellow')}>
+                  <span className='mr-2 mt-2' >
                     <PersonIcon />
                   </span>
-                  <span className="mt-1">Om oss</span>
-                </div>
-              </li>
-              <li
-                className={`p-0 md:pr-2 invisible w-0 group-hover:w-full group-hover:visible overflow-hidden hover:border-aptitud-petrol ${
-                  filter === 'aptigram'
-                    ? 'border-b-2 border-aptitud-petrol'
-                    : 'border-b-2 border-white'
-                }`}
-              >
-                <div
-                  className="flex p-1"
-                  role={'button'}
-                  onClick={() => clickHandler('aptigram')}
-                >
-                  <span className="mr-2 mt-2">
+                  <span className='mt-1' >
+                    Vilka är vi
+                  </span>
+                </div></li>
+              <li className={`p-0 md:pr-2 invisible w-0 group-hover:w-full group-hover:visible overflow-hidden hover:border-aptitud-petrol ${filter === 'aptigram' ? 'border-b-2 border-aptitud-petrol' : 'border-b-2 border-white'}`}>
+                <div className='flex p-1' role={'button'} onClick={() => clickHandler('aptigram')}>
+                  <span className='mr-2 mt-2' >
                     <InstagramLogoIcon />
                   </span>
                   <span className="mt-1">Instagram</span>
@@ -137,13 +146,17 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
                 <Image
                   priority
                   src={'/logo.png'}
-                  height="302px"
-                  width="500px"
-                />
+                  height="302"
+                  width="500"
+                  alt="Aptitud"
+                  style={{
+                    maxWidth: "100%",
+                    height: "auto"
+                  }} />
               </div>
             </div>
           </div>
-          {filteredCards(items)}
+          { cardList }
         </div>
       </main>
       <footer>
@@ -152,7 +165,7 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
         </div>
       </footer>
     </div>
-  )
+  );
 }
 const availableColors = [
   'aptitud-yellow',
@@ -213,6 +226,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     socialLinks: fellow.services,
     onKeyDown: null,
     video: fellow.video ? fellow.video?.fields.file.url : null,
+    showVideo:false
   }))
 
   const postsItems: CardProps[] = sortedPosts.map((post) => ({
