@@ -3,6 +3,7 @@ import { Contact } from './card/Contact'
 import { useRouter } from 'next/router'
 import {
   DoubleArrowRightIcon,
+  DoubleArrowLeftIcon,
   StarIcon,
   InstagramLogoIcon,
   PersonIcon,
@@ -35,7 +36,8 @@ export const FilterMenu = ({ contact }: FilterMenuProps) => {
             <div className="bg-aptitud-petrol rounded-full h-3 w-3 absolute -right-1 -top-1 group-hover:invisible"></div>
           )}
           <div className="peer cursor-pointer  rounded-tl-sm rounded-bl-sm md:rounded-tr-sm md:rounded-br-sm bg-white text-black p-3 bg-opacity-80 hover:bg-opacity-0">
-            <DoubleArrowRightIcon />
+            <DoubleArrowRightIcon className="hidden md:block lg:block" />
+            <DoubleArrowLeftIcon className="block md:hidden lg:hidden" />
           </div>
           <ul className="w-0 shadow-lg invisible rounded-tl-sm rounded-bl-sm md:rounded-tr-sm md:rounded-br-sm transition-all duration-500 peer-hover:w-36 peer-hover:visible hover:w-36 hover:visible absolute top-0 right-0 md:right-auto md:left-0 bg-white text-black p-3 text-md">
             <li
