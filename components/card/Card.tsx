@@ -30,7 +30,7 @@ export const Card = ({ item }: { item: CardProps }) => {
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 md:grid md:place-items-center overflow-y-auto bg-aptitud-overlay z-30">
           <Dialog.Content
-            className="relative min-h-full w-full md:min-h-[40vh] md:w-[80vw] p-10 md:rounded-lg"
+            className="relative min-h-full w-full md:min-h-[40vh]  md:w-[90vw] lg:w-[75vw] xl:w-[60vw] p-10 md:rounded-lg"
             style={{ backgroundColor: `var(--${item.colorCode})` }}
           >
             <DetailCard {...item} />
@@ -80,8 +80,8 @@ const DetailCard = (props: CardProps) => {
   if (props.type === 'fellow') {
     const { title, text, colorCode, image, socialLinks, video } = props
     return (
-      <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_2fr] gap-8">
-        <div className="relative aspect-[3/4] h-96 md:h-full">
+      <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-2 gap-8">
+        <div className="relative aspect-[3/4] h-96 md:h-full md:max-w-xl">
           <CardVideo
             image={image}
             title={title}
@@ -91,7 +91,7 @@ const DetailCard = (props: CardProps) => {
         </div>
         <div className="text-white mt-4 md:mt-2">
           <h3 className="text-2xl md:text-3xl mb-2 font-medium">{title}</h3>
-          <p className="text-xl">{text}</p>
+          <p className="mt-4 text-xl">{text}</p>
           <SocialLinks name={title} socialLinks={socialLinks} />
         </div>
       </div>
@@ -142,7 +142,7 @@ const SocialLinks = ({
   }
 
   return (
-    <div className="inline-flex bg-aptitud-light-grey rounded-lg gap-2 p-2 mt-4">
+    <div className="inline-flex bg-aptitud-light-grey rounded-lg gap-2 p-2 mt-7">
       <Link
         target="_blank"
         key={name}
@@ -193,7 +193,7 @@ const PostCard = ({
   return (
     <div
       role={'button'}
-      className={`rounded-lg h-60 md:h-96 cursor-pointer m-0 p-3 md:p-4 shadow-md`}
+      className={`rounded-lg h-60 md:h-96 cursor-pointer m-0 p-3 md:p-4 card-shadow`}
       style={backgroundStyle}
       tabIndex={0}
       {...props}
@@ -235,7 +235,7 @@ const Aptigram = ({
 }: AptigramProps) => {
   return (
     <div
-      className="rounded-lg h-60 md:h-96 p-2 md:p-2 cursor-pointer shadow-md"
+      className="rounded-lg h-60 md:h-96 p-2 md:p-2 cursor-pointer card-shadow"
       tabIndex={0}
       style={{ backgroundColor: 'var(--aptitud-blue_green)' }}
       onKeyDown={onKeyDown}

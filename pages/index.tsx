@@ -98,7 +98,6 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
 const availableColors = [
   'aptitud-yellow',
   'aptitud-green',
-  'aptitud-petrol',
   'aptitud-purple',
   'aptitud-blue_dim',
 ]
@@ -153,7 +152,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     type: 'fellow',
     text: fellow.description,
     image: fellow.image ? fellow.image?.fields.file.url : null,
-    colorCode: getRandomColor(availableColors),
+    colorCode: 'aptitud-petrol',
     socialLinks: fellow.services,
     onKeyDown: null,
     video: fellow.video ? fellow.video?.fields.file.url : null,
@@ -176,7 +175,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     type: 'contact',
     text: contact.visitingAddress ? contact.visitingAddress : '',
     image: contact.image ? contact.image?.fields.file.url : null,
-    colorCode: getRandomColor(availableColors),
+    colorCode: 'aptitud-blue_green',
     onKeyDown: null,
   }))
 
@@ -189,7 +188,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     image: post.media_url ? post.media_url : null,
     thumbnail: post.thumbnail_url || '',
     permalink: post.permalink || '',
-    colorCode: getRandomColor(availableColors),
+    colorCode: 'aptitud-blue_dim',
     onKeyDown: null,
   }))
 

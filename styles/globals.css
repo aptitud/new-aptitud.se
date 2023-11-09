@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-	--aptitud-overlay: rgba(78, 135, 160, 0.85);
+	--aptitud-overlay: rgba(54, 102, 122, 0.85);
 	--aptitud-background: #E34927;
 	--aptitud-salmon: #F65058;
 	--aptitud-cerise: #DB0A5B;
@@ -32,4 +32,7 @@
 	text-decoration: none;
 	text-align: left;
 	color: #333;
+}
+.card-shadow {
+	box-shadow: 2px 4px 8px #2b2b2b;
 }

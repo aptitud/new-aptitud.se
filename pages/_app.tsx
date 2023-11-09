@@ -2163,8 +2163,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <div
         style={{
           background: `linear-gradient(to right, var(--aptitud-cerise) 0, 5%, var(--aptitud-salmon) 20%, var(--aptitud-background) 75%, var(--aptitud-orange) 100%)`,
-          position: 'fixed',
-          height: '100vh',
+          height: '100%',
         }}
       >
         <Component {...pageProps} />
