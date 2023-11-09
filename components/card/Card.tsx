@@ -65,7 +65,12 @@ const DetailCard = (props: CardProps) => {
           />
         </div>
         <div className="text-white mt-1">
-          <a className="flex text-xl" href={permalink} target="_blank" rel="">
+          <a
+            className="flex text-xl"
+            href={permalink}
+            target="_blank"
+            rel="noreferrer"
+          >
             <InstagramLogoIcon className="mr-2 mt-1" width="24" height="24" />
             Se på Instagram
           </a>
