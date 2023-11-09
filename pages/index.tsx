@@ -188,7 +188,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     image: post.media_url ? post.media_url : null,
     thumbnail: post.thumbnail_url || '',
     permalink: post.permalink || '',
-    colorCode: 'aptitud-blue_dim',
+    colorCode: 'aptitud-blue_green',
     onKeyDown: null,
   }))
 
