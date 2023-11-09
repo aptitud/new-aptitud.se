@@ -33,7 +33,7 @@ export const Contact = ({ item }: { item: ContactCardProps }) => {
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 md:grid md:place-items-center overflow-y-auto bg-aptitud-overlay z-30">
           <Dialog.Content
-            className="relative min-h-full w-full md:min-h-[60vh] md:w-[80vw] p-5 md:rounded-lg"
+            className="relative min-h-full w-full md:min-h-[40vh] md:w-[60vw] p-5 md:rounded-lg"
             style={{ backgroundColor: `var(--${item.colorCode})` }}
           >
             <ContactDetail {...item} />
@@ -53,8 +53,8 @@ export const Contact = ({ item }: { item: ContactCardProps }) => {
 const ContactDetail = (props: ContactCardProps) => {
   const { title, text, image } = props
   return (
-    <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[2fr_2fr] gap-6">
-      <div className="relative aspect-square h-full">
+    <div className="flex flex-row">
+      <div className="relative aspect-square w-3/5">
         <Image src={`https:${image}`} fill alt={title} />
       </div>
       <div className="text-white mt-2">

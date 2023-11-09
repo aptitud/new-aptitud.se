@@ -105,16 +105,11 @@ const DetailCard = (props: CardProps) => {
 
   const { title, text, image, postContent } = props
   return (
-    <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_2fr] gap-6">
-      <div className="relative aspect-[3/4]">
-        <CardImage image={image} title={title} />
-      </div>
-      <div className="text-white mt-2">
-        <h3 className="text-2xl md:text-3xl mb-2 font-medium">{title}</h3>
-        <p className="text-xl">
-          <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
-        </p>
-      </div>
+    <div className="text-white mt-2">
+      <h3 className="text-2xl md:text-3xl mb-2 font-medium">{title}</h3>
+      <p className="text-xl">
+        <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
+      </p>
     </div>
   )
 }
@@ -205,8 +200,8 @@ const PostCard = ({
       onKeyDown={onKeyDown}
     >
       {image ? (
-        <div className="relative h-1/3">
-          <div className="relative aspect-square h-full">
+        <div className="relative h-1/3 p-10">
+          <div className="relative aspect-square w-full -mt-20">
             <Image
               src={`https:${image}`}
               alt={title || ''}
