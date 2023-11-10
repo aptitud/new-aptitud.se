@@ -58,8 +58,9 @@ const DetailCard = (props: CardProps) => {
     const { thumbnail, text, image, permalink } = props
     return (
       <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_1fr] gap-6">
-        <div className="relative aspect-square">
+        <div className="relative rounded-lg border-4 border-white bg-white overflow-hidden flex justify-center">
           <img
+            className="rounded-md"
             src={thumbnail ? thumbnail : image ? image : ''}
             alt="aptigram"
           />
