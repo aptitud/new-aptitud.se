@@ -28,14 +28,21 @@ export const Card = ({ item }: { item: CardProps }) => {
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 md:grid md:place-items-center overflow-y-auto backdrop-blur-sm bg-aptitud-overlay z-30">
+        <Dialog.Overlay
+          className="fixed inset-0 md:grid md:place-items-center overflow-y-auto backdrop-blur-sm z-30"
+          style={{ backgroundColor: `var(--${item.colorCode}-rgba)` }}
+        >
           <Dialog.Content
             className="relative min-h-full w-full md:min-h-[40vh]  md:w-[90vw] lg:w-[75vw] xl:w-[60vw] p-10 md:rounded-lg"
-            style={{ backgroundColor: `var(--${item.colorCode})` }}
+            style={{
+              backgroundColor: `var(--${item.colorCode})`,
+            }}
           >
             <DetailCard {...item} />
-            <Dialog.Close className="absolute flex justify-center items-center rounded top-2 right-2 w-10 h-10 bg-white md:-top-2 md:-right-2">
-              <Cross2Icon />
+            <Dialog.Close className="absolute flex justify-center items-center rounded-full top-2 right-2 w-12 h-12  md:-top-4 md:-right-4 bg-aptitud-light-grey">
+              <span className="rounded-full bg-white w-8 h-8 flex justify-center items-center">
+                <Cross2Icon className="w-5 h-5" />
+              </span>
             </Dialog.Close>
           </Dialog.Content>
         </Dialog.Overlay>
@@ -87,7 +94,7 @@ const DetailCard = (props: CardProps) => {
     const { title, text, colorCode, image, socialLinks, video } = props
     return (
       <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-2 gap-8">
-        <div className="relative aspect-[3/4] h-96 md:h-full md:max-w-xl rounded-lg border-2 border-white  bg-white">
+        <div className="relative aspect-[3/4] h-96 md:h-full md:max-w-xl rounded-lg border-2 border-aptitud-light-grey  bg-aptitud-light-grey">
           <CardVideo
             image={image}
             title={title}

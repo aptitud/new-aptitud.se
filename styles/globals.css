@@ -3,21 +3,28 @@
 @tailwind utilities;
 
 :root {
-	--aptitud-overlay: rgba(54, 102, 122, 0.85);
 	--aptitud-background: #E34927;
 	--aptitud-salmon: #F65058;
 	--aptitud-cerise: #DB0A5B;
 	--aptitud-orange:#e55e16;
 	--aptitud-yellow:#F1B434;
+	--aptitud-petrol:#4E87A0;
 	--aptitud-purple:#784E90;
 	--aptitud-green:#67823A;
-	--aptitud-petrol:#4E87A0;
 	--aptitud-blue_green:#008CA0;
 	--aptitud-blue_dim:#3E6991;
+
 	--aptitud-light-grey: #d5d3d3;
 	--aptitud-dark-grey: #777777;
 	--aptitud-very-light-grey: #cccccc;
 	--aptitud-transparent: #ffffff00;
+
+	--aptitud-purple-rgba:rgba(84,59,99, 0.65);
+	--aptitud-green-rgba:rgba(57,71,31,0.74);
+	--aptitud-blue_green-rgba:rgba(7,97,110, 0.65);
+	--aptitud-blue_dim-rgba:rgba(62, 105, 145, 0.65);
+	--aptitud-yellow-rgba: rgba(176,135,48, 0.35);
+	--aptitud-petrol-rgba:rgba(54, 102, 122, 0.75);
 }
 .fellow-video {
 	width: 100%;
