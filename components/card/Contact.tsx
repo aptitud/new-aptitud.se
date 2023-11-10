@@ -31,7 +31,7 @@ export const Contact = ({ item }: { item: ContactCardProps }) => {
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 md:grid md:place-items-center overflow-y-auto bg-aptitud-overlay z-30">
+        <Dialog.Overlay className="fixed inset-0 md:grid md:place-items-center overflow-y-auto backdrop-blur-sm bg-aptitud-overlay z-30">
           <Dialog.Content
             className="relative min-h-full w-full md:min-h-[40vh] md:w-[60vw] p-5 md:rounded-lg"
             style={{ backgroundColor: `var(--${item.colorCode})` }}

@@ -28,7 +28,7 @@ export const Card = ({ item }: { item: CardProps }) => {
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 md:grid md:place-items-center overflow-y-auto bg-aptitud-overlay z-30">
+        <Dialog.Overlay className="fixed inset-0 md:grid md:place-items-center overflow-y-auto backdrop-blur-sm bg-aptitud-overlay z-30">
           <Dialog.Content
             className="relative min-h-full w-full md:min-h-[40vh]  md:w-[90vw] lg:w-[75vw] xl:w-[60vw] p-10 md:rounded-lg"
             style={{ backgroundColor: `var(--${item.colorCode})` }}
@@ -200,8 +200,8 @@ const PostCard = ({
       onKeyDown={onKeyDown}
     >
       {image ? (
-        <div className="relative h-1/3 p-10">
-          <div className="relative aspect-square w-full -mt-20">
+        <div className="relative h-1/3 p-4 md:p-8 lg:p-10">
+          <div className="relative aspect-square w-full -mt-10 md:-mt-15 lg:-mt-20">
             <Image
               src={`https:${image}`}
               alt={title || ''}
