@@ -87,7 +87,7 @@ const DetailCard = (props: CardProps) => {
     const { title, text, colorCode, image, socialLinks, video } = props
     return (
       <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-2 gap-8">
-        <div className="relative aspect-[3/4] h-96 md:h-full md:max-w-xl">
+        <div className="relative aspect-[3/4] h-96 md:h-full md:max-w-xl rounded-lg border-2 border-white  bg-white">
           <CardVideo
             image={image}
             title={title}
