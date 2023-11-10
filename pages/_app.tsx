@@ -5,6 +5,24 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <style jsx global>{`
+        html,
+        body,
+        div#__next,
+        div#__next > div {
+          height: 100%;
+        }
+        body {
+          background-attachment: fixed;
+          background: linear-gradient(
+            to right,
+            var(--aptitud-cerise) 0,
+            5%,
+            var(--aptitud-salmon) 20%,
+            var(--aptitud-background) 75%,
+            var(--aptitud-orange) 100%
+          );
+        }
+
         @font-face {
           font-family: FontAwesome;
           src: url(fontawesome-webfont.woff);
@@ -2160,14 +2178,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           content: '\f2e0';
         }
       `}</style>
-      <div
-        style={{
-          background: `linear-gradient(to right, var(--aptitud-cerise) 0, 5%, var(--aptitud-salmon) 20%, var(--aptitud-background) 75%, var(--aptitud-orange) 100%)`,
-          height: '100%',
-        }}
-      >
-        <Component {...pageProps} />
-      </div>
+      <Component {...pageProps} />
     </>
   )
 }
