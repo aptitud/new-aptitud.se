@@ -31,14 +31,16 @@ export const Contact = ({ item }: { item: ContactCardProps }) => {
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 md:grid md:place-items-center overflow-y-auto backdrop-blur-sm bg-aptitud-overlay z-30">
+        <Dialog.Overlay className="fixed inset-0 md:grid md:place-items-center overflow-y-auto backdrop-blur-sm bg-aptitud-blue_green-rgba z-30">
           <Dialog.Content
             className="relative min-h-full w-full md:min-h-[40vh] md:w-[60vw] p-5 md:rounded-lg"
             style={{ backgroundColor: `var(--${item.colorCode})` }}
           >
             <ContactDetail {...item} />
-            <Dialog.Close className="absolute flex justify-center items-center rounded top-2 right-2 w-10 h-10 bg-white md:-top-2 md:-right-2">
-              <Cross2Icon />
+            <Dialog.Close className="absolute flex justify-center items-center rounded-full top-2 right-2 w-12 h-12  md:-top-4 md:-right-4 bg-aptitud-light-grey">
+              <span className="rounded-full bg-white w-8 h-8 flex justify-center items-center">
+                <Cross2Icon className="w-5 h-5" />
+              </span>
             </Dialog.Close>
           </Dialog.Content>
         </Dialog.Overlay>
