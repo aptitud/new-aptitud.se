@@ -23,6 +23,7 @@ export const FellowCard = ({
   })
 
   const displayVideo = () => {
+    console.log('play video')
     setIsShowingVideo(true)
     setIsRendered(true)
     setTimeout(() => {
@@ -77,6 +78,8 @@ export const FellowCard = ({
       id={image || ''}
       {...props}
       ref={ref}
+      onMouseEnter={() => displayVideo()}
+      onMouseLeave={() => hideVideo()}
     >
       <div
         className="relative h-full w-full"
