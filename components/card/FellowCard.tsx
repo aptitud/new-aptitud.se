@@ -92,9 +92,7 @@ export const FellowCard = ({
             lazy load av videor för att inte behöva vänta på att alla ska laddas ner innan sidan kan visas
             sätt display till block när videon är i viewporten men none när den är utanför så inte de tar upp onödiga 
             resurser i browsern när de ändå inte syns. 
-            
             Använder isRendered för att inte plocka bort komponenten och trigga en ny nerladdning när den visas nästa gång.
-        
           */
           isShowingVideo || isRendered ? (
             <div
