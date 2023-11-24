@@ -1,5 +1,8 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
+import { Shantell_Sans } from 'next/font/google'
+
+const shantell = Shantell_Sans({ weight: ['400'], style: ['italic'], subsets: ['latin'], display: 'swap' })
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -10,6 +13,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         div#__next,
         div#__next > div {
           height: 100%;
+        }
+        .apti-headline {
+          font-family: ${shantell.style.fontFamily};
         }
         body {
           background-attachment: fixed;
@@ -22,7 +28,6 @@ function MyApp({ Component, pageProps }: AppProps) {
             var(--aptitud-orange) 100%
           );
         }
-
         @font-face {
           font-family: FontAwesome;
           src: url(fontawesome-webfont.woff);
