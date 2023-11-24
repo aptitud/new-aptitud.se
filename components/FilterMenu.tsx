@@ -36,7 +36,7 @@ export const FilterMenu = ({ contact }: FilterMenuProps) => {
   return (
     <nav>
       <div
-        className={`first:fixed right-0 top-60 md:top-8 md:left-0 md:right-auto z-30 rounded-tl-sm rounded-bl-sm md:rounded-tr-sm md:rounded-br-sm ${
+        className={`first:fixed right-0 top-60 md:top-8 md:left-0 md:right-auto z-30 rounded-tl-md rounded-bl-md md:rounded-tr-md md:rounded-br-md md:rounded-tl-none md:rounded-bl-none ${
           isOpen ? 'filter-menu--open' : 'filter-menu'
         }`}
       >
@@ -47,7 +47,7 @@ export const FilterMenu = ({ contact }: FilterMenuProps) => {
           <div className="p-3 order-2 cursor-pointer" onClick={() => toggleMenu()}>
             {isOpen ? <Cross2Icon className="w-5 h-5" /> : <HamburgerMenuIcon className="w-5 h-5" />}
           </div>
-          <ul className={isOpen ? 'my-5' : 'hidden'}>
+          <ul className={isOpen ? 'menu-list menu-list--open' : 'menu-list'}>
             <li
               className={`menu-item flex p-1 ${filter === 'post' ? ' menu-item--selected' : ''}`}
               role={'button'}
