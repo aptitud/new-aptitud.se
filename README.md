@@ -1,10 +1,13 @@
 ## Getting Started
 
-copy `template.env` and name it `.env.local`
-set the value for `CONTENTFUL_ACCESS_TOKEN`
+copy `.env.local.example` and name it `.env.local`
+set the values that can be found below:
 
-Copy `CONTENTFUL_ACCESS_TOKEN` from  https://vercel.com/aptitud/new-aptitud-se/settings/environment-variables
-Generate a `CONTENTFUL_MANAGEMENT_API_TOKEN` from : https://app.contentful.com/spaces/kqhdnxbobtly/api/cma_tokens
+Copy `CONTENTFUL_ACCESS_TOKEN` from  <https://vercel.com/aptitud/new-aptitud-se/settings/environment-variables>
+
+Copy `INSTAGRAM_ACCESS_TOKEN` from  <https://vercel.com/aptitud/new-aptitud-se/settings/environment-variables>
+
+Generate a `CONTENTFUL_MANAGEMENT_API_TOKEN` from : <https://app.contentful.com/spaces/kqhdnxbobtly/api/cma_tokens>
 
 Then run the development server:
 
