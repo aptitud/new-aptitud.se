@@ -99,8 +99,8 @@ const DetailCard = (props: CardProps) => {
   const { title, text, image, postContent } = props
   return (
     <div className="text-white mt-2">
-      <h3 className="text-2xl md:text-3xl mb-2 font-medium">{title}</h3>
-      <p className="text-xl">
+      <h3 className="apti-headline">{title}</h3>
+      <p className="text-xl mt-8">
         <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
       </p>
     </div>
