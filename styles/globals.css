@@ -100,7 +100,11 @@
 }
 
 .apti-card {
-	border: 8px solid rgba(255, 255, 255, 0.4)
+	border: 8px solid rgba(255, 255, 255, 0.4);
+
+	@media screen and (max-width: 760px) {
+		border: 4px solid rgba(255, 255, 255, 0.4);
+	  }
    }
    
    .apti-headline {

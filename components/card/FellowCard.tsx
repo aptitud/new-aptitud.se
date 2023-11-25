@@ -72,7 +72,7 @@ export const FellowCard = ({
   return (
     <div
       role={'button'}
-      className={`rounded-lg h-60 md:h-96 m-0 p-0 cursor-pointer card-shadow border-8 border-aptitud-light-grey`}
+      className={`rounded-lg h-60 md:h-96 m-0 p-0 cursor-pointer card-shadow border-4 md:border-8 border-aptitud-light-grey`}
       style={imageWithGradient}
       tabIndex={0}
       onKeyDown={onKeyDown}
