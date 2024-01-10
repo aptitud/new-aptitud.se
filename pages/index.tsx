@@ -53,45 +53,46 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
       }
     }
   }, [filter])
-
   return (
-    <div className="w-11/12 max-w-7xl ml-auto mr-auto">
-      <Head>
-        <title>Aptitud: Enklare, gladare, roligare</title>
-        <meta
-          name="description"
-          content="Aptitud. Enklare, gladare, roligare"
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <FilterMenu contact={contact} />
-      <main>
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4">
-          <div className="w-full h-full col-span-2 md:col-span-3 xl:col-span-4 ml-auto mr-auto my-2">
-            <div className="grid grid-cols-4 gap-4">
-              <div className="col-span-full m-auto">
-                <Image
-                  priority
-                  src={'/logo.png'}
-                  height="302"
-                  width="500"
-                  alt="Aptitud"
-                  style={{
-                    maxWidth: '100%',
-                    height: 'auto',
-                  }}
-                />
+    <div className={'bg-aptitud-gradient'}>
+      <div className="w-11/12 max-w-7xl ml-auto mr-auto">
+        <Head>
+          <title>Aptitud: Enklare, gladare, roligare</title>
+          <meta
+            name="description"
+            content="Aptitud. Enklare, gladare, roligare"
+          />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <FilterMenu contact={contact} />
+        <main>
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4">
+            <div className="w-full h-full col-span-2 md:col-span-3 xl:col-span-4 ml-auto mr-auto my-2">
+              <div className="grid grid-cols-4 gap-4">
+                <div className="col-span-full m-auto">
+                  <Image
+                    priority
+                    src={'/logo.png'}
+                    height="302"
+                    width="500"
+                    alt="Aptitud"
+                    style={{
+                      maxWidth: '100%',
+                      height: 'auto',
+                    }}
+                  />
+                </div>
               </div>
             </div>
+            {cardList}
           </div>
-          {cardList}
-        </div>
-      </main>
-      <footer>
-        <div className="w-full">
-          <span className="h-full p-4 m-4">&nbsp;</span>
-        </div>
-      </footer>
+        </main>
+        <footer>
+          <div className="w-full">
+            <span className="h-full p-4 m-4">&nbsp;</span>
+          </div>
+        </footer>
+      </div>
     </div>
   )
 }

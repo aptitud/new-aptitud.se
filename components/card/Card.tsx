@@ -7,6 +7,21 @@ import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 import { CardProps, AptigramProps, PostsCardProps, SocialLink } from './types'
 import { FellowCard } from './FellowCard'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  IconDefinition,
+  faEnvelope,
+  faGlobe,
+  faKey,
+} from '@fortawesome/free-solid-svg-icons'
+import {
+  faStackOverflow,
+  faGithub,
+  faInstagram,
+  faLinkedin,
+  faSlideshare,
+  faXTwitter,
+} from '@fortawesome/free-brands-svg-icons'
 
 export const Card = ({ item }: { item: CardProps }) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -137,15 +152,15 @@ const SocialLinks = ({
       .replace('ö', 'o')
       .replace('ü', 'u')
 
-  const mapIcons: Record<SocialLink['name'], string> = {
-    blog: 'fa fa-fw fa-globe',
-    'stack-overflow': 'fa fa-fw fa-stack-overflow',
-    github: 'fa fa-fw fa-github',
-    instagram: 'fa fa-fw fa-instagram',
-    key: 'fa fa-fw fa-key',
-    linkedin: 'fa fa-fw fa-linkedin',
-    slideshare: 'fa fa-fw fa-slideshare',
-    twitter: 'fa fa-fw fa-twitter',
+  const mapIcons: Record<SocialLink['name'], IconDefinition> = {
+    blog: faGlobe,
+    'stack-overflow': faStackOverflow,
+    github: faGithub,
+    instagram: faInstagram,
+    key: faKey,
+    linkedin: faLinkedin,
+    slideshare: faSlideshare,
+    twitter: faXTwitter,
   }
 
   return (
@@ -154,28 +169,22 @@ const SocialLinks = ({
         target="_blank"
         key={name}
         href={`mailto:${email(name)}@aptitud.se`}
-        className="bg-white rounded-lg flex p-4"
+        className="bg-white text-black rounded-lg flex p-4 hover:bg-aptitud-dark-grey hover:text-white"
       >
-        <i
-          //TODO: fontawesome hell
-          style={{ fontSize: '18px' }}
-          className={
-            'fa fa-fw fa-envelope md:text-6xl justify-center align-center text-black'
-          }
-        />
+        <i>
+          <FontAwesomeIcon icon={faEnvelope} className="h-6 w-6" />
+        </i>
       </Link>
       {socialLinks.map(({ url, name }) => (
         <Link
           target="_blank"
           key={name}
           href={url}
-          className="bg-white rounded-lg flex p-4"
+          className="bg-white text-black rounded-lg flex p-4 hover:bg-aptitud-dark-grey hover:text-white"
         >
-          <i
-            //TODO: fontawesome hell
-            style={{ fontSize: '18px' }}
-            className={`${mapIcons[name]} md:text-6xl justify-center align-center text-black`}
-          />
+          <i>
+            <FontAwesomeIcon icon={mapIcons[name]} className="h-6 w-6" />
+          </i>
         </Link>
       ))}
     </div>
