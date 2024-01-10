@@ -38,8 +38,7 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
       const fellows = items.filter((item) => item.type === 'fellow')
       const randomFellow = Math.floor(Math.random() * fellows.length)
       fellows.forEach((fellow, pos) => {
-        ;(fellow as FellowCardProps).showVideo =
-          mode == 'active' || pos === randomFellow
+        ;(fellow as FellowCardProps).showVideo = mode == 'active' || pos === randomFellow
       })
       filterCards(items)
       timeoutId = setTimeout(randomizeVideo, 3500)
@@ -54,14 +53,11 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
     }
   }, [filter])
   return (
-    <div className={'bg-aptitud-gradient'}>
+    <div className={'bg-aptitud-gradient h-screen'}>
       <div className="w-11/12 max-w-7xl ml-auto mr-auto">
         <Head>
           <title>Aptitud: Enklare, gladare, roligare</title>
-          <meta
-            name="description"
-            content="Aptitud. Enklare, gladare, roligare"
-          />
+          <meta name="description" content="Aptitud. Enklare, gladare, roligare" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <FilterMenu contact={contact} />
@@ -96,21 +92,12 @@ const Home: NextPage<HomeProps> = ({ items, contact }) => {
     </div>
   )
 }
-const availableColors = [
-  'aptitud-yellow',
-  'aptitud-green',
-  'aptitud-purple',
-  'aptitud-blue_dim',
-]
+const availableColors = ['aptitud-yellow', 'aptitud-green', 'aptitud-purple', 'aptitud-blue_dim']
 const getRandomColor = (colors: string[]): string => {
   return colors.sort(() => (Math.random() > 0.5 ? 1 : -1))[0]
 }
 
-const randomizeOrder = (
-  postsItems: CardProps[],
-  fellowItems: CardProps[],
-  aptigramItems: CardProps[]
-): CardProps[] => {
+const randomizeOrder = (postsItems: CardProps[], fellowItems: CardProps[], aptigramItems: CardProps[]): CardProps[] => {
   fellowItems.sort(() => (Math.random() > 0.5 ? 1 : -1))
   const randomItems = [] as CardProps[]
 
@@ -123,11 +110,7 @@ const randomizeOrder = (
 
     row.sort(() => (Math.random() > 0.5 ? 1 : -1))
     randomItems.push(...row)
-  } while (
-    fellowItems.length > 0 ||
-    postsItems.length > 0 ||
-    aptigramItems.length > 0
-  )
+  } while (fellowItems.length > 0 || postsItems.length > 0 || aptigramItems.length > 0)
 
   return randomItems
 }
