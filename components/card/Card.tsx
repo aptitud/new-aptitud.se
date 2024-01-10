@@ -1,5 +1,4 @@
 import * as Dialog from '@radix-ui/react-dialog'
-import { Cross2Icon, InstagramLogoIcon } from '@radix-ui/react-icons'
 import { CSSProperties, useState } from 'react'
 import { CardVideo } from './CardVideo'
 import Link from 'next/link'
@@ -8,12 +7,7 @@ import ReactMarkdown from 'react-markdown'
 import { CardProps, AptigramProps, PostsCardProps, SocialLink } from './types'
 import { FellowCard } from './FellowCard'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  IconDefinition,
-  faEnvelope,
-  faGlobe,
-  faKey,
-} from '@fortawesome/free-solid-svg-icons'
+import { IconDefinition, faEnvelope, faGlobe, faKey, faXmark } from '@fortawesome/free-solid-svg-icons'
 import {
   faStackOverflow,
   faGithub,
@@ -55,7 +49,7 @@ export const Card = ({ item }: { item: CardProps }) => {
             <DetailCard {...item} />
             <Dialog.Close className="absolute flex justify-center items-center rounded-full top-2 right-2 w-12 h-12  md:-top-4 md:-right-4 bg-aptitud-light-grey">
               <span className="rounded-full bg-white w-8 h-8 flex justify-center items-center">
-                <Cross2Icon className="w-5 h-5" />
+                <FontAwesomeIcon icon={faXmark} className="w-4 h-4" />
               </span>
             </Dialog.Close>
           </Dialog.Content>
@@ -80,20 +74,11 @@ const DetailCard = (props: CardProps) => {
     return (
       <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_1fr] gap-6">
         <div className="relative rounded-lg border-4 border-white bg-white overflow-hidden flex justify-center">
-          <img
-            className="rounded-md"
-            src={thumbnail ? thumbnail : image ? image : ''}
-            alt="aptigram"
-          />
+          <img className="rounded-md" src={thumbnail ? thumbnail : image ? image : ''} alt="aptigram" />
         </div>
         <div className="text-white mt-1">
-          <a
-            className="flex text-xl"
-            href={permalink}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <InstagramLogoIcon className="mr-2 mt-1" width="24" height="24" />
+          <a className="flex items-center text-xl" href={permalink} target="_blank" rel="noreferrer">
+            <FontAwesomeIcon icon={faInstagram} className="w-6 h-6 mr-1" />
             Se på Instagram
           </a>
           <p className="mt-3 text-xl">
@@ -109,12 +94,7 @@ const DetailCard = (props: CardProps) => {
     return (
       <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-2 gap-8">
         <div className="relative aspect-[3/4] h-96 md:h-full md:max-w-xl rounded-lg border-2 border-aptitud-light-grey  bg-aptitud-light-grey">
-          <CardVideo
-            image={image}
-            title={title}
-            colorCode={colorCode}
-            video={video}
-          />
+          <CardVideo image={image} title={title} colorCode={colorCode} video={video} />
         </div>
         <div className="text-white mt-4 md:mt-2">
           <h3 className="text-2xl md:text-3xl mb-2 font-medium">{title}</h3>
@@ -136,21 +116,9 @@ const DetailCard = (props: CardProps) => {
   )
 }
 
-const SocialLinks = ({
-  socialLinks,
-  name,
-}: {
-  socialLinks: SocialLink[]
-  name: string
-}) => {
+const SocialLinks = ({ socialLinks, name }: { socialLinks: SocialLink[]; name: string }) => {
   const email = (name: string) =>
-    name
-      .toLowerCase()
-      .replace(' ', '.')
-      .replace('å', 'a')
-      .replace('ä', 'a')
-      .replace('ö', 'o')
-      .replace('ü', 'u')
+    name.toLowerCase().replace(' ', '.').replace('å', 'a').replace('ä', 'a').replace('ö', 'o').replace('ü', 'u')
 
   const mapIcons: Record<SocialLink['name'], IconDefinition> = {
     blog: faGlobe,
@@ -191,15 +159,7 @@ const SocialLinks = ({
   )
 }
 
-const PostCard = ({
-  image,
-  title,
-  text,
-  colorCode,
-  postContent,
-  onKeyDown,
-  ...props
-}: PostsCardProps) => {
+const PostCard = ({ image, title, text, colorCode, postContent, onKeyDown, ...props }: PostsCardProps) => {
   const backgroundStyle: CSSProperties = {
     backgroundColor: `var(--${colorCode})`,
   }
@@ -218,21 +178,14 @@ const PostCard = ({
       {image ? (
         <div className="relative h-1/3 p-4 md:p-8 lg:p-10">
           <div className="relative aspect-square w-full -mt-10 md:-mt-15 lg:-mt-20">
-            <Image
-              src={`https:${image}`}
-              alt={title || ''}
-              fill
-              sizes="100vw"
-            />
+            <Image src={`https:${image}`} alt={title || ''} fill sizes="100vw" />
           </div>
         </div>
       ) : (
         <></>
       )}
       <div className={`${height} text-white m-0 p-0`}>
-        <h3 className="text-base md:text-2xl mb-1 md:mb-2 font-medium truncate">
-          {title}
-        </h3>
+        <h3 className="text-base md:text-2xl mb-1 md:mb-2 font-medium truncate">{title}</h3>
         <span className={`text-xs md:text-lg ${lineClamp}`}>
           <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
         </span>
@@ -241,14 +194,7 @@ const PostCard = ({
   )
 }
 
-const Aptigram = ({
-  image,
-  text,
-  thumbnail,
-  permalink,
-  onKeyDown,
-  ...props
-}: AptigramProps) => {
+const Aptigram = ({ image, text, thumbnail, permalink, onKeyDown, ...props }: AptigramProps) => {
   return (
     <div
       className="rounded-lg h-60 md:h-96 p-2 md:p-2 cursor-pointer card-shadow"
@@ -258,10 +204,7 @@ const Aptigram = ({
       {...props}
     >
       <div className="h-4/6 p-0 overflow-hidden rounded-md flex">
-        <img
-          className="w-full align-centre object-cover"
-          src={thumbnail ? thumbnail : image ? image : ''}
-        ></img>
+        <img className="w-full align-centre object-cover" src={thumbnail ? thumbnail : image ? image : ''}></img>
       </div>
       <div className={`h-2/6 text-white m-0 px-2 py-3 md:py-5`}>
         <div className="grid grid-cols-1 relative h-full overflow-hidden">

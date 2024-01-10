@@ -2,15 +2,11 @@ import { FilterMenuProps } from './card/types'
 import { Contact } from './card/Contact'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import {
-  HamburgerMenuIcon,
-  StarIcon,
-  InstagramLogoIcon,
-  PersonIcon,
-  FileTextIcon,
-  Cross2Icon,
-} from '@radix-ui/react-icons'
 import { useSearchParams } from 'next/navigation'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faFileLines, faUser, faStar } from '@fortawesome/free-regular-svg-icons'
+import { faInstagram } from '@fortawesome/free-brands-svg-icons'
 
 export const FilterMenu = ({ contact }: FilterMenuProps) => {
   const router = useRouter()
@@ -45,7 +41,11 @@ export const FilterMenu = ({ contact }: FilterMenuProps) => {
             <div className="bg-aptitud-petrol rounded-full h-3 w-3 absolute -right-1 -top-1"></div>
           )}
           <div className="p-3 order-2 cursor-pointer" onClick={() => toggleMenu()}>
-            {isOpen ? <Cross2Icon className="w-5 h-5" /> : <HamburgerMenuIcon className="w-5 h-5" />}
+            {isOpen ? (
+              <FontAwesomeIcon icon={faXmark} className="w-5 h-5" />
+            ) : (
+              <FontAwesomeIcon icon={faBars} className="w-5 h-5" />
+            )}
           </div>
           <ul className={isOpen ? 'menu-list menu-list--open' : 'menu-list'}>
             <li
@@ -54,7 +54,7 @@ export const FilterMenu = ({ contact }: FilterMenuProps) => {
               onClick={() => filterItems('post')}
             >
               <span className="menu-icon">
-                <FileTextIcon width={20} height={20} />
+                <FontAwesomeIcon icon={faFileLines} className="w-5 h-5" />
               </span>
               <span>Om oss</span>
             </li>
@@ -64,7 +64,7 @@ export const FilterMenu = ({ contact }: FilterMenuProps) => {
               onClick={() => filterItems('fellow')}
             >
               <span className="menu-icon">
-                <PersonIcon width={20} height={20} />
+                <FontAwesomeIcon icon={faUser} className="w-5 h-5" />
               </span>
               <span>Vilka är vi</span>
             </li>
@@ -74,13 +74,13 @@ export const FilterMenu = ({ contact }: FilterMenuProps) => {
               onClick={() => filterItems('aptigram')}
             >
               <span className="menu-icon">
-                <InstagramLogoIcon width={20} height={20} />
+                <FontAwesomeIcon icon={faInstagram} className="w-5 h-5" />
               </span>
               <span>Instagram</span>
             </li>
             <li className={`menu-item flex p-1`} role={'button'} onClick={() => setOpen(false)}>
               <span className="menu-icon">
-                <StarIcon width={20} height={20} />
+                <FontAwesomeIcon icon={faStar} className="w-5 h-5" />
               </span>
               <span>
                 <Contact key={contact.title} item={contact} />

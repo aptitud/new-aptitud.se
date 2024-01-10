@@ -1,8 +1,9 @@
 import * as Dialog from '@radix-ui/react-dialog'
-import { Cross2Icon } from '@radix-ui/react-icons'
 import { useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import Image from 'next/image'
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export type ContactCardProps = {
   title: string
@@ -39,7 +40,7 @@ export const Contact = ({ item }: { item: ContactCardProps }) => {
             <ContactDetail {...item} />
             <Dialog.Close className="absolute flex justify-center items-center rounded-full top-2 right-2 w-12 h-12  md:-top-4 md:-right-4 bg-aptitud-light-grey">
               <span className="rounded-full bg-white w-8 h-8 flex justify-center items-center">
-                <Cross2Icon className="w-5 h-5" />
+                <FontAwesomeIcon icon={faXmark} className="w-4 h-4" />
               </span>
             </Dialog.Close>
           </Dialog.Content>
@@ -69,23 +70,9 @@ const ContactDetail = (props: ContactCardProps) => {
   )
 }
 
-const ContactSummary = ({
-  image,
-  title,
-  text,
-  colorCode,
-  summaryTitle,
-  onKeyDown,
-  ...props
-}: ContactCardProps) => {
+const ContactSummary = ({ image, title, text, colorCode, summaryTitle, onKeyDown, ...props }: ContactCardProps) => {
   return (
-    <span
-      role={'button'}
-      className={``}
-      tabIndex={0}
-      onKeyDown={onKeyDown}
-      {...props}
-    >
+    <span role={'button'} className={``} tabIndex={0} onKeyDown={onKeyDown} {...props}>
       Kontakt
     </span>
   )
