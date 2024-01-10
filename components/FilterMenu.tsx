@@ -1,19 +1,16 @@
 import { FilterMenuProps } from './card/types'
 import { Contact } from './card/Contact'
+import { useState } from 'react'
 import { useRouter } from 'next/router'
-import {
-  DoubleArrowRightIcon,
-  DoubleArrowLeftIcon,
-  StarIcon,
-  InstagramLogoIcon,
-  PersonIcon,
-  FileTextIcon,
-} from '@radix-ui/react-icons'
 import { useSearchParams } from 'next/navigation'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faFileLines, faUser, faStar } from '@fortawesome/free-regular-svg-icons'
+import { faInstagram } from '@fortawesome/free-brands-svg-icons'
 
 export const FilterMenu = ({ contact }: FilterMenuProps) => {
   const router = useRouter()
-
+  const [isOpen, setOpen] = useState(false)
   const searchParams = useSearchParams()
   const newParams = new URLSearchParams(searchParams.toString())
   const filter = searchParams.get('show') ?? ''
@@ -28,83 +25,66 @@ export const FilterMenu = ({ contact }: FilterMenuProps) => {
     }
   }
 
+  function toggleMenu() {
+    setOpen(!isOpen)
+  }
+
   return (
     <nav>
-      <div className="fixed right-0 top-60 md:top-8 md:left-0 md:right-auto z-30 group">
+      <div
+        className={`first:fixed right-0 top-60 md:top-8 md:left-0 md:right-auto z-30 rounded-tl-md rounded-bl-md md:rounded-tr-md md:rounded-br-md md:rounded-tl-none md:rounded-bl-none ${
+          isOpen ? 'filter-menu--open' : 'filter-menu'
+        }`}
+      >
         <div className="flex">
-          {filter !== '' && (
-            <div className="bg-aptitud-petrol rounded-full h-3 w-3 absolute -right-1 -top-1 group-hover:invisible"></div>
+          {filter !== '' && !isOpen && (
+            <div className="bg-aptitud-petrol rounded-full h-3 w-3 absolute -right-1 -top-1"></div>
           )}
-          <div className="peer cursor-pointer  rounded-tl-sm rounded-bl-sm md:rounded-tr-sm md:rounded-br-sm bg-white text-black p-3 bg-opacity-80 hover:bg-opacity-0">
-            <DoubleArrowRightIcon className="hidden md:block lg:block" />
-            <DoubleArrowLeftIcon className="block md:hidden lg:hidden" />
+          <div className="p-3 order-2 cursor-pointer" onClick={() => toggleMenu()}>
+            {isOpen ? (
+              <FontAwesomeIcon icon={faXmark} className="w-5 h-5" />
+            ) : (
+              <FontAwesomeIcon icon={faBars} className="w-5 h-5" />
+            )}
           </div>
-          <ul className="w-0 shadow-lg invisible rounded-tl-sm rounded-bl-sm md:rounded-tr-sm md:rounded-br-sm transition-all duration-500 peer-hover:w-36 peer-hover:visible hover:w-36 hover:visible absolute top-0 right-0 md:right-auto md:left-0 bg-white text-black p-3 text-md">
+          <ul className={isOpen ? 'menu-list menu-list--open' : 'menu-list'}>
             <li
-              className={`p-0 md:pr-2 invisible w-0 group-hover:w-full group-hover:visible overflow-hidden hover:border-aptitud-petrol ${
-                filter === 'post'
-                  ? ' border-b-2 border-aptitud-petrol'
-                  : 'border-b-2 border-white'
-              }`}
+              className={`menu-item flex p-1 ${filter === 'post' ? ' menu-item--selected' : ''}`}
+              role={'button'}
+              onClick={() => filterItems('post')}
             >
-              <div
-                className="flex p-1"
-                role={'button'}
-                onClick={() => filterItems('post')}
-              >
-                <span className="mr-2 mt-2 text-aptitud-petrol">
-                  <FileTextIcon width={22} />
-                </span>
-                <span className="mt-1">Om oss</span>
-              </div>
+              <span className="menu-icon">
+                <FontAwesomeIcon icon={faFileLines} className="w-5 h-5" />
+              </span>
+              <span>Om oss</span>
             </li>
             <li
-              className={`p-0 md:pr-2 invisible w-0 group-hover:w-full group-hover:visible overflow-hidden hover:border-aptitud-petrol ${
-                filter === 'fellow'
-                  ? 'border-b-2 border-aptitud-petrol'
-                  : 'border-b-2 border-white'
-              }`}
+              className={`menu-item flex p-1 ${filter === 'fellow' ? 'menu-item--selected' : ''}`}
+              role={'button'}
+              onClick={() => filterItems('fellow')}
             >
-              <div
-                className="flex p-1"
-                role={'button'}
-                onClick={() => filterItems('fellow')}
-              >
-                <span className="mr-2 mt-2 text-aptitud-petrol">
-                  <PersonIcon width={22} />
-                </span>
-                <span className="mt-1">Vilka är vi</span>
-              </div>
+              <span className="menu-icon">
+                <FontAwesomeIcon icon={faUser} className="w-5 h-5" />
+              </span>
+              <span>Vilka är vi</span>
             </li>
             <li
-              className={`p-0 md:pr-2 invisible w-0 group-hover:w-full group-hover:visible overflow-hidden hover:border-aptitud-petrol ${
-                filter === 'aptigram'
-                  ? 'border-b-2 border-aptitud-petrol'
-                  : 'border-b-2 border-white'
-              }`}
+              className={`menu-item flex p-1 ${filter === 'aptigram' ? ' menu-item--selected' : ''}`}
+              role={'button'}
+              onClick={() => filterItems('aptigram')}
             >
-              <div
-                className="flex p-1"
-                role={'button'}
-                onClick={() => filterItems('aptigram')}
-              >
-                <span className="mr-2 mt-2 text-aptitud-petrol">
-                  <InstagramLogoIcon width={22} />
-                </span>
-                <span className="mt-1">Instagram</span>
-              </div>
+              <span className="menu-icon">
+                <FontAwesomeIcon icon={faInstagram} className="w-5 h-5" />
+              </span>
+              <span>Instagram</span>
             </li>
-            <li
-              className={`p-0 md:pr-2 invisible w-0 group-hover:w-full group-hover:visible overflow-hidden hover:border-aptitud-petrol border-b-2 border-white`}
-            >
-              <div className="flex p-1" role={'button'}>
-                <span className="mr-2 mt-2 text-aptitud-petrol">
-                  <StarIcon width={22} />
-                </span>
-                <span className="mt-1">
-                  <Contact key={contact.title} item={contact} />
-                </span>
-              </div>
+            <li className={`menu-item flex p-1`} role={'button'} onClick={() => setOpen(false)}>
+              <span className="menu-icon">
+                <FontAwesomeIcon icon={faStar} className="w-5 h-5" />
+              </span>
+              <span>
+                <Contact key={contact.title} item={contact} />
+              </span>
             </li>
           </ul>
         </div>

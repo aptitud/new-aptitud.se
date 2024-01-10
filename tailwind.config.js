@@ -6,11 +6,19 @@ module.exports = {
   ],
   theme: {
     extend: {
+      backgroundImage: (theme) => ({
+        'aptitud-gradient': `linear-gradient(to right, ${theme(
+          'colors.aptitud-cerise'
+        )}0.5%,${theme('colors.aptitud-salmon')}20%,${theme(
+          'colors.aptitud-orange-dark'
+        )}75%,${theme('colors.aptitud-orange')}100%)`,
+      }),
       colors: {
         'aptitud-overlay': 'var(--aptitud-overlay)',
-        'aptitud-salmon': 'var(--aptitud-purple)',
+        'aptitud-salmon': 'var(--aptitud-salmon)',
         'aptitud-cerise': 'var(--aptitud-cerise)',
         'aptitud-orange': 'var(--aptitud-orange)',
+        'aptitud-orange-dark': 'var(--aptitud-orange-dark)',
         'aptitud-yellow': 'var(--aptitud-yellow)',
         'aptitud-purple': 'var(--aptitud-purple)',
         'aptitud-green': 'var(--aptitud-green)',
@@ -25,7 +33,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/line-clamp')
-  ]
+  plugins: [require('@tailwindcss/line-clamp')],
 }

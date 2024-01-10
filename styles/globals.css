@@ -3,10 +3,10 @@
 @tailwind utilities;
 
 :root {
-	--aptitud-background: #E34927;
 	--aptitud-salmon: #F65058;
 	--aptitud-cerise: #DB0A5B;
 	--aptitud-orange:#e55e16;
+	--aptitud-orange-dark: #E34927;
 	--aptitud-yellow:#F1B434;
 	--aptitud-petrol:#4E87A0;
 	--aptitud-purple:#784E90;
@@ -41,5 +41,60 @@
 	color: #333;
 }
 .card-shadow {
-	box-shadow: 0 4px 8px #2b2b2b;
+	box-shadow: 0 4px 8px RGBA(10,10,10,0.5);
+}
+.filter-menu {
+	cursor: pointer;
+	background-color: rgba(255, 255, 255, 0.8);
+	box-shadow: 0 4px 8px RGBA(10,10,10,0.5);
+}
+.filter-menu--open {
+	background-color: rgba(255, 255, 255, 0.8);
+	box-shadow: 0 4px 8px RGBA(10,10,10,0.5);
+
+}
+.menu-item {
+	cursor: pointer;
+	padding: 9px 0 7px 8px;
+	position: relative;
+}
+
+.menu-item::before {
+	position:absolute;
+	content: '';
+	display: block;
+	width: 4px;
+	height: 100%;
+	background-color: transparent;
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+	margin-left: -8px;
+	margin-top: -8px;
+}
+
+.menu-item--selected::before, .menu-item:hover::before {
+	background-color: #4E87A0;
+}
+.menu-item--selected, .menu-item:hover {
+	color: #3d6a7d;
+}
+.menu-icon {
+	vertical-align: middle;
+	margin: 1px 8px 0 0;
+}
+
+.menu-list {
+	width: 0;
+	height: 0;
+	font-size: 0;
+	opacity: 0;
+	transition: all .5s ease;
+	overflow: hidden;
+}
+.menu-list--open {
+	opacity: 1;
+	font-size: 16px;
+	width: 120px;
+	height: 165px;
+	margin: 16px 0;
 }
