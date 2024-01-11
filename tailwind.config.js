@@ -1,17 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './pages/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
       backgroundImage: (theme) => ({
-        'aptitud-gradient': `linear-gradient(to right, ${theme(
-          'colors.aptitud-cerise'
-        )}0.5%,${theme('colors.aptitud-salmon')}20%,${theme(
-          'colors.aptitud-orange-dark'
-        )}75%,${theme('colors.aptitud-orange')}100%)`,
+        'aptitud-gradient': `linear-gradient(to right, ${theme('colors.aptitud-cerise')}0.5%,${theme(
+          'colors.aptitud-salmon'
+        )}20%,${theme('colors.aptitud-orange-dark')}75%,${theme('colors.aptitud-orange')}100%)`,
       }),
       colors: {
         'aptitud-overlay': 'var(--aptitud-overlay)',

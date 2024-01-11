@@ -1,5 +1,5 @@
 import React, { CSSProperties, useEffect, useState } from 'react'
-import { FellowCardProps } from './types'
+import { CardWithEvents, FellowCardProps } from './types'
 import { useInView } from 'react-intersection-observer'
 
 export const FellowCard = ({
@@ -7,12 +7,10 @@ export const FellowCard = ({
   title,
   text,
   colorCode,
-  socialLinks,
-  onKeyDown,
+  handleCardClick,
   video,
   showVideo,
-  ...props
-}: FellowCardProps) => {
+}: CardWithEvents<FellowCardProps>) => {
   const [isShowingVideo, setIsShowingVideo] = useState(false)
   const [isRendered, setIsRendered] = useState(false)
   const [ref, inView] = useInView({
@@ -75,10 +73,9 @@ export const FellowCard = ({
       className={`rounded-lg h-60 md:h-96 m-0 p-0 cursor-pointer card-shadow`}
       style={imageWithGradient}
       tabIndex={0}
-      onKeyDown={onKeyDown}
+      onClick={handleCardClick}
       title={title}
       id={image || ''}
-      {...props}
       ref={ref}
       onMouseEnter={() => displayVideo()}
       onMouseLeave={() => hideVideo()}

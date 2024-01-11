@@ -4,30 +4,20 @@ import ReactMarkdown from 'react-markdown'
 import Image from 'next/image'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
-export type ContactCardProps = {
-  title: string
-  summaryTitle: string
-  text: string
-  image: string | null
-  colorCode: string
-  onKeyDown: any
-}
+import { CardWithEvents, ContactCardProps } from './types'
 
 export const Contact = ({ item }: { item: ContactCardProps }) => {
   const [isOpen, setIsOpen] = useState(false)
 
-  const onClick = (e: KeyboardEvent) => {
+  const handleCardClick = (e: React.MouseEvent) => {
     e.preventDefault()
-    setIsOpen(true)
+    setIsOpen(!isOpen)
   }
 
-  const onKeyDown = (e: KeyboardEvent) => {
-    if (e.key === ' ' || e.key === 'Enter' || e.key === 'Spacebar') {
-      onClick(e)
-    }
+  const cardWithEvents: CardWithEvents<ContactCardProps> = {
+    ...item,
+    handleCardClick,
   }
-  item.onKeyDown = onKeyDown
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
@@ -47,7 +37,7 @@ export const Contact = ({ item }: { item: ContactCardProps }) => {
         </Dialog.Overlay>
       </Dialog.Portal>
       <Dialog.Trigger asChild>
-        <ContactSummary {...item} />
+        <ContactSummary {...cardWithEvents} />
       </Dialog.Trigger>
     </Dialog.Root>
   )
@@ -58,7 +48,7 @@ const ContactDetail = (props: ContactCardProps) => {
   return (
     <div className="flex flex-row">
       <div className="relative aspect-square w-3/5">
-        <Image src={`https:${image}`} fill alt={title} />
+        <Image src={`https:${image}`} width={600} height={400} alt={title} />
       </div>
       <div className="text-white mt-2">
         <h3 className="text-xl md:text2xl mb-2 font-medium">{title}</h3>
@@ -70,9 +60,9 @@ const ContactDetail = (props: ContactCardProps) => {
   )
 }
 
-const ContactSummary = ({ image, title, text, colorCode, summaryTitle, onKeyDown, ...props }: ContactCardProps) => {
+const ContactSummary = ({ handleCardClick }: CardWithEvents<ContactCardProps>) => {
   return (
-    <span role={'button'} className={``} tabIndex={0} onKeyDown={onKeyDown} {...props}>
+    <span role={'button'} className={``} tabIndex={0} onClick={handleCardClick}>
       Kontakt
     </span>
   )

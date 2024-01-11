@@ -1,12 +1,18 @@
-import { FilterMenuProps } from './card/types'
+'use client'
+
 import { Contact } from './card/Contact'
 import { useState } from 'react'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import { useSearchParams } from 'next/navigation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { faFileLines, faUser, faStar } from '@fortawesome/free-regular-svg-icons'
 import { faInstagram } from '@fortawesome/free-brands-svg-icons'
+import { ContactCardProps } from './card/types'
+
+export type FilterMenuProps = {
+  contact: ContactCardProps
+}
 
 export const FilterMenu = ({ contact }: FilterMenuProps) => {
   const router = useRouter()

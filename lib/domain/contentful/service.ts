@@ -20,7 +20,7 @@ export const getFellows = async () => {
       name,
       description,
       image,
-      video, 
+      video,
       phone,
       services:
         services?.map((x) => ({
@@ -36,7 +36,7 @@ export const getPosts = async () => {
     content_type: 'post',
   })
   return res.items.map((post) => {
-    return  { ...post.fields, ts : post.sys.createdAt }  
+    return { ...post.fields, ts: post.sys.createdAt }
   })
 }
 export const getContacts = async () => {
@@ -45,6 +45,6 @@ export const getContacts = async () => {
   })
 
   return res.items.map((contact) => {
-    return  { ...contact.fields }  
+    return { ...contact.fields }
   })
 }
