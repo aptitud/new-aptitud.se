@@ -1,5 +1,6 @@
 import { createClient } from 'contentful'
 import { TypeFellowFields, TypePostFields, TypeContactFields } from './types'
+import { unstable_cache } from 'next/cache'
 
 const { CONTENTFUL_ACCESS_TOKEN } = process.env
 
@@ -8,15 +9,17 @@ const client = createClient({
   accessToken: CONTENTFUL_ACCESS_TOKEN!,
 })
 
-export const getFellows = async () => {
+export const getFellows = unstable_cache(async () => {
   const res = await client.getEntries<TypeFellowFields>({
     content_type: 'fellow',
   })
   return res.items.map((fellow) => {
     const {
       fields: { name, description, image, phone, services, video },
+      sys: { id },
     } = fellow
     return {
+      id,
       name,
       description,
       image,
@@ -29,22 +32,25 @@ export const getFellows = async () => {
         })) ?? [],
     }
   })
-}
+})
 
-export const getPosts = async () => {
+export const getPosts = unstable_cache(async () => {
   const res = await client.getEntries<TypePostFields>({
     content_type: 'post',
   })
   return res.items.map((post) => {
-    return { ...post.fields, ts: post.sys.createdAt }
+    const { id } = post.sys
+    return { id, ...post.fields, ts: post.sys.createdAt }
   })
-}
-export const getContacts = async () => {
+})
+
+export const getContacts = unstable_cache(async () => {
   const res = await client.getEntries<TypeContactFields>({
     content_type: 'contact',
   })
 
   return res.items.map((contact) => {
-    return { ...contact.fields }
+    const { id } = contact.sys
+    return { id, ...contact.fields }
   })
-}
+})

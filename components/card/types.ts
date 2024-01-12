@@ -4,6 +4,7 @@ import { getFellows } from '../../lib/domain/contentful/service'
 export type SocialLink = Awaited<Required<ReturnType<typeof getFellows>>>['0']['services'][0]
 
 export type SharedCardProps = {
+  id: string
   title: string
   text: string
   image: string | null
@@ -29,7 +30,6 @@ export type AptigramProps = SharedCardProps & {
   type: 'aptigram'
   thumbnail: string
   permalink: string
-  onKeyDown: any
 }
 
 export type ContactCardProps = SharedCardProps & {

@@ -11,6 +11,7 @@ export const getAllCards = async (): Promise<{
   const fellows = await getFellows()
   const contacts = await getContacts()
   const posts = await getPosts()
+  const insta = await getInstagramPosts()
 
   const sortedPosts = posts
     .sort((a, b) => {
@@ -22,6 +23,7 @@ export const getAllCards = async (): Promise<{
     .reverse()
 
   const fellowItems: FellowCardProps[] = fellows.map((fellow) => ({
+    id: fellow.id,
     title: fellow.name,
     type: 'fellow',
     text: fellow.description,
@@ -33,6 +35,7 @@ export const getAllCards = async (): Promise<{
   }))
 
   const postsItems: PostsCardProps[] = sortedPosts.map((post) => ({
+    id: post.id,
     title: post.title,
     type: 'post',
     text: post.description,
@@ -42,6 +45,7 @@ export const getAllCards = async (): Promise<{
   }))
 
   const contactItems: ContactCardProps[] = contacts.map((contact) => ({
+    id: contact.id,
     title: contact.header,
     summaryTitle: contact.summaryHeader ? contact.summaryHeader : '',
     type: 'contact',
@@ -50,9 +54,8 @@ export const getAllCards = async (): Promise<{
     colorCode: 'aptitud-blue_green',
   }))
 
-  const insta = await getInstagramPosts()
-
   const instaPosts: AptigramProps[] = insta.map((post: any) => ({
+    id: post.id,
     title: post.permalink,
     type: 'aptigram',
     text: post.caption || '',

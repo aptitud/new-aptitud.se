@@ -1,7 +1,7 @@
+import './globals.css'
 import { getContacts } from '../lib/domain/contentful/service'
 import { FilterMenu } from '../components/FilterMenu'
 import { Metadata } from 'next'
-import './globals.css'
 import { ContactCardProps } from '../components/card/types'
 
 export const metadata: Metadata = {
@@ -12,9 +12,10 @@ export const metadata: Metadata = {
 
 export const revalidate = 3600 // revalidate the data at most every hour
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
   const contacts = await getContacts()
   const contactItems: ContactCardProps[] = contacts.map((contact) => ({
+    id: contact.id,
     title: contact.header,
     summaryTitle: contact.summaryHeader ? contact.summaryHeader : '',
     type: 'contact',
@@ -30,7 +31,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body className={'bg-aptitud-gradient h-screen w-screen'}>
         <div className="w-11/12 max-w-7xl ml-auto mr-auto">
           <FilterMenu contact={contact} />
-          <main>{children}</main>
+          <main>
+            {children}
+            {modal}
+          </main>
           <footer>
             <div className="w-full h-8"></div>
           </footer>
