@@ -53,9 +53,9 @@ export const DetailCard = (props: CardProps) => {
             <FontAwesomeIcon icon={faInstagram} className="w-6 h-6 mr-1" />
             Se på Instagram
           </a>
-          <p className="mt-3 text-xl">
+          <div className="mt-3 text-xl">
             <ReactMarkdown>{text}</ReactMarkdown>
-          </p>
+          </div>
         </div>
       </div>
     )
@@ -82,9 +82,9 @@ export const DetailCard = (props: CardProps) => {
     return (
       <div className="text-white mt-2">
         <h3 className="text-2xl md:text-3xl mb-2 font-medium">{title}</h3>
-        <p className="text-xl">
+        <div className="text-xl">
           <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
-        </p>
+        </div>
       </div>
     )
   }

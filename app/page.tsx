@@ -13,13 +13,13 @@ const Home = async () => {
         <Image
           priority
           src={'/logo.png'}
-          height="302"
-          width="500"
+          height={303}
+          width={500}
           alt="Aptitud"
-          style={{
-            maxWidth: '100%',
-            height: 'auto',
-          }}
+          // style={{
+          //   maxWidth: '100%',
+          //   height: 'auto',
+          // }}
           className="m-4"
         />
       </div>
