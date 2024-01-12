@@ -1,5 +1,7 @@
+'use client'
+
 import * as Dialog from '@radix-ui/react-dialog'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import Image from 'next/image'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
@@ -60,10 +62,14 @@ const ContactDetail = (props: ContactCardProps) => {
   )
 }
 
-const ContactSummary = ({ handleCardClick }: CardWithEvents<ContactCardProps>) => {
+type ContactSummaryProps = Pick<CardWithEvents<ContactCardProps>, 'handleCardClick'>
+const ContactSummary = React.forwardRef<HTMLDivElement, ContactSummaryProps>(function ContactSummary(
+  { handleCardClick, ...props },
+  forwardRef
+) {
   return (
-    <span role={'button'} className={``} tabIndex={0} onClick={handleCardClick}>
+    <span ref={forwardRef} role={'button'} className={``} tabIndex={0} onClick={handleCardClick}>
       Kontakt
     </span>
   )
-}
+})

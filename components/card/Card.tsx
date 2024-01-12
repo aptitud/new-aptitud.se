@@ -162,7 +162,10 @@ const SocialLinks = ({ socialLinks, name }: { socialLinks: SocialLink[]; name: s
   )
 }
 
-const PostCard = ({ image, title, text, colorCode, postContent, handleCardClick }: CardWithEvents<PostsCardProps>) => {
+const PostCard = React.forwardRef<HTMLDivElement, PostsCardProps>(function PostCardComponent(
+  { id, type, image, title, text, colorCode, postContent, ...props },
+  ref
+) {
   const backgroundStyle: CSSProperties = {
     backgroundColor: `var(--${colorCode})`,
   }
@@ -175,7 +178,8 @@ const PostCard = ({ image, title, text, colorCode, postContent, handleCardClick 
       className={`rounded-lg h-60 md:h-96 cursor-pointer m-0 p-3 md:p-4 card-shadow`}
       style={backgroundStyle}
       tabIndex={0}
-      onClick={handleCardClick}
+      ref={ref}
+      {...props}
     >
       {image ? (
         <div className="relative h-1/3 p-4 md:p-8 lg:p-10">
@@ -194,15 +198,19 @@ const PostCard = ({ image, title, text, colorCode, postContent, handleCardClick 
       </div>
     </div>
   )
-}
+})
 
-const Aptigram = ({ image, text, thumbnail, handleCardClick }: CardWithEvents<AptigramProps>) => {
+const Aptigram = React.forwardRef<HTMLDivElement, AptigramProps>(function AptigramComponent(
+  { id, title, type, permalink, thumbnail, colorCode, image, text, ...props },
+  ref
+) {
   return (
     <div
       className="rounded-lg h-60 md:h-96 p-2 md:p-2 cursor-pointer card-shadow"
       tabIndex={0}
       style={{ backgroundColor: 'var(--aptitud-blue_green)' }}
-      onClick={handleCardClick}
+      ref={ref}
+      {...props}
     >
       <div className="h-4/6 p-0 overflow-hidden rounded-md flex">
         <Image
@@ -222,4 +230,4 @@ const Aptigram = ({ image, text, thumbnail, handleCardClick }: CardWithEvents<Ap
       </div>
     </div>
   )
-}
+})

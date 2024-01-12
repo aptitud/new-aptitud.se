@@ -1,24 +1,22 @@
+'use client'
+
 import React, { CSSProperties, useEffect, useState } from 'react'
-import { CardWithEvents, FellowCardProps } from './types'
+import { FellowCardProps } from './types'
 import { useInView } from 'react-intersection-observer'
 
-export const FellowCard = ({
-  image,
-  title,
-  text,
-  colorCode,
-  handleCardClick,
-  video,
-  showVideo,
-}: CardWithEvents<FellowCardProps>) => {
+export const FellowCard = React.forwardRef<HTMLDivElement, FellowCardProps>(function FellowCard(
+  { id, socialLinks, type, image, title, text, colorCode, video, showVideo, ...props },
+  forwardRef
+) {
   const [isShowingVideo, setIsShowingVideo] = useState(false)
   const [isRendered, setIsRendered] = useState(false)
-  const [ref, inView] = useInView({
-    triggerOnce: false, // Fire the event only once
-    root: null, // Use the viewport as the root
-    rootMargin: '0px',
-    threshold: 0.7, // Trigger when at least 50% of the element is in the viewport
-  })
+  // @TODO need to fix this again? (removed when fixing forwardRef) not sure if it worked bofore?
+  // const [ref, inView] = useInView({
+  //   triggerOnce: false, // Fire the event only once
+  //   root: null, // Use the viewport as the root
+  //   rootMargin: '0px',
+  //   threshold: 0.7, // Trigger when at least 50% of the element is in the viewport
+  // })
 
   let videoTimeout: NodeJS.Timeout
 
@@ -55,17 +53,18 @@ export const FellowCard = ({
       }
 
   useEffect(() => {
-    if (!inView) {
-      setIsShowingVideo(false)
-      return
-    }
+    // if (!inView) {
+    //   setIsShowingVideo(false)
+    //   return
+    // }
 
     if (showVideo) {
       displayVideo()
     } else {
       hideVideo()
     }
-  }, [inView, showVideo])
+  }, [showVideo])
+  // }, [inView, showVideo])
 
   return (
     <div
@@ -73,12 +72,12 @@ export const FellowCard = ({
       className={`rounded-lg h-60 md:h-96 m-0 p-0 cursor-pointer card-shadow`}
       style={imageWithGradient}
       tabIndex={0}
-      onClick={handleCardClick}
       title={title}
       id={image || ''}
-      ref={ref}
+      ref={forwardRef}
       onMouseEnter={() => displayVideo()}
       onMouseLeave={() => hideVideo()}
+      {...props}
     >
       <div
         className="relative h-full w-full"
@@ -132,4 +131,4 @@ export const FellowCard = ({
       </div>
     </div>
   )
-}
+})

@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image'
 export const CardImage = ({ image, title }: { image: string | null; title?: string }) => {
   return (
