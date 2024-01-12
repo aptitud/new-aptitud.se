@@ -53,6 +53,7 @@ export const FellowCard = React.forwardRef<HTMLDivElement, FellowCardProps>(func
       }
 
   useEffect(() => {
+    // @TODO relates to above
     // if (!inView) {
     //   setIsShowingVideo(false)
     //   return

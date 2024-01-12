@@ -1,7 +1,5 @@
 'use client'
 
-import * as Dialog from '@radix-ui/react-dialog'
-import { CSSProperties, useState } from 'react'
 import { CardVideo } from './CardVideo'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -139,17 +137,13 @@ const PostCard = React.forwardRef<HTMLDivElement, PostsCardProps>(function PostC
   { id, type, image, title, text, colorCode, postContent, ...props },
   ref
 ) {
-  const backgroundStyle: CSSProperties = {
-    backgroundColor: `var(--${colorCode})`,
-  }
-
   const height = image ? 'h-2/3' : 'h-full'
   const lineClamp = image ? 'line-clamp-[6]' : 'line-clamp-[8]'
   return (
     <div
       role={'button'}
       className={`rounded-lg h-60 md:h-96 cursor-pointer m-0 p-3 md:p-4 card-shadow`}
-      style={backgroundStyle}
+      style={{ backgroundColor: `var(--${colorCode})` }}
       tabIndex={0}
       ref={ref}
       {...props}
@@ -196,7 +190,7 @@ const Aptigram = React.forwardRef<HTMLDivElement, AptigramProps>(function Aptigr
       </div>
       <div className={`h-2/6 text-white m-0 px-2 py-3 md:py-5`}>
         <div className="grid grid-cols-1 relative h-full overflow-hidden">
-          <span className="text-base text-xs md:text-lg md:text-2xl line-clamp-3 md:line-clamp-3 text-white">
+          <span className="text-base md:text-lg md:text-2xl line-clamp-3 md:line-clamp-3 text-white">
             <p className="w-full">{text}</p>
           </span>
         </div>
