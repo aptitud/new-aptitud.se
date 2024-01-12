@@ -10,18 +10,7 @@ const Home = async () => {
   return (
     <div>
       <div className="flex justify-center">
-        <Image
-          priority
-          src={'/logo.png'}
-          height={303}
-          width={500}
-          alt="Aptitud"
-          // style={{
-          //   maxWidth: '100%',
-          //   height: 'auto',
-          // }}
-          className="m-4"
-        />
+        <Image priority src={'/logo.png'} height={303} width={500} alt="Aptitud" className="m-4" />
       </div>
       <CardsGrid cards={randomizedCards} />
     </div>
