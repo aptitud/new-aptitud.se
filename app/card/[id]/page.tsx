@@ -1,4 +1,3 @@
-import * as Dialog from '@radix-ui/react-dialog'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { getAllCards } from '../../../lib/domain/cards'
@@ -7,9 +6,11 @@ import Link from 'next/link'
 
 const CardPage = async ({ params: { id: cardId } }: { params: { id: string } }) => {
   const allCards = await getAllCards()
-  const currentCard = [...allCards.postsItems, ...allCards.fellowItems, ...allCards.instaItems].find(
-    (card) => card.id === cardId
-  )!
+
+  const currentCard =
+    cardId === 'contact'
+      ? allCards.contact
+      : [...allCards.posts, ...allCards.fellows, ...allCards.instaPosts].find((card) => card.id === cardId)!
 
   return (
     <div className="mt-8">

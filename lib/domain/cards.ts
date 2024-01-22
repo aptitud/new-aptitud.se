@@ -2,10 +2,19 @@ import { AptigramProps, ContactCardProps, FellowCardProps, PostsCardProps } from
 import { getContacts, getFellows, getPosts } from './contentful/service'
 import { getInstagramPosts } from './instagram/service'
 
+export type CardFilter = 'about' | 'fellows' | 'instagram'
+export const cardFilterMapping: {
+  [key in CardFilter]: Exclude<keyof Awaited<ReturnType<typeof getAllCards>>, 'contact'>
+} = {
+  about: 'posts',
+  fellows: 'fellows',
+  instagram: 'instaPosts',
+}
+
 export const getAllCards = async (): Promise<{
-  postsItems: PostsCardProps[]
-  fellowItems: FellowCardProps[]
-  instaItems: AptigramProps[]
+  posts: PostsCardProps[]
+  fellows: FellowCardProps[]
+  instaPosts: AptigramProps[]
   contact: ContactCardProps
 }> => {
   const fellows = await getFellows()
@@ -66,9 +75,9 @@ export const getAllCards = async (): Promise<{
   }))
 
   return {
-    postsItems,
-    fellowItems,
-    instaItems: instaPosts,
+    posts: postsItems,
+    fellows: fellowItems,
+    instaPosts: instaPosts,
     contact: contactItems[0],
   }
 }

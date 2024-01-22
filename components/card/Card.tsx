@@ -17,6 +17,7 @@ import {
   faXTwitter,
 } from '@fortawesome/free-brands-svg-icons'
 import React from 'react'
+import { ContactDetail } from './Contact'
 
 export const Card = ({ item }: { item: CardProps }) => {
   if (item.type === 'fellow') {
@@ -85,6 +86,10 @@ export const DetailCard = (props: CardProps) => {
         </div>
       </div>
     )
+  }
+
+  if (props.type === 'contact') {
+    return <ContactDetail {...props} />
   }
 
   return <></>

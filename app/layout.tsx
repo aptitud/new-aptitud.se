@@ -1,8 +1,9 @@
 import './globals.css'
-import { getContacts } from '../lib/domain/contentful/service'
 import { FilterMenu } from '../components/FilterMenu'
 import { Metadata } from 'next'
-import { ContactCardProps } from '../components/card/types'
+import Link from 'next/link'
+import Image from 'next/image'
+import { getAllCards } from '../lib/domain/cards'
 
 export const metadata: Metadata = {
   title: 'Aptitud',
@@ -13,18 +14,7 @@ export const metadata: Metadata = {
 export const revalidate = 3600 // revalidate the data at most every hour
 
 export default async function RootLayout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
-  const contacts = await getContacts()
-  const contactItems: ContactCardProps[] = contacts.map((contact) => ({
-    id: contact.id,
-    title: contact.header,
-    summaryTitle: contact.summaryHeader ? contact.summaryHeader : '',
-    type: 'contact',
-    text: contact.visitingAddress ? contact.visitingAddress : '',
-    image: contact.image ? contact.image?.fields.file.url : null,
-    colorCode: 'aptitud-blue_green',
-    onKeyDown: null,
-  }))
-  const contact = contactItems[0]
+  const { contact } = await getAllCards()
 
   return (
     <html lang="en">
@@ -32,6 +22,11 @@ export default async function RootLayout({ children, modal }: { children: React.
         <div className="w-11/12 max-w-7xl ml-auto mr-auto">
           <FilterMenu contact={contact} />
           <main>
+            <div className="flex justify-center">
+              <Link href="/">
+                <Image priority src={'/logo.png'} height={303} width={500} alt="Aptitud" className="m-4" />
+              </Link>
+            </div>
             {children}
             {modal}
           </main>
