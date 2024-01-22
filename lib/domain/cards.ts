@@ -34,13 +34,13 @@ export const getAllCards = async (): Promise<{
     showVideo: false,
   }))
 
-  const postsItems: PostsCardProps[] = sortedPosts.map((post) => ({
+  const postsItems: PostsCardProps[] = sortedPosts.map((post, index) => ({
     id: post.id,
     title: post.title,
     type: 'post',
     text: post.description,
     image: post.image ? post.image?.fields.file.url : null,
-    colorCode: getRandomColor(availableColors),
+    colorCode: getColorBasedOnIndex(index),
     postContent: post.postContent ? post.postContent : '',
   }))
 
@@ -74,6 +74,6 @@ export const getAllCards = async (): Promise<{
 }
 
 const availableColors = ['aptitud-yellow', 'aptitud-green', 'aptitud-purple', 'aptitud-blue_dim']
-const getRandomColor = (colors: string[]): string => {
-  return colors.sort(() => (Math.random() > 0.5 ? 1 : -1))[0]
+const getColorBasedOnIndex = (index: number): string => {
+  return availableColors[index % availableColors.length]
 }

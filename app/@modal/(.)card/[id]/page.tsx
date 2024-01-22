@@ -8,7 +8,6 @@ const CardModal = async ({ params: { id: cardId } }: { params: { id: string } })
     (card) => card.id === cardId
   )!
   return (
-    // @TODO fix colorcode missmatch? (colorCode is randomized after data fetch)
     <Modal colorCode={currentCard.colorCode}>
       <DetailCard {...currentCard} />
     </Modal>
