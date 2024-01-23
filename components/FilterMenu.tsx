@@ -6,15 +6,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { faFileLines, faUser, faStar } from '@fortawesome/free-regular-svg-icons'
 import { faInstagram } from '@fortawesome/free-brands-svg-icons'
-import { ContactCardProps } from './card/types'
 import Link from 'next/link'
 import { CardFilter } from '../lib/domain/cards'
 
-export type FilterMenuProps = {
-  contact: ContactCardProps
-}
-
-export const FilterMenu = ({ contact }: FilterMenuProps) => {
+export const FilterMenu = () => {
   const [isOpen, setOpen] = useState(false)
   const pathName = usePathname()
 
@@ -26,6 +21,8 @@ export const FilterMenu = ({ contact }: FilterMenuProps) => {
     return `/cards/${filter}`
   }
 
+  const isActive = pathName !== '/cards'
+
   return (
     <nav>
       <div
@@ -34,6 +31,9 @@ export const FilterMenu = ({ contact }: FilterMenuProps) => {
         }`}
       >
         <div className="flex">
+          {isActive && !isOpen && (
+            <div className="bg-aptitud-petrol rounded-full h-3 w-3 absolute -right-1 -top-1"></div>
+          )}
           <div className="p-3 order-2 cursor-pointer" onClick={() => toggleMenu()}>
             {isOpen ? (
               <FontAwesomeIcon icon={faXmark} className="w-5 h-5" />
