@@ -1,4 +1,4 @@
-import { AptigramProps, ContactCardProps, FellowCardProps, PostsCardProps } from '../../components/card/types'
+import { AptigramCardProps, ContactCardProps, FellowCardProps, PostsCardProps } from './types'
 import { getContacts, getFellows, getPosts } from './contentful/service'
 import { getInstagramPosts } from './instagram/service'
 
@@ -14,7 +14,7 @@ export const cardFilterMapping: {
 export const getAllCards = async (): Promise<{
   posts: PostsCardProps[]
   fellows: FellowCardProps[]
-  instaPosts: AptigramProps[]
+  instaPosts: AptigramCardProps[]
   contact: ContactCardProps
 }> => {
   const fellows = await getFellows()
@@ -63,7 +63,7 @@ export const getAllCards = async (): Promise<{
     colorCode: 'aptitud-blue_green',
   }))
 
-  const instaPosts: AptigramProps[] = insta.map((post: any) => ({
+  const instaPosts: AptigramCardProps[] = insta.map((post: any) => ({
     id: post.id,
     title: post.permalink,
     type: 'aptigram',

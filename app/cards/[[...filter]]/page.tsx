@@ -1,5 +1,5 @@
 import { CardsGrid } from '../../../components/CardsGrid'
-import { CardProps } from '../../../components/card/types'
+import { CardProps } from '../../../lib/domain/types'
 import { ONE_HOUR_IN_SECONDS } from '../../../lib/consants'
 import { CardFilter, cardFilterMapping, getAllCards } from '../../../lib/domain/cards'
 
@@ -10,7 +10,7 @@ export default async function Cards({ params }: { params: { filter: CardFilter }
 
   const { contact, ...cards } = await getAllCards()
 
-  const filteredCards = cards[cardFilterMapping[filter]] || [...cards.posts, ...cards.fellows, ...cards.instaPosts]
+  const filteredCards = cards[cardFilterMapping[filter]] || Object.values(cards).flat()
   const randomizedCards = randomizeOrder(filteredCards)
 
   return <CardsGrid cards={randomizedCards} />

@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { Card } from './card/Card'
-import { CardProps, FellowCardProps } from './card/types'
+import { CardProps, FellowCardProps } from '../lib/domain/types'
 import { useState, useEffect } from 'react'
 
 export const CardsGrid = ({ cards }: { cards: CardProps[] }) => {

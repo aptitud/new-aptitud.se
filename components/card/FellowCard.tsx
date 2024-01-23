@@ -1,7 +1,7 @@
 'use client'
 
 import React, { CSSProperties, useEffect, useState } from 'react'
-import { FellowCardProps } from './types'
+import { FellowCardProps } from '../../lib/domain/types'
 import { useInView } from 'react-intersection-observer'
 
 export const FellowCard = React.forwardRef<HTMLDivElement, FellowCardProps>(function FellowCard(
