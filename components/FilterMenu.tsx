@@ -21,7 +21,7 @@ export const FilterMenu = () => {
     return `/cards/${filter}`
   }
 
-  const isActive = pathName !== '/cards'
+  const isActive = /\/cards\/.+/i.test(pathName)
 
   return (
     <nav>
