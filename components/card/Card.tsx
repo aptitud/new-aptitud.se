@@ -1,5 +1,5 @@
-import * as Dialog from '@radix-ui/react-dialog'
-import { CSSProperties, useState } from 'react'
+'use client'
+
 import { CardVideo } from './CardVideo'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -16,85 +16,56 @@ import {
   faSlideshare,
   faXTwitter,
 } from '@fortawesome/free-brands-svg-icons'
+import React from 'react'
+import { ContactDetail } from './Contact'
 
 export const Card = ({ item }: { item: CardProps }) => {
-  const [isOpen, setIsOpen] = useState(false)
-
-  const onClick = (e: KeyboardEvent) => {
-    e.preventDefault()
-    setIsOpen(true)
+  if (item.type === 'fellow') {
+    return <FellowCard {...item} showVideo={item.showVideo} />
   }
-
-  const onKeyDown = (e: KeyboardEvent) => {
-    if (e.key === ' ' || e.key === 'Enter' || e.key === 'Spacebar') {
-      onClick(e)
-    }
+  if (item.type === 'aptigram') {
+    return <Aptigram {...item} />
   }
-
-  item.onKeyDown = onKeyDown
-
-  return (
-    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
-      <Dialog.Portal>
-        <Dialog.Overlay
-          className="fixed inset-0 md:grid md:place-items-center overflow-y-auto backdrop-blur-sm z-30"
-          style={{ backgroundColor: `var(--${item.colorCode}-rgba)` }}
-        >
-          <Dialog.Content
-            className="relative min-h-full w-full md:min-h-[40vh]  md:w-[90vw] lg:w-[75vw] xl:w-[60vw] p-10 md:rounded-lg"
-            style={{
-              backgroundColor: `var(--${item.colorCode})`,
-            }}
-          >
-            <DetailCard {...item} />
-            <Dialog.Close className="absolute flex justify-center items-center rounded-full top-2 right-2 w-12 h-12  md:-top-4 md:-right-4 bg-aptitud-light-grey">
-              <span className="rounded-full bg-white w-8 h-8 flex justify-center items-center">
-                <FontAwesomeIcon icon={faXmark} className="w-4 h-4" />
-              </span>
-            </Dialog.Close>
-          </Dialog.Content>
-        </Dialog.Overlay>
-      </Dialog.Portal>
-      <Dialog.Trigger asChild>
-        {item.type === 'fellow' ? (
-          <FellowCard {...item} showVideo={item.showVideo} />
-        ) : item.type === 'aptigram' ? (
-          <Aptigram {...item} />
-        ) : (
-          <PostCard {...item} />
-        )}
-      </Dialog.Trigger>
-    </Dialog.Root>
-  )
+  if (item.type === 'post') {
+    return <PostCard {...item} />
+  } else {
+    return <></>
+  }
 }
 
-const DetailCard = (props: CardProps) => {
+export const DetailCard = (props: CardProps) => {
   if (props.type === 'aptigram') {
     const { thumbnail, text, image, permalink } = props
     return (
       <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_1fr] gap-6">
         <div className="relative rounded-lg border-4 border-white bg-white overflow-hidden flex justify-center">
-          <img className="rounded-md" src={thumbnail ? thumbnail : image ? image : ''} alt="aptigram" />
+          <Image
+            className="rounded-md"
+            src={thumbnail ? thumbnail : image ? image : ''}
+            height={400}
+            width={600}
+            alt="aptigram"
+          />
         </div>
         <div className="text-white mt-1">
           <a className="flex items-center text-xl" href={permalink} target="_blank" rel="noreferrer">
             <FontAwesomeIcon icon={faInstagram} className="w-6 h-6 mr-1" />
             Se på Instagram
           </a>
-          <p className="mt-3 text-xl">
+          <div className="mt-3 text-xl">
             <ReactMarkdown>{text}</ReactMarkdown>
-          </p>
+          </div>
         </div>
       </div>
     )
   }
 
   if (props.type === 'fellow') {
-    const { title, text, colorCode, image, socialLinks, video } = props
+    const { title, text, image, socialLinks, video } = props
     return (
       <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-2 gap-8">
         <div className="relative aspect-[3/4] h-96 md:h-full md:max-w-xl rounded-lg border-2 border-aptitud-light-grey  bg-aptitud-light-grey">
-          <CardVideo image={image} title={title} colorCode={colorCode} video={video} />
+          <CardVideo image={image} title={title} video={video} />
         </div>
         <div className="text-white mt-4 md:mt-2">
           <h3 className="text-2xl md:text-3xl mb-2 font-medium">{title}</h3>
@@ -105,15 +76,23 @@ const DetailCard = (props: CardProps) => {
     )
   }
 
-  const { title, text, image, postContent } = props
-  return (
-    <div className="text-white mt-2">
-      <h3 className="text-2xl md:text-3xl mb-2 font-medium">{title}</h3>
-      <p className="text-xl">
-        <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
-      </p>
-    </div>
-  )
+  if (props.type === 'post') {
+    const { title, text, image, postContent } = props
+    return (
+      <div className="text-white mt-2">
+        <h3 className="text-2xl md:text-3xl mb-2 font-medium">{title}</h3>
+        <div className="text-xl">
+          <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
+        </div>
+      </div>
+    )
+  }
+
+  if (props.type === 'contact') {
+    return <ContactDetail {...props} />
+  }
+
+  return <></>
 }
 
 const SocialLinks = ({ socialLinks, name }: { socialLinks: SocialLink[]; name: string }) => {
@@ -159,21 +138,20 @@ const SocialLinks = ({ socialLinks, name }: { socialLinks: SocialLink[]; name: s
   )
 }
 
-const PostCard = ({ image, title, text, colorCode, postContent, onKeyDown, ...props }: PostsCardProps) => {
-  const backgroundStyle: CSSProperties = {
-    backgroundColor: `var(--${colorCode})`,
-  }
-
+const PostCard = React.forwardRef<HTMLDivElement, PostsCardProps>(function PostCardComponent(
+  { id, type, image, title, text, colorCode, postContent, ...props },
+  ref
+) {
   const height = image ? 'h-2/3' : 'h-full'
   const lineClamp = image ? 'line-clamp-[6]' : 'line-clamp-[8]'
   return (
     <div
       role={'button'}
       className={`rounded-lg h-60 md:h-96 cursor-pointer m-0 p-3 md:p-4 card-shadow`}
-      style={backgroundStyle}
+      style={{ backgroundColor: `var(--${colorCode})` }}
       tabIndex={0}
+      ref={ref}
       {...props}
-      onKeyDown={onKeyDown}
     >
       {image ? (
         <div className="relative h-1/3 p-4 md:p-8 lg:p-10">
@@ -192,27 +170,36 @@ const PostCard = ({ image, title, text, colorCode, postContent, onKeyDown, ...pr
       </div>
     </div>
   )
-}
+})
 
-const Aptigram = ({ image, text, thumbnail, permalink, onKeyDown, ...props }: AptigramProps) => {
+const Aptigram = React.forwardRef<HTMLDivElement, AptigramProps>(function AptigramComponent(
+  { id, title, type, permalink, thumbnail, colorCode, image, text, ...props },
+  ref
+) {
   return (
     <div
       className="rounded-lg h-60 md:h-96 p-2 md:p-2 cursor-pointer card-shadow"
       tabIndex={0}
       style={{ backgroundColor: 'var(--aptitud-blue_green)' }}
-      onKeyDown={onKeyDown}
+      ref={ref}
       {...props}
     >
       <div className="h-4/6 p-0 overflow-hidden rounded-md flex">
-        <img className="w-full align-centre object-cover" src={thumbnail ? thumbnail : image ? image : ''}></img>
+        <Image
+          className="w-full align-centre object-cover"
+          src={thumbnail ? thumbnail : image ? image : ''}
+          alt="aptigram"
+          height={400}
+          width={600}
+        />
       </div>
       <div className={`h-2/6 text-white m-0 px-2 py-3 md:py-5`}>
         <div className="grid grid-cols-1 relative h-full overflow-hidden">
-          <span className="text-base text-xs md:text-lg md:text-2xl line-clamp-3 md:line-clamp-3 text-white">
+          <span className="text-base md:text-lg md:text-2xl line-clamp-3 md:line-clamp-3 text-white">
             <p className="w-full">{text}</p>
           </span>
         </div>
       </div>
     </div>
   )
-}
+})
