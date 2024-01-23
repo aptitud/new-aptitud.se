@@ -11,7 +11,7 @@ export const CardsGrid = ({ cards }: { cards: CardProps[] }) => {
   useEffect(() => {
     let timeoutId: NodeJS.Timeout | null = null
 
-    const randomizeVideo = () => {
+    const randomizeVideo = (previousFellowIndex?: number) => {
       const fellows = cardList.filter((card) => card.type === 'fellow')
 
       if (!fellows.length) {
@@ -25,10 +25,16 @@ export const CardsGrid = ({ cards }: { cards: CardProps[] }) => {
         setCardList((prevCardList) => {
           const newCardList = [...prevCardList]
           newCardList[randomFellowIndex] = { ...(prevCardList[randomFellowIndex] as FellowCardProps), showVideo: true }
+          if (previousFellowIndex) {
+            newCardList[previousFellowIndex] = {
+              ...(prevCardList[previousFellowIndex] as FellowCardProps),
+              showVideo: false,
+            }
+          }
           return newCardList
         })
 
-        timeoutId = setTimeout(randomizeVideo, 3500)
+        timeoutId = setTimeout(() => randomizeVideo(randomFellowIndex), 3500)
       }
     }
 
