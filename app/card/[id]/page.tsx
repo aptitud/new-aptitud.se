@@ -3,6 +3,9 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { getAllCards } from '../../../lib/domain/cards'
 import { DetailCard } from '../../../components/card/Card'
 import Link from 'next/link'
+import { ONE_HOUR_IN_SECONDS } from '../../../lib/consants'
+
+export const revalidate = ONE_HOUR_IN_SECONDS
 
 const CardPage = async ({ params: { id: cardId } }: { params: { id: string } }) => {
   const allCards = await getAllCards()

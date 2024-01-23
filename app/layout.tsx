@@ -10,8 +10,6 @@ export const metadata: Metadata = {
   icons: ['/favicon.ico'],
 }
 
-export const revalidate = 3600 // revalidate the data at most every hour
-
 export default async function RootLayout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
   return (
     <html lang="en">

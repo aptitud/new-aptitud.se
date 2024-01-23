@@ -1,6 +1,9 @@
 import { CardsGrid } from '../../../components/CardsGrid'
 import { CardProps } from '../../../components/card/types'
+import { ONE_HOUR_IN_SECONDS } from '../../../lib/consants'
 import { CardFilter, cardFilterMapping, getAllCards } from '../../../lib/domain/cards'
+
+export const revalidate = ONE_HOUR_IN_SECONDS
 
 export default async function Cards({ params }: { params: { filter: CardFilter } }) {
   const { filter } = params
