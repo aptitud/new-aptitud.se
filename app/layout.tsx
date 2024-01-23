@@ -10,9 +10,17 @@ export const metadata: Metadata = {
   icons: ['/favicon.ico'],
 }
 
+import { Shantell_Sans } from 'next/font/google'
+
+export const shantell_sans = Shantell_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-shantell-sans',
+})
+
 export default async function RootLayout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${shantell_sans.variable}`}>
       <body className={'bg-aptitud-gradient h-screen w-screen'}>
         <div className="w-11/12 max-w-7xl ml-auto mr-auto">
           <FilterMenu />

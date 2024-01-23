@@ -18,6 +18,7 @@ import {
 } from '@fortawesome/free-brands-svg-icons'
 import React from 'react'
 import { ContactDetail } from './Contact'
+import { CardTitle } from './CardTitle'
 
 export const Card = ({ item }: { item: CardProps }) => {
   if (item.type === 'fellow') {
@@ -80,7 +81,7 @@ export const DetailCard = (props: CardProps) => {
     const { title, text, image, postContent } = props
     return (
       <div className="text-white mt-2">
-        <h3 className="text-2xl md:text-3xl mb-2 font-medium">{title}</h3>
+        <CardTitle>{title}</CardTitle>
         <div className="text-xl">
           <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
         </div>
@@ -153,17 +154,8 @@ const PostCard = React.forwardRef<HTMLDivElement, PostsCardProps>(function PostC
       ref={ref}
       {...props}
     >
-      {image ? (
-        <div className="relative h-1/3 p-4 md:p-8 lg:p-10">
-          <div className="relative aspect-square w-full -mt-10 md:-mt-15 lg:-mt-20">
-            <Image src={`https:${image}`} alt={title || ''} fill sizes="100vw" />
-          </div>
-        </div>
-      ) : (
-        <></>
-      )}
       <div className={`${height} text-white m-0 p-0`}>
-        <h3 className="text-base md:text-2xl mb-1 md:mb-2 font-medium truncate">{title}</h3>
+        <CardTitle>{title}</CardTitle>
         <span className={`text-xs md:text-lg ${lineClamp}`}>
           <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
         </span>

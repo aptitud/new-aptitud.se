@@ -30,6 +30,9 @@ module.exports = {
         'aptitud-very-light-grey': 'var(--aptitud-very-light-grey)',
         'aptitud-transparent': 'var(--aptitud-transparent)',
       },
+      fontFamily: {
+        shantell: ['var(--font-shantell-sans)'],
+      },
     },
   },
   plugins: [],
