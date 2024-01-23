@@ -2,15 +2,6 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  redirects: async () => {
-    return [
-      {
-        source: '/',
-        destination: '/cards',
-        permanent: true,
-      },
-    ]
-  },
   images: {
     remotePatterns: [
       {

@@ -3,14 +3,13 @@ import { FilterMenu } from '../components/FilterMenu'
 import { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
+import { Shantell_Sans } from 'next/font/google'
 
 export const metadata: Metadata = {
   title: 'Aptitud',
   description: 'Enklare, gladare, roligare',
   icons: ['/favicon.ico'],
 }
-
-import { Shantell_Sans } from 'next/font/google'
 
 export const shantell_sans = Shantell_Sans({
   subsets: ['latin'],
