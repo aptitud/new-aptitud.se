@@ -45,6 +45,7 @@ export interface TypeFellowFields {
   services?: Contentful.Entry<TypeServiceFields>[]
   image?: Contentful.Asset
   video?: Contentful.Asset
+  slug: Contentful.EntryFields.Text
 }
 
 export type TypeFellow = Contentful.Entry<TypeFellowFields>
@@ -64,20 +65,13 @@ export interface TypePostFields {
   description: Contentful.EntryFields.Symbol
   sticky: Contentful.EntryFields.Boolean
   postContent: Contentful.EntryFields.Text
+  slug: Contentful.EntryFields.Text
 }
 
 export type TypePost = Contentful.Entry<TypePostFields>
 
 export interface TypeServiceFields {
-  name:
-    | 'blog'
-    | 'github'
-    | 'instagram'
-    | 'key'
-    | 'linkedin'
-    | 'slideshare'
-    | 'stack-overflow'
-    | 'twitter'
+  name: 'blog' | 'github' | 'instagram' | 'key' | 'linkedin' | 'slideshare' | 'stack-overflow' | 'twitter'
   url: Contentful.EntryFields.Symbol
 }
 

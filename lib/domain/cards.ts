@@ -32,7 +32,7 @@ export const getAllCards = async (): Promise<{
     .reverse()
 
   const fellowItems: FellowCardProps[] = fellows.map((fellow) => ({
-    id: fellow.id,
+    id: fellow.slug || fellow.id,
     title: fellow.name,
     type: 'fellow',
     text: fellow.description,
@@ -44,7 +44,7 @@ export const getAllCards = async (): Promise<{
   }))
 
   const postsItems: PostsCardProps[] = sortedPosts.map((post, index) => ({
-    id: post.id,
+    id: post.slug || post.id,
     title: post.title,
     type: 'post',
     text: post.description,

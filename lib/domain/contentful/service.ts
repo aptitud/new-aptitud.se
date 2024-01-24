@@ -17,11 +17,12 @@ export const getFellows = unstable_cache(
     })
     return res.items.map((fellow) => {
       const {
-        fields: { name, description, image, phone, services, video },
+        fields: { name, description, image, phone, services, video, slug },
         sys: { id },
       } = fellow
       return {
         id,
+        slug,
         name,
         description,
         image,

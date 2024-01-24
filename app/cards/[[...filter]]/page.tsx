@@ -37,7 +37,5 @@ const randomizeOrder = (
     }
   }
 
-  console.log(randomItems.map((item) => item.type))
-
   return randomItems
 }
