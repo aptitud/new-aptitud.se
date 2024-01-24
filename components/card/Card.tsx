@@ -54,7 +54,7 @@ const AptigramCard = React.forwardRef<HTMLDivElement, AptigramCardProps>(functio
     <div
       className="rounded-lg h-60 md:h-96 p-2 md:p-2 cursor-pointer card-shadow"
       tabIndex={0}
-      style={{ backgroundColor: 'var(--aptitud-blue_green)' }}
+      style={{ backgroundColor: `var(--${colorCode})` }}
       ref={ref}
       {...props}
     >

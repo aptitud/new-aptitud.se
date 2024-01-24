@@ -49,10 +49,7 @@ export const getAllCards = async (): Promise<{
     type: 'post',
     text: post.description,
     image: post.image ? post.image?.fields.file.url : null,
-    colorCode: getColorBasedOnIndex(
-      index,
-      availableColors.filter((color) => color !== 'aptitud-yellow')
-    ),
+    colorCode: getColorBasedOnIndex(index),
     postContent: post.postContent ? post.postContent : '',
   }))
 
@@ -66,7 +63,7 @@ export const getAllCards = async (): Promise<{
     colorCode: 'aptitud-blue_green',
   }))
 
-  const instaPosts: AptigramCardProps[] = insta.map((post: any) => ({
+  const instaPosts: AptigramCardProps[] = insta.map((post, index) => ({
     id: post.id,
     title: post.permalink,
     type: 'aptigram',
@@ -74,7 +71,7 @@ export const getAllCards = async (): Promise<{
     image: post.media_url ? post.media_url : null,
     thumbnail: post.thumbnail_url || '',
     permalink: post.permalink || '',
-    colorCode: 'aptitud-blue_green',
+    colorCode: getColorBasedOnIndex(index),
   }))
 
   return {
@@ -85,9 +82,7 @@ export const getAllCards = async (): Promise<{
   }
 }
 
-const availableColors = ['aptitud-yellow', 'aptitud-green', 'aptitud-purple', 'aptitud-blue_dim']
+const standardColors = ['aptitud-green', 'aptitud-purple', 'aptitud-blue_dim']
 const getColorBasedOnIndex = (index: number, overrideColors?: string[]): string => {
-  return overrideColors
-    ? overrideColors[index % overrideColors.length]
-    : availableColors[index % availableColors.length]
+  return overrideColors ? overrideColors[index % overrideColors.length] : standardColors[index % standardColors.length]
 }
