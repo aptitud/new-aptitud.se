@@ -65,7 +65,6 @@ export const getAllCards = async (): Promise<{
 
   const instaPosts: AptigramCardProps[] = insta.map((post, index) => ({
     id: post.id,
-    title: post.permalink,
     type: 'aptigram',
     text: post.caption || '',
     image: post.media_url ? post.media_url : null,

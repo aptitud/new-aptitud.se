@@ -51,7 +51,7 @@ export const CardsGrid = ({ cards }: { cards: CardProps[] }) => {
       {cardList.map((card) => {
         return (
           <Link key={card.id} href={`/card/${card.id}`} passHref>
-            <Card key={card.title} item={card} />
+            <Card key={card.id} item={card} />
           </Link>
         )
       })}

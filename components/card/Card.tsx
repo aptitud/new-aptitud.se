@@ -22,11 +22,9 @@ export const Card = ({ item }: { item: CardProps }) => {
 }
 
 const PostCard = React.forwardRef<HTMLDivElement, PostsCardProps>(function PostCardComponent(
-  { id, type, image, title, text, colorCode, postContent, ...props },
+  { id, type, title, text, colorCode, postContent, ...props },
   ref
 ) {
-  const height = image ? 'h-2/3' : 'h-full'
-  const lineClamp = image ? 'line-clamp-[6]' : 'line-clamp-[8]'
   return (
     <div
       role={'button'}
@@ -36,9 +34,9 @@ const PostCard = React.forwardRef<HTMLDivElement, PostsCardProps>(function PostC
       ref={ref}
       {...props}
     >
-      <div className={`${height} text-white m-0 p-0`}>
+      <div className={`h-full text-white m-0 p-0`}>
         <CardTitle>{title}</CardTitle>
-        <span className={`text-xs md:text-lg ${lineClamp}`}>
+        <span className={`text-xs md:text-lg line-clamp-[8]`}>
           <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
         </span>
       </div>
@@ -47,7 +45,7 @@ const PostCard = React.forwardRef<HTMLDivElement, PostsCardProps>(function PostC
 })
 
 const AptigramCard = React.forwardRef<HTMLDivElement, AptigramCardProps>(function AptigramComponent(
-  { id, title, type, permalink, thumbnail, colorCode, image, text, ...props },
+  { id, type, permalink, thumbnail, colorCode, image, text, ...props },
   ref
 ) {
   return (
