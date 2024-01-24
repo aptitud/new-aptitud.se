@@ -1,7 +1,7 @@
 import { createClient } from 'contentful'
 import { TypeFellowFields, TypePostFields, TypeContactFields } from './types'
 import { unstable_cache } from 'next/cache'
-import { REVALIDATE_IN_SECONDS } from '../../consants'
+import { REVALIDATE_IN_SECONDS, REVALIDATE_TAGS } from '../../consants'
 
 const { CONTENTFUL_ACCESS_TOKEN } = process.env
 
@@ -35,8 +35,8 @@ export const getFellows = unstable_cache(
       }
     })
   },
-  ['fellows'],
-  { revalidate: REVALIDATE_IN_SECONDS, tags: ['fellows'] }
+  [REVALIDATE_TAGS.fellows],
+  { revalidate: REVALIDATE_IN_SECONDS, tags: [REVALIDATE_TAGS.fellows] }
 )
 
 export const getPosts = unstable_cache(
@@ -49,8 +49,8 @@ export const getPosts = unstable_cache(
       return { id, ...post.fields, ts: post.sys.createdAt }
     })
   },
-  ['posts'],
-  { revalidate: REVALIDATE_IN_SECONDS, tags: ['posts'] }
+  [REVALIDATE_TAGS.posts],
+  { revalidate: REVALIDATE_IN_SECONDS, tags: [REVALIDATE_TAGS.posts] }
 )
 
 export const getContacts = unstable_cache(
@@ -64,6 +64,6 @@ export const getContacts = unstable_cache(
       return { id, ...contact.fields }
     })
   },
-  ['contacts'],
-  { revalidate: REVALIDATE_IN_SECONDS, tags: ['contacts'] }
+  [REVALIDATE_TAGS.contacts],
+  { revalidate: REVALIDATE_IN_SECONDS, tags: [REVALIDATE_TAGS.contacts] }
 )
