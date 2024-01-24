@@ -22,7 +22,7 @@ export const Card = ({ item }: { item: CardProps }) => {
 }
 
 const PostCard = React.forwardRef<HTMLDivElement, PostsCardProps>(function PostCardComponent(
-  { id, type, title, text, colorCode, postContent, ...props },
+  { id, type, title, text, colorCode, postContent, sticky, ...props },
   ref
 ) {
   return (

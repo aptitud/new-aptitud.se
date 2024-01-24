@@ -51,6 +51,7 @@ export const getAllCards = async (): Promise<{
     image: post.image ? post.image?.fields.file.url : null,
     colorCode: getColorBasedOnIndex(index),
     postContent: post.postContent ? post.postContent : '',
+    sticky: post.sticky,
   }))
 
   const contactItems: ContactCardProps[] = contacts.map((contact) => ({

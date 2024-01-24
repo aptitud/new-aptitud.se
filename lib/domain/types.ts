@@ -4,7 +4,6 @@ export type SocialLink = Awaited<Required<ReturnType<typeof getFellows>>>['0']['
 
 export type SharedCardProps = {
   id: string
-  text: string
   colorCode: string
 }
 
@@ -13,12 +12,15 @@ export type CardProps = FellowCardProps | PostsCardProps | AptigramCardProps | C
 export type PostsCardProps = SharedCardProps & {
   type: 'post'
   title: string
+  text: string
   postContent: string
+  sticky?: boolean
 }
 
 export type FellowCardProps = SharedCardProps & {
   type: 'fellow'
   title: string
+  text: string
   socialLinks: SocialLink[]
   video: string | null
   showVideo: boolean
@@ -30,11 +32,13 @@ export type AptigramCardProps = SharedCardProps & {
   thumbnail: string
   permalink: string
   image: string | null
+  text: string
 }
 
 export type ContactCardProps = SharedCardProps & {
   type: 'contact'
   title: string
+  text: string
   summaryTitle: string
   colorCode: string
   image: string | null
