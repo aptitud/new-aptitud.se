@@ -2,10 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { getAllCards } from '../../../lib/domain/cards'
 import Link from 'next/link'
-import { ONE_HOUR_IN_SECONDS } from '../../../lib/consants'
 import { CardDetailed } from '../../../components/card-detailed/CardDetailed'
-
-export const revalidate = ONE_HOUR_IN_SECONDS
 
 const CardPage = async ({ params: { id: cardId } }: { params: { id: string } }) => {
   const { contact, ...cards } = await getAllCards()

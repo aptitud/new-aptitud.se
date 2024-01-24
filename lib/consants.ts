@@ -1,1 +1,1 @@
-export const ONE_HOUR_IN_SECONDS = 60 * 60
+export const REVALIDATE_IN_SECONDS = 60 * 10 // 10 minutes
