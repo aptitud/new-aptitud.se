@@ -1,7 +1,6 @@
 'use client'
 
 import Image from 'next/image'
-import ReactMarkdown from 'react-markdown'
 import { CardProps, AptigramCardProps, PostsCardProps } from '../../lib/domain/types'
 import { FellowCard } from './FellowCard'
 import React from 'react'
@@ -22,7 +21,7 @@ export const Card = ({ item }: { item: CardProps }) => {
 }
 
 const PostCard = React.forwardRef<HTMLDivElement, PostsCardProps>(function PostCardComponent(
-  { id, type, title, text, colorCode, postContent, sticky, ...props },
+  { id, type, title, colorCode, postContent, sticky, ...props },
   ref
 ) {
   return (
@@ -37,7 +36,12 @@ const PostCard = React.forwardRef<HTMLDivElement, PostsCardProps>(function PostC
       <div className={`h-full text-white m-0 p-0`}>
         <CardTitle>{title}</CardTitle>
         <span className={`text-xs md:text-lg line-clamp-[8]`}>
-          <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
+          {postContent.split('\n').map((line, index) => (
+            <React.Fragment key={index}>
+              {line}
+              <br />
+            </React.Fragment>
+          ))}
         </span>
       </div>
     </div>

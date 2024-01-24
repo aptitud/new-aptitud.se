@@ -6,6 +6,7 @@ import ReactMarkdown from 'react-markdown'
 import { CardTitle } from '../CardTitle'
 import { CardVideo } from './CardVideo'
 import { SocialLinks } from './SocialLinks'
+import React from 'react'
 
 export const CardDetailed = (item: CardProps) => {
   switch (item.type) {
@@ -44,7 +45,12 @@ const PostDetailed = (props: PostsCardProps) => {
     <div className="text-white mt-2">
       <CardTitle>{title}</CardTitle>
       <div className="text-xl">
-        <ReactMarkdown>{postContent ? postContent : text}</ReactMarkdown>
+        {postContent.split('\n').map((line, index) => (
+          <React.Fragment key={index}>
+            {line}
+            <br />
+          </React.Fragment>
+        ))}
       </div>
     </div>
   )

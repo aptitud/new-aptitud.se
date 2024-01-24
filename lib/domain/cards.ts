@@ -50,7 +50,7 @@ export const getAllCards = async (): Promise<{
     text: post.description,
     image: post.image ? post.image?.fields.file.url : null,
     colorCode: getColorBasedOnIndex(index),
-    postContent: post.postContent ? post.postContent : '',
+    postContent: post.postContent,
     sticky: post.sticky,
   }))
 
