@@ -7,15 +7,17 @@ export default async function Cards({ params }: { params: { filter: CardFilter }
 
   const { contact, ...cards } = await getAllCards()
 
-  const filteredCards = cards[cardFilterMapping[filter]] || Object.values(cards).flat()
-  const randomizedCards = randomizeOrder(filteredCards)
+  const filteredCards = cards[cardFilterMapping[filter]]
+  const randomizedCards = filteredCards
+    ? randomizeOrder(filteredCards)
+    : randomizeOrder(cards.fellows, cards.posts, cards.instaPosts)
 
   return <CardsGrid cards={randomizedCards} />
 }
 
 const randomizeOrder = (
-  postsItems?: CardProps[],
   fellowItems?: CardProps[],
+  postsItems?: CardProps[],
   aptigramItems?: CardProps[]
 ): CardProps[] => {
   const randomItems: CardProps[] = []
@@ -34,6 +36,8 @@ const randomizeOrder = (
       randomItems.push(...aptigramItems.splice(index, 1))
     }
   }
+
+  console.log(randomItems.map((item) => item.type))
 
   return randomItems
 }
