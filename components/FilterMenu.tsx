@@ -31,9 +31,7 @@ export const FilterMenu = () => {
         }`}
       >
         <div className="flex">
-          {isActive && !isOpen && (
-            <div className="bg-aptitud-petrol rounded-full h-3 w-3 absolute -right-1 -top-1"></div>
-          )}
+          {isActive && <div className="bg-aptitud-petrol rounded-full h-3 w-3 absolute -right-1 -top-1"></div>}
           <div className="p-3 order-2 cursor-pointer" onClick={() => toggleMenu()}>
             {isOpen ? (
               <FontAwesomeIcon icon={faXmark} className="w-5 h-5" />
