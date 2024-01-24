@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   icons: ['/favicon.ico'],
 }
 
-export const shantell_sans = Shantell_Sans({
+const shantell_sans = Shantell_Sans({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-shantell-sans',
