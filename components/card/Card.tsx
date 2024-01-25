@@ -60,7 +60,7 @@ const AptigramCard = (item: AptigramCardProps) => {
   return (
     <div className="h-full flex flex-col justify-between items-end p-4">
       <FontAwesomeIcon icon={faInstagram} className=" h-8 w-8" />
-      <p className="w-full truncate">{item.text}</p>
+      <p className="w-full text-xs md:text-lg truncate">{item.text}</p>
     </div>
   )
 }
