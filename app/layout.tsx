@@ -24,9 +24,9 @@ export default async function RootLayout({ children, modal }: { children: React.
         <div className="w-11/12 max-w-7xl ml-auto mr-auto">
           <FilterMenu />
           <main>
-            <div className="flex justify-center">
+            <div className="flex justify-center m-4 md:m-8">
               <Link href="/">
-                <Image priority src={'/logo.png'} height={303} width={500} alt="Aptitud" className="m-4" />
+                <Image priority src={'/logo.png'} height={303} width={500} alt="Aptitud" />
               </Link>
             </div>
             {children}
