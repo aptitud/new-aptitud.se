@@ -15,6 +15,7 @@ export type PostsCardProps = SharedCardProps & {
   text: string
   postContent: string
   sticky?: boolean
+  image?: string
 }
 
 export type FellowCardProps = SharedCardProps & {
@@ -22,17 +23,17 @@ export type FellowCardProps = SharedCardProps & {
   title: string
   text: string
   socialLinks: SocialLink[]
-  video: string | null
+  video?: string
   showVideo: boolean
-  image: string | null
+  image: string
 }
 
 export type AptigramCardProps = SharedCardProps & {
   type: 'aptigram'
   thumbnail: string
   permalink: string
-  image: string | null
   text: string
+  image: string
 }
 
 export type ContactCardProps = SharedCardProps & {
@@ -41,5 +42,5 @@ export type ContactCardProps = SharedCardProps & {
   text: string
   summaryTitle: string
   colorCode: string
-  image: string | null
+  image?: string
 }

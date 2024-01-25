@@ -1,81 +1,79 @@
 'use client'
 
-import Image from 'next/image'
 import { CardProps, AptigramCardProps, PostsCardProps } from '../../lib/domain/types'
 import { FellowCard } from './FellowCard'
-import React from 'react'
 import { CardTitle } from '../CardTitle'
+import React, { CSSProperties } from 'react'
 
-export const Card = ({ item }: { item: CardProps }) => {
-  if (item.type === 'fellow') {
-    return <FellowCard {...item} showVideo={item.showVideo} />
-  }
-  if (item.type === 'aptigram') {
-    return <AptigramCard {...item} />
-  }
-  if (item.type === 'post') {
-    return <PostCard {...item} />
-  } else {
-    return <></>
+const getBackgroundStyle = (item: CardProps): CSSProperties => {
+  switch (item.type) {
+    case 'post':
+      return { backgroundColor: `var(--${item.colorCode})` }
+    case 'aptigram':
+      return createImageWithGradientStyles(item, { fromPercent: '70%', toPercent: '98%' })
+    default:
+      return item.image ? createImageWithGradientStyles(item) : { backgroundColor: `var(--${item.colorCode})` }
   }
 }
 
-const PostCard = React.forwardRef<HTMLDivElement, PostsCardProps>(function PostCardComponent(
-  { id, type, title, colorCode, postContent, sticky, ...props },
-  ref
-) {
-  return (
-    <div
-      role={'button'}
-      className={`rounded-lg h-60 md:h-96 cursor-pointer m-0 p-3 md:p-4 card-shadow`}
-      style={{ backgroundColor: `var(--${colorCode})` }}
-      tabIndex={0}
-      ref={ref}
-      {...props}
-    >
-      <div className={`h-full text-white m-0 p-0`}>
-        <CardTitle>{title}</CardTitle>
-        <span className={`text-xs md:text-lg line-clamp-[8]`}>
-          {postContent.split('\n').map((line, index) => (
-            <React.Fragment key={index}>
-              {line}
-              <br />
-            </React.Fragment>
-          ))}
-        </span>
-      </div>
-    </div>
-  )
+const createImageWithGradientStyles = (
+  item: CardProps,
+  gradientOptions = { fromPercent: '40%', toPercent: '75%' }
+): CSSProperties => ({
+  backgroundImage: `linear-gradient(to bottom, #fff0 ${gradientOptions.fromPercent}, var(--${item.colorCode}) ${
+    gradientOptions?.toPercent
+  }), url('${(item.type === 'aptigram' && item.thumbnail) || item.image}')`,
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
 })
 
-const AptigramCard = React.forwardRef<HTMLDivElement, AptigramCardProps>(function AptigramComponent(
-  { id, type, permalink, thumbnail, colorCode, image, text, ...props },
-  ref
-) {
+export const Card = ({ item }: { item: CardProps }) => {
   return (
-    <div
-      className="rounded-lg h-60 md:h-96 p-2 md:p-2 cursor-pointer card-shadow"
-      tabIndex={0}
-      style={{ backgroundColor: `var(--${colorCode})` }}
-      ref={ref}
-      {...props}
-    >
-      <div className="h-4/6 p-0 overflow-hidden rounded-md flex">
-        <Image
-          className="w-full align-centre object-cover"
-          src={thumbnail ? thumbnail : image ? image : ''}
-          alt="aptigram"
-          height={400}
-          width={600}
-        />
-      </div>
-      <div className={`h-2/6 text-white m-0 px-2 py-3 md:py-5`}>
-        <div className="grid grid-cols-1 relative h-full overflow-hidden">
-          <span className="text-base md:text-lg md:text-2xl line-clamp-3 md:line-clamp-3 text-white">
-            <p className="w-full">{text}</p>
-          </span>
-        </div>
+    // @TODO leaving this code to be able to showcase border easily
+    // <div className="border-4 md:border-8 border-white border-opacity-40 card-shadow rounded-lg">
+    <div role="button" style={getBackgroundStyle(item)} className="h-60 md:h-96 text-white rounded-lg card-shadow">
+      {renderCard(item)}
+    </div>
+    // </div>
+  )
+}
+
+const PostCard = (props: PostsCardProps) => {
+  return (
+    <div className={`h-full p-4`}>
+      <CardTitle>{props.title}</CardTitle>
+      <span className={`text-xs md:text-lg line-clamp-[10]`}>
+        {props.postContent.split('\n').map((line, index) => (
+          <React.Fragment key={index}>
+            {line}
+            <br />
+          </React.Fragment>
+        ))}
+      </span>
+    </div>
+  )
+}
+
+const AptigramCard = (item: AptigramCardProps) => {
+  return (
+    <div className="h-full">
+      <div className="h-5/6 p-0 overflow-hidden flex"></div>
+      <div className={`h-1/6 m-0 px-3 py-3 md:py-5`}>
+        <p className="w-full truncate">{item.text}</p>
       </div>
     </div>
   )
-})
+}
+
+const renderCard = (item: CardProps) => {
+  switch (item.type) {
+    case 'fellow':
+      return <FellowCard {...item} />
+    case 'post':
+      return <PostCard {...item} />
+    case 'aptigram':
+      return <AptigramCard {...item} />
+    default:
+      return <></>
+  }
+}

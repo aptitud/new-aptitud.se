@@ -43,7 +43,7 @@ export interface TypeFellowFields {
   description: Contentful.EntryFields.Text
   phone?: Contentful.EntryFields.Symbol
   services?: Contentful.Entry<TypeServiceFields>[]
-  image?: Contentful.Asset
+  image: Contentful.Asset
   video?: Contentful.Asset
   slug: Contentful.EntryFields.Text
 }

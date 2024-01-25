@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef } from 'react'
 
-export const CardVideo = ({ image, video }: { image: string | null; video: string | null; title?: string }) => {
+export const CardVideo = ({ image, video }: { image: string; video?: string; title?: string }) => {
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {

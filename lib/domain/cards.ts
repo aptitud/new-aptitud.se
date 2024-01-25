@@ -36,10 +36,10 @@ export const getAllCards = async (): Promise<{
     title: fellow.name,
     type: 'fellow',
     text: fellow.description,
-    image: fellow.image ? fellow.image?.fields.file.url : null,
+    image: fellow.image?.fields.file.url,
     colorCode: 'aptitud-petrol',
     socialLinks: fellow.services,
-    video: fellow.video ? fellow.video?.fields.file.url : null,
+    video: fellow.video?.fields.file.url,
     showVideo: false,
   }))
 
@@ -48,7 +48,7 @@ export const getAllCards = async (): Promise<{
     title: post.title,
     type: 'post',
     text: post.description,
-    image: post.image ? post.image?.fields.file.url : null,
+    image: post.image?.fields.file.url,
     colorCode: getColorBasedOnIndex(index),
     postContent: post.postContent,
     sticky: post.sticky,
@@ -60,7 +60,7 @@ export const getAllCards = async (): Promise<{
     summaryTitle: contact.summaryHeader ? contact.summaryHeader : '',
     type: 'contact',
     text: contact.visitingAddress ? contact.visitingAddress : '',
-    image: contact.image ? contact.image?.fields.file.url : null,
+    image: contact.image?.fields.file.url,
     colorCode: 'aptitud-blue_green',
   }))
 
@@ -71,7 +71,7 @@ export const getAllCards = async (): Promise<{
     image: post.media_url ? post.media_url : null,
     thumbnail: post.thumbnail_url || '',
     permalink: post.permalink || '',
-    colorCode: getColorBasedOnIndex(index),
+    colorCode: 'aptitud-purple',
   }))
 
   return {

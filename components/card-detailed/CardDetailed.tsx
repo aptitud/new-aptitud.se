@@ -9,18 +9,7 @@ import { SocialLinks } from './SocialLinks'
 import React from 'react'
 
 export const CardDetailed = (item: CardProps) => {
-  switch (item.type) {
-    case 'fellow':
-      return <FellowDetailed {...item} />
-    case 'post':
-      return <PostDetailed {...item} />
-    case 'aptigram':
-      return <AptigramDetailed {...item} />
-    case 'contact':
-      return <ContactDetailed {...item} />
-    default:
-      return <></>
-  }
+  return <div>{renderCardDetailed(item)}</div>
 }
 
 const FellowDetailed = (props: FellowCardProps) => {
@@ -97,4 +86,19 @@ const ContactDetailed = (props: ContactCardProps) => {
       </div>
     </div>
   )
+}
+
+const renderCardDetailed = (item: CardProps) => {
+  switch (item.type) {
+    case 'fellow':
+      return <FellowDetailed {...item} />
+    case 'post':
+      return <PostDetailed {...item} />
+    case 'aptigram':
+      return <AptigramDetailed {...item} />
+    case 'contact':
+      return <ContactDetailed {...item} />
+    default:
+      return <></>
+  }
 }
