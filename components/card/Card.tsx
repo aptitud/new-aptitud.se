@@ -4,6 +4,8 @@ import { CardProps, AptigramCardProps, PostsCardProps } from '../../lib/domain/t
 import { FellowCard } from './FellowCard'
 import { CardTitle } from '../CardTitle'
 import React, { CSSProperties } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faInstagram } from '@fortawesome/free-brands-svg-icons'
 
 const getBackgroundStyle = (item: CardProps): CSSProperties => {
   switch (item.type) {
@@ -56,11 +58,9 @@ const PostCard = (props: PostsCardProps) => {
 
 const AptigramCard = (item: AptigramCardProps) => {
   return (
-    <div className="h-full">
-      <div className="h-5/6 p-0 overflow-hidden flex"></div>
-      <div className={`h-1/6 m-0 px-3 py-3 md:py-5`}>
-        <p className="w-full truncate">{item.text}</p>
-      </div>
+    <div className="h-full flex flex-col justify-between items-end p-4">
+      <FontAwesomeIcon icon={faInstagram} className=" h-8 w-8" />
+      <p className="w-full truncate">{item.text}</p>
     </div>
   )
 }
