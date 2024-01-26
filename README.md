@@ -16,3 +16,11 @@ npm run dev
 # or
 yarn dev
 ```
+
+### Hosting
+
+Hosted on Vercel
+
+`main` = [aptitud.se](https://aptitud.se)
+
+`develop` = [beta.aptitud.se](https://beta.aptitud.se)
