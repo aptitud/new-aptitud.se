@@ -18,7 +18,8 @@ const Modal = ({ colorCode, children }: { colorCode: string; children: React.Rea
         <Dialog.Overlay className="fixed inset-0 md:grid md:place-items-center overflow-y-auto backdrop-blur-sm z-30">
           <Dialog.Content
             onEscapeKeyDown={onDismiss}
-            className="relative min-h-full w-full md:min-h-[40vh]  md:w-[90vw] lg:w-[75vw] xl:w-[60vw] p-10 md:rounded-lg"
+            onInteractOutside={onDismiss}
+            className="relative w-full min-h-full md:min-h-[400px] md:max-w-[90%] xl:w-[1098px] 2xl: md:my-12 p-10 md:rounded-lg"
             style={{
               backgroundColor: `var(--${colorCode})`,
             }}
