@@ -20,7 +20,7 @@ const shantell_sans = Shantell_Sans({
 export default async function RootLayout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
   return (
     <html lang="en" className={`${shantell_sans.variable}`}>
-      <body className={'bg-aptitud-gradient h-screen w-screen'}>
+      <body className={'bg-aptitud-gradient h-screen w-screen max-w-full'}>
         <div className="w-11/12 max-w-7xl ml-auto mr-auto">
           <FilterMenu />
           <main>
