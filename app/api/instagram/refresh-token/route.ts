@@ -1,10 +1,11 @@
 import { NextRequest } from 'next/server'
 
 export async function GET(request: NextRequest) {
-  const requestHeaders = new Headers(request.headers)
-  const secret = requestHeaders.get('x-api-secret')
-  if (secret !== process.env.API_SECRET) {
-    return new Response('Invalid secret', { status: 401 })
+  const authHeader = request.headers.get('authorization')
+  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+    return new Response('Unauthorized', {
+      status: 401,
+    })
   }
   if (!process.env.INSTAGRAM_ACCESS_TOKEN) {
     return new Response('No access token found')
