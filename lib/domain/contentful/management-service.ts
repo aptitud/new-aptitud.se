@@ -5,10 +5,13 @@ const { CONTENTFUL_SPACE_ID } = process.env
 if (!CONTENTFUL_SPACE_ID) throw new Error('CONTENTFUL_SPACE_ID is not set')
 
 const getContentfulEnvironment = async () => {
-  return await client.environment.get({
+  const environment = await client.environment.get({
     spaceId: CONTENTFUL_SPACE_ID,
     environmentId: 'master',
   })
+
+  console.log('Contentful environment:', environment)
+  return environment
 }
 
 export const createInstagramPosts = async (posts: any[]) => {
