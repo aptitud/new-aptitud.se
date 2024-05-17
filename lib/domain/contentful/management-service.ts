@@ -3,10 +3,11 @@ import { client } from './management-client'
 import { InstagramPost } from '../instagram/service'
 
 export const createInstagramPosts = async (posts: InstagramPost[]) => {
-  for (const post of posts.slice(0, 1)) {
-    const imageAsset = await createInstagramImageAsset(post.id, post.)
+  // @TODO add some kind of logic to not upload already existing posts...
 
-    // THIS IS NOT WORKING !!! API DOCS ARE BAAAAD!
+  // @TODO stop doing only one (temp for testing..)
+  for (const post of posts.slice(0, 1)) {
+    const imageAsset = await createInstagramImageAsset(post.id, post.media_url)
     await client.asset.processForAllLocales(
       {},
       {
@@ -46,11 +47,8 @@ export const createInstagramImageAsset = async (postId: string, imageUrl: string
     )
 
     await client.asset.processForAllLocales({}, asset)
-    await client.asset.publish({assetId: asset.sys.id}, asset)
-
-    //.then((asset) => asset.processForAllLocales())
-
-    // process asset
+    // @TODO Publish does not work
+    await client.asset.publish({ assetId: asset.sys.id }, asset)
 
     return asset
   } catch (error) {
@@ -92,7 +90,8 @@ export const createAptigramEntry = async (data: AptigramData) => {
       }
     )
 
-    await client.entry.publish({ entryId: entry.sys.id }, entry);
+    // @TODO Publish does not work
+    await client.entry.publish({ entryId: entry.sys.id }, entry)
   } catch (error) {
     console.error('Error creating Aptigram entry:', error)
     throw error

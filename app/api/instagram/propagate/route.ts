@@ -5,11 +5,14 @@ import { createInstagramPosts } from '../../../../lib/domain/contentful/manageme
 export const runtime = 'nodejs'
 
 export async function POST(request: NextRequest) {
-  console.log(request)
+  // @TODO add some kind of auth?
+  // @TODO add some kind of trigger? (cron?)
+
   try {
     // Fetch posts from Instagram API
     const instagramPosts = await getInstagramPosts()
 
+    // Upload posts to Contentful
     await createInstagramPosts(instagramPosts)
 
     return new NextResponse(JSON.stringify({ posts: instagramPosts }), {
