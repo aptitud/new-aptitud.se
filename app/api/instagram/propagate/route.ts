@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getInstagramPosts } from '../../../../lib/domain/instagram/service'
-import { createInstagramPosts } from '../../../../lib/domain/contentful/management-service'
+import { createInstagramPosts } from '../../../../lib/domain/contentful/management-service_legacy'
 
 export const runtime = 'nodejs'
 
