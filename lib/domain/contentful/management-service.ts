@@ -30,20 +30,26 @@ export const createInstagramPosts = async (posts: any[]) => {
 
 export const createInstagramImageAsset = async (environment: EnvironmentProps, postId: string, imageUrl: string) => {
   try {
-    const asset = await client.asset.create(environment, {
-      fields: {
-        title: {
-          sv: postId,
-        },
-        file: {
-          sv: {
-            contentType: 'image/jpeg',
-            fileName: imageUrl,
-            upload: imageUrl,
+    const asset = await client.asset.create(
+      {
+        spaceId: environment.sys.space.sys.id,
+        environmentId: environment.sys.id,
+      },
+      {
+        fields: {
+          title: {
+            sv: postId,
+          },
+          file: {
+            sv: {
+              contentType: 'image/jpeg',
+              fileName: imageUrl,
+              upload: imageUrl,
+            },
           },
         },
-      },
-    })
+      }
+    )
 
     return asset
   } catch (error) {
@@ -62,7 +68,8 @@ export const createAptigramEntry = async (environment: EnvironmentProps, data: A
   try {
     await client.entry.create(
       {
-        ...environment,
+        spaceId: environment.sys.space.sys.id,
+        environmentId: environment.sys.id,
         contentTypeId: 'aptigram',
       },
       {
