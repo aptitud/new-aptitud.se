@@ -1,9 +1,10 @@
 import { AssetProps } from 'contentful-management'
 import { client } from './management-client'
+import { InstagramPost } from '../instagram/service'
 
-export const createInstagramPosts = async (posts: any[]) => {
+export const createInstagramPosts = async (posts: InstagramPost[]) => {
   for (const post of posts.slice(0, 1)) {
-    const imageAsset = await createInstagramImageAsset(post.id, post.imageUrl)
+    const imageAsset = await createInstagramImageAsset(post.id, post.media_url)
 
     // THIS IS NOT WORKING !!! API DOCS ARE BAAAAD!
     await client.asset.processForAllLocales(
@@ -36,7 +37,7 @@ export const createInstagramImageAsset = async (postId: string, imageUrl: string
           file: {
             sv: {
               contentType: 'image/jpeg',
-              fileName: imageUrl,
+              fileName: `file-${postId}`,
               upload: imageUrl,
             },
           },
