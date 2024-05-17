@@ -29,7 +29,7 @@ export const createInstagramImageAsset = async (postId: string, imageUrl: string
           file: {
             sv: {
               contentType: 'image/jpeg',
-              fileName: imageUrl,
+              fileName: `file-${postId}`,
               upload: imageUrl,
             },
           },
