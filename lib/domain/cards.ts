@@ -68,7 +68,7 @@ export const getAllCards = async (): Promise<{
     id: post.id,
     type: 'aptigram',
     text: post.caption || '',
-    image: post.media_url ? post.media_url : null,
+    image: post.media_url ?? '',
     thumbnail: post.thumbnail_url || '',
     permalink: post.permalink || '',
     colorCode: 'aptitud-purple',
