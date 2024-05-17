@@ -46,7 +46,7 @@ export const createInstagramImageAsset = async (postId: string, imageUrl: string
     )
 
     await client.asset.processForAllLocales({}, asset)
-    await client.asset.publish({'assetId': asset.sys.id}, asset)
+    await client.asset.publish({assetId: asset.sys.id}, asset)
 
     //.then((asset) => asset.processForAllLocales())
 
@@ -67,7 +67,7 @@ type AptigramData = {
 }
 export const createAptigramEntry = async (data: AptigramData) => {
   try {
-    await client.entry.create(
+    const entry = await client.entry.create(
       {
         contentTypeId: 'aptigram',
       },
@@ -91,6 +91,8 @@ export const createAptigramEntry = async (data: AptigramData) => {
         },
       }
     )
+
+    await client.entry.publish({ entryId: entry.sys.id }, entry);
   } catch (error) {
     console.error('Error creating Aptigram entry:', error)
     throw error
