@@ -2,7 +2,7 @@
   "crons": [
     {
       "path": "/api/instagram/refresh-token",
-      "schedule": "@monthly"
+      "schedule": "0 0 1 * *"
     }
   ]
 }
