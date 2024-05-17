@@ -1,36 +1,19 @@
-import { AssetProps, EnvironmentProps } from 'contentful-management'
+import { AssetProps } from 'contentful-management'
 import { client } from './management-client'
 
-const { CONTENTFUL_SPACE_ID } = process.env
-if (!CONTENTFUL_SPACE_ID) throw new Error('CONTENTFUL_SPACE_ID is not set')
-
-const getContentfulEnvironment = async () => {
-  const environment = await client.environment.get({
-    spaceId: CONTENTFUL_SPACE_ID,
-    environmentId: 'master',
-  })
-
-  console.log('Contentful environment:', environment)
-  return environment
-}
-
 export const createInstagramPosts = async (posts: any[]) => {
-  const environment = await getContentfulEnvironment()
-
   for (const post of posts.slice(0, 1)) {
-    const imageAsset = await createInstagramImageAsset(environment, post.id, post.imageUrl)
+    const imageAsset = await createInstagramImageAsset(post.id, post.imageUrl)
 
+    // THIS IS NOT WORKING !!! API DOCS ARE BAAAAD!
     await client.asset.processForAllLocales(
-      {
-        spaceId: environment.sys.space.sys.id,
-        environmentId: environment.sys.id,
-      },
+      {},
       {
         ...imageAsset,
       }
     )
 
-    await createAptigramEntry(environment, {
+    await createAptigramEntry({
       id: post.id,
       caption: post.caption,
       imageAsset,
@@ -39,12 +22,11 @@ export const createInstagramPosts = async (posts: any[]) => {
   }
 }
 
-export const createInstagramImageAsset = async (environment: EnvironmentProps, postId: string, imageUrl: string) => {
+export const createInstagramImageAsset = async (postId: string, imageUrl: string) => {
   try {
-    const asset = await client.asset.create(
+    const asset = await client.asset.createWithId(
       {
-        spaceId: environment.sys.space.sys.id,
-        environmentId: environment.sys.id,
+        assetId: '123',
       },
       {
         fields: {
@@ -75,12 +57,10 @@ type AptigramData = {
   imageAsset: AssetProps
   permaLink: string
 }
-export const createAptigramEntry = async (environment: EnvironmentProps, data: AptigramData) => {
+export const createAptigramEntry = async (data: AptigramData) => {
   try {
     await client.entry.create(
       {
-        spaceId: environment.sys.space.sys.id,
-        environmentId: environment.sys.id,
         contentTypeId: 'aptigram',
       },
       {
