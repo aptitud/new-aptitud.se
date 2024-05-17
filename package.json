@@ -21,6 +21,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@radix-ui/react-dialog": "^1.0.2",
     "contentful": "^9.2.5",
+    "contentful-management": "^11.25.5",
     "dotenv": "^16.0.3",
     "next": "^14.0.4",
     "react": "^18.2.0",

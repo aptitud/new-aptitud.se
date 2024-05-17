@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getInstagramPosts } from '../../../../lib/domain/instagram/service'
+import { createInstagramPosts } from '../../../../lib/domain/contentful/management-service'
 
 export const runtime = 'nodejs'
 
@@ -9,10 +10,9 @@ export async function POST(request: NextRequest) {
     // Fetch posts from Instagram API
     const instagramPosts = await getInstagramPosts()
 
-    console.log(instagramPosts[0])
-    console.log(instagramPosts)
+    await createInstagramPosts(instagramPosts)
 
-    return new NextResponse(JSON.stringify({ firstPost: instagramPosts[0] }), {
+    return new NextResponse(JSON.stringify({ posts: instagramPosts }), {
       status: 200,
     })
   } catch (error) {
