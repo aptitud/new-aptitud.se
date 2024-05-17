@@ -20,19 +20,3 @@ export const client = createClient(
     },
   }
 )
-
-export let contentfulEnvironment: Environment
-
-export const createContentfulEnvironment = async () => {
-  if (!contentfulEnvironment) {
-    contentfulEnvironment = await createClient({
-      // This is the access token for this space. Normally you get the token in the Contentful web app
-      accessToken: CONTENTFUL_MANAGEMENT_API_TOKEN,
-      throttle: 'auto',
-    })
-      .getSpace(CONTENTFUL_SPACE_ID)
-      .then((space) => space.getEnvironment('master'))
-  }
-
-  return contentfulEnvironment
-}

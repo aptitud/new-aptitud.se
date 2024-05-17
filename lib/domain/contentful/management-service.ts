@@ -4,7 +4,7 @@ import { InstagramPost } from '../instagram/service'
 
 export const createInstagramPosts = async (posts: InstagramPost[]) => {
   for (const post of posts.slice(0, 1)) {
-    const imageAsset = await createInstagramImageAsset(post.id, post.media_url)
+    const imageAsset = await createInstagramImageAsset(post.id, post.)
 
     // THIS IS NOT WORKING !!! API DOCS ARE BAAAAD!
     await client.asset.processForAllLocales(
@@ -37,7 +37,7 @@ export const createInstagramImageAsset = async (postId: string, imageUrl: string
           file: {
             sv: {
               contentType: 'image/jpeg',
-              fileName: `file-${postId}`,
+              fileName: imageUrl,
               upload: imageUrl,
             },
           },
@@ -45,7 +45,8 @@ export const createInstagramImageAsset = async (postId: string, imageUrl: string
       }
     )
 
-    client.asset.processForAllLocales({}, asset)
+    await client.asset.processForAllLocales({}, asset)
+    await client.asset.publish({'assetId': asset.sys.id}, asset)
 
     //.then((asset) => asset.processForAllLocales())
 
