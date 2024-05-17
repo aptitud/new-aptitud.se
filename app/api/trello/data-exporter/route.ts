@@ -22,7 +22,6 @@ async function getTrelloData() {
   const cards: TrelloBoardCard[] = []
   for (const board of boards.filter((x) => x.closed === false && !BOARD_BLOCK_LIST.includes(x.id))) {
     const boardCards = await getTrelloBoardCards(board.id)
-    console.log('board', board.id, boardCards.length)
     cards.push(
       ...boardCards.map(
         (card) =>
@@ -35,7 +34,6 @@ async function getTrelloData() {
           } as TrelloBoardCard)
       )
     )
-    console.log('length', boardCards.length)
   }
   return cards
 }
