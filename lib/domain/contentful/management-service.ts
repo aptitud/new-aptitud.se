@@ -44,6 +44,12 @@ export const createInstagramImageAsset = async (postId: string, imageUrl: string
       }
     )
 
+    client.asset.processForAllLocales({}, asset)
+
+    //.then((asset) => asset.processForAllLocales())
+
+    // process asset
+
     return asset
   } catch (error) {
     console.error('Error creating Instagram image asset:', error)
