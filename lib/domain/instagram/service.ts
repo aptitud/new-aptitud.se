@@ -2,7 +2,16 @@ import { REVALIDATE_IN_SECONDS, REVALIDATE_TAGS } from '../../consants'
 
 const { INSTAGRAM_ACCESS_TOKEN } = process.env
 
-export const getInstagramPosts = async (): Promise<any[]> => {
+export type InstagramPost = {
+  id: string
+  caption: string
+  media_url: string
+  thumbnail_url: string
+  permalink: string
+  timestamp: string
+}
+
+export const getInstagramPosts = async (): Promise<InstagramPost[]> => {
   try {
     const res = await fetch(
       `https://graph.instagram.com/me/media?fields=id,caption,media_url,thumbnail_url,permalink,timestamp&access_token=${INSTAGRAM_ACCESS_TOKEN}&limit=16`,

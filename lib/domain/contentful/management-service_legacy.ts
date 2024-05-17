@@ -1,11 +1,12 @@
 import { AssetProps } from 'contentful-management'
 import { contentfulEnvironment, createContentfulEnvironment } from './management-client'
+import { InstagramPost } from '../instagram/service'
 
-export const createInstagramPosts = async (posts: any[]) => {
+export const createInstagramPosts = async (posts: InstagramPost[]) => {
   await createContentfulEnvironment()
 
   for (const post of posts.slice(0, 1)) {
-    const imageAsset = await createInstagramImageAsset(post.id, post.imageUrl)
+    const imageAsset = await createInstagramImageAsset(post.id, post.media_url)
 
     // await createAptigramEntry({
     //   id: post.id,
