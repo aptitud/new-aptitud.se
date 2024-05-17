@@ -19,6 +19,17 @@ export const createInstagramPosts = async (posts: any[]) => {
 
   for (const post of posts.slice(0, 1)) {
     const imageAsset = await createInstagramImageAsset(environment, post.id, post.imageUrl)
+
+    await client.asset.processForAllLocales(
+      {
+        spaceId: environment.sys.space.sys.id,
+        environmentId: environment.sys.id,
+      },
+      {
+        ...imageAsset,
+      }
+    )
+
     await createAptigramEntry(environment, {
       id: post.id,
       caption: post.caption,
