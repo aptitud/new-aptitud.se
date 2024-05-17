@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server'
 
-export async function POST(request: NextRequest) {
+export default async function handler(request: NextRequest, response: Response) {
   const requestHeaders = new Headers(request.headers)
   const secret = requestHeaders.get('x-api-secret')
   if (secret !== process.env.API_SECRET) {
