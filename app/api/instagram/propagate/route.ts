@@ -9,7 +9,10 @@ export async function POST(request: NextRequest) {
     // Fetch posts from Instagram API
     const instagramPosts = await getInstagramPosts()
 
-    return new NextResponse(JSON.stringify(instagramPosts), {
+    console.log(instagramPosts[0])
+    console.log(instagramPosts)
+
+    return new NextResponse(JSON.stringify({ firstPost: instagramPosts[0] }), {
       status: 200,
     })
   } catch (error) {
