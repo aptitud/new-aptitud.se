@@ -17,6 +17,7 @@ export const createInstagramPosts = async (posts: any[]) => {
 }
 
 export const createInstagramImageAsset = async (postId: string, imageUrl: string) => {
+  console.log('trying to upload asset with url: ', imageUrl)
   try {
     const asset = await contentfulEnvironment
       .createAsset({
