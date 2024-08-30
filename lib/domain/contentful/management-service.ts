@@ -3,6 +3,8 @@ import { client } from './management-client'
 import { InstagramPost } from '../instagram/service'
 
 export const createInstagramPosts = async (posts: InstagramPost[]) => {
+  posts = posts.slice(0, 1);
+
   const postsInContentFul = await client.entry.getMany({
     query: {
       content_type: 'aptigram',
@@ -18,12 +20,14 @@ export const createInstagramPosts = async (posts: InstagramPost[]) => {
     return;
   }
 
+  console.log('new posts:', newPosts)
+
 
   // @TODO stop doing only one (temp for testing..)
-  for (const post of posts.slice(0, 1)) {
+  for (const post of newPosts.slice(0, 1)) {
 
     const imageAsset = await createInstagramImageAsset(post.id, post.media_url)
-    
+
     await createAptigramEntry({
       id: post.id,
       caption: post.caption,
