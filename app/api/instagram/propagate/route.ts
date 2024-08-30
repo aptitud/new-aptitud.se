@@ -15,6 +15,7 @@ export async function POST(request: NextRequest) {
   try {
     // Fetch posts from Instagram API
     const instagramPosts = await getInstagramPosts()
+    console.log('Fetched posts from Instagram:', instagramPosts)
 
     // Upload posts to Contentful
     const newPostCount = await createInstagramPosts(instagramPosts)
