@@ -29,10 +29,9 @@ export const createInstagramPosts = async (posts: InstagramPost[]) => {
 export const createInstagramImageAsset = async (postId: string, imageUrl: string) => {
   try {
     const asset = await client.asset.create(
-      // {
-      //   assetId: '123',
-      // },
-      {},
+      {
+        // assetId: postId,
+      },
       {
         fields: {
           title: {
@@ -49,9 +48,12 @@ export const createInstagramImageAsset = async (postId: string, imageUrl: string
       },
     )
 
+    // downlaods the mediaUrl from IG to CF
     await client.asset.processForAllLocales({}, asset)
     // @TODO Publish does not work
+    console.log('asset after processing: ', asset)
     await client.asset.publish({ assetId: asset.sys.id }, asset)
+    console.log('DID ACTUALLY PUBLISH!!!!!!!!')
 
     return asset
   } catch (error) {
