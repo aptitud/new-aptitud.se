@@ -3,7 +3,9 @@ import { client } from './management-client'
 import { InstagramPost } from '../instagram/service'
 
 export const createInstagramPosts = async (posts: InstagramPost[]) => {
-  posts = posts.slice(0, 1);
+  console.log('Posts from instagram:', posts.length)
+  console.log('KJ:s data:', posts[0])
+  posts = posts.slice(0, 2);
 
   const postsInContentFul = await client.entry.getMany({
     query: {
@@ -19,14 +21,15 @@ export const createInstagramPosts = async (posts: InstagramPost[]) => {
 
   if(newPosts.length === 0) {
     console.log('No new posts to propagate...')
-    return;
+    return 0
   }
 
   console.log('new posts:', newPosts)
 
 
+  console.log(`Propagating ${newPosts.length} new posts...`);
   // @TODO stop doing only one (temp for testing..)
-  for (const post of newPosts.slice(0, 1)) {
+  for (const post of newPosts) {
 
     const imageAsset = await createInstagramImageAsset(post.id, post.media_url)
 
@@ -37,6 +40,8 @@ export const createInstagramPosts = async (posts: InstagramPost[]) => {
       permaLink: post.permalink,
     })
   }
+
+  return newPosts.length
 }
 
 export const createInstagramImageAsset = async (postId: string, imageUrl: string) => {

@@ -14,9 +14,9 @@ export async function POST(request: NextRequest) {
     const instagramPosts = await getInstagramPosts()
 
     // Upload posts to Contentful
-    await createInstagramPosts(instagramPosts)
+    const newPostCount = await createInstagramPosts(instagramPosts)
 
-    return new NextResponse(JSON.stringify({ posts: instagramPosts }), {
+    return new NextResponse(JSON.stringify({ propagatedCount: newPostCount }), {
       status: 200,
     })
   } catch (error) {
