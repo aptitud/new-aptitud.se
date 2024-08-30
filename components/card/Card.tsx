@@ -24,7 +24,7 @@ const createImageWithGradientStyles = (
 ): CSSProperties => ({
   backgroundImage: `linear-gradient(to bottom, #fff0 ${gradientOptions.fromPercent}, var(--${item.colorCode}) ${
     gradientOptions?.toPercent
-  }), url('${(item.type === 'aptigram' && item.thumbnail) || item.image}')`,
+  }), url('${item.image}')`,
   backgroundSize: 'cover',
   backgroundPosition: 'center',
 })

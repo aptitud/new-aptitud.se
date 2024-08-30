@@ -46,13 +46,13 @@ const PostDetailed = (props: PostsCardProps) => {
 }
 
 const AptigramDetailed = (props: AptigramCardProps) => {
-  const { thumbnail, text, image, permalink } = props
+  const { text, image, permalink } = props
   return (
     <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_1fr] gap-6">
       <div className="relative rounded-lg border-4 border-white bg-white overflow-hidden flex justify-center">
         <Image
           className="rounded-md"
-          src={thumbnail ? thumbnail : image ? image : ''}
+          src={image ? image : ''}
           height={400}
           width={600}
           alt="aptigram"

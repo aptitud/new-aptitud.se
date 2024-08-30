@@ -3,7 +3,7 @@ import * as Contentful from 'contentful'
 export interface TypeAptigramFields {
   id: Contentful.EntryFields.Symbol;
   image?: Contentful.Asset;
-  thumbnail?: Contentful.Asset;
+  thumbnail?: Contentful.Asset; // @TODO add a video field instead when impelmenting "reels support"
   permalink?: Contentful.EntryFields.Symbol;
   caption?: Contentful.EntryFields.Text;
   postedAt?: Contentful.EntryFields.Date;
