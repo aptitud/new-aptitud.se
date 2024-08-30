@@ -9,19 +9,20 @@ export const createInstagramPosts = async (posts: InstagramPost[]) => {
   for (const post of posts.slice(0, 1)) {
 
     const imageAsset = await createInstagramImageAsset(post.id, post.media_url)
-    await client.asset.processForAllLocales(
-      {},
-      {
-        ...imageAsset,
-      }
-    )
+    console.log('imageAsset: ', imageAsset);
+  //   await client.asset.processForAllLocales(
+  //     {},
+  //     {
+  //       ...imageAsset,
+  //     }
+  //   )
 
-    await createAptigramEntry({
-      id: post.id,
-      caption: post.caption,
-      imageAsset,
-      permaLink: post.permalink,
-    })
+  //   await createAptigramEntry({
+  //     id: post.id,
+  //     caption: post.caption,
+  //     imageAsset,
+  //     permaLink: post.permalink,
+  //   })
   }
 }
 
