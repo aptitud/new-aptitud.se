@@ -10,7 +10,7 @@ export const maxDuration = 60;
 export async function POST(request: NextRequest) {
   // @TODO add support for how many posts we should fetch (body data?)
   // @TODO add some kind of auth?
-  // @TODO add some kind of trigger? (cron? webhook?)
+  // @TODO add better trigger? (webhook? instead of cron)
 
   try {
     // Fetch posts from Instagram API

@@ -3,6 +3,10 @@
     {
       "path": "/api/instagram/refresh-token",
       "schedule": "0 0 1 * *"
+    },
+    {
+      "path": "/api/instagram/propagate",
+      "schedule": "0 1 * * *"
     }
   ]
 }
