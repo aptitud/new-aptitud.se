@@ -7,6 +7,7 @@ export const createInstagramPosts = async (posts: InstagramPost[]) => {
 
   // @TODO stop doing only one (temp for testing..)
   for (const post of posts.slice(0, 1)) {
+
     const imageAsset = await createInstagramImageAsset(post.id, post.media_url)
     await client.asset.processForAllLocales(
       {},
@@ -26,10 +27,11 @@ export const createInstagramPosts = async (posts: InstagramPost[]) => {
 
 export const createInstagramImageAsset = async (postId: string, imageUrl: string) => {
   try {
-    const asset = await client.asset.createWithId(
-      {
-        assetId: '123',
-      },
+    const asset = await client.asset.create(
+      // {
+      //   assetId: '123',
+      // },
+      {},
       {
         fields: {
           title: {
@@ -38,12 +40,12 @@ export const createInstagramImageAsset = async (postId: string, imageUrl: string
           file: {
             sv: {
               contentType: 'image/jpeg',
-              fileName: imageUrl,
+              fileName: postId,
               upload: imageUrl,
             },
           },
         },
-      }
+      },
     )
 
     await client.asset.processForAllLocales({}, asset)

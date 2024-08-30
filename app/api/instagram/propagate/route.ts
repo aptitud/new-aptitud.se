@@ -4,6 +4,7 @@ import { createInstagramPosts } from '../../../../lib/domain/contentful/manageme
 
 export const runtime = 'nodejs'
 
+// curl -X POST https://beta.aptitud.se/api/instagram/propagate
 export async function POST(request: NextRequest) {
   // @TODO add some kind of auth?
   // @TODO add some kind of trigger? (cron?)
