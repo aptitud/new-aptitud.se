@@ -3,19 +3,27 @@ import { client } from './management-client'
 import { InstagramPost } from '../instagram/service'
 
 export const createInstagramPosts = async (posts: InstagramPost[]) => {
-  // @TODO add some kind of logic to not upload already existing posts...
+  const postsInContentFul = await client.entry.getMany({
+    query: {
+      content_type: 'aptigram',
+    },
+  })
+
+  const newPosts = posts.filter(post => {
+    return !!postsInContentFul.items.find(cfPost => cfPost.sys.id === post.id)
+  })
+
+  if(newPosts.length === 0) {
+    console.log('No new posts to propagate...')
+    return;
+  }
+
 
   // @TODO stop doing only one (temp for testing..)
   for (const post of posts.slice(0, 1)) {
 
     const imageAsset = await createInstagramImageAsset(post.id, post.media_url)
-    // await client.asset.processForAllLocales(
-    //   {},
-    //   {
-    //     ...imageAsset,
-    //   }
-    // )
-
+    
     await createAptigramEntry({
       id: post.id,
       caption: post.caption,
