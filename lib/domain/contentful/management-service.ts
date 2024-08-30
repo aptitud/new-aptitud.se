@@ -11,8 +11,10 @@ export const createInstagramPosts = async (posts: InstagramPost[]) => {
     },
   })
 
+  console.log('postsInContentFul:', postsInContentFul);
+
   const newPosts = posts.filter(post => {
-    return !!postsInContentFul.items.find(cfPost => cfPost.sys.id === post.id)
+    return !postsInContentFul.items.find(cfPost => cfPost.sys.id === post.id)
   })
 
   if(newPosts.length === 0) {
