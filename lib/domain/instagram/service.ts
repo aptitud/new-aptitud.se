@@ -20,7 +20,9 @@ export const getInstagramPosts = async (): Promise<InstagramPost[]> => {
     const posts = await res.json()
 
     if(!res.ok) {
+      console.error('Failed to fetch Instagram posts:', res.status)
       console.error('Failed to fetch Instagram posts:', res.statusText)
+      console.error('Failed to fetch Instagram posts:', JSON.stringify(res.body))
     }
     return posts.data;
   } catch (error) {
