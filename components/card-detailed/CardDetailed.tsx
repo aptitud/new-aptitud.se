@@ -52,7 +52,7 @@ const AptigramDetailed = (props: AptigramCardProps) => {
       <div className="relative rounded-lg border-4 border-white bg-white overflow-hidden flex justify-center">
         <Image
           className="rounded-md"
-          src={image ? image : ''}
+          src={image ? `https://${image}` : ''}
           height={400}
           width={600}
           alt="aptigram"
