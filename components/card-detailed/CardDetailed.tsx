@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Image from 'next/image'
 import { AptigramCardProps, CardProps, ContactCardProps, FellowCardProps, PostsCardProps } from '../../lib/domain/types'
 import { faInstagram } from '@fortawesome/free-brands-svg-icons'
@@ -50,7 +51,7 @@ const AptigramDetailed = (props: AptigramCardProps) => {
   return (
     <div className="grid grid-rows-[1fr_2fr] md:grid-rows-none md:grid-cols-[1fr_1fr] gap-6">
       <div className="relative rounded-lg border-4 border-white bg-white overflow-hidden flex justify-center">
-        <Image
+        <img
           className="rounded-md"
           src={image ? `https://${image}` : ''}
           height={400}
