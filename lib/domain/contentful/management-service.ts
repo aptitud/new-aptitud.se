@@ -37,7 +37,8 @@ export const createInstagramPosts = async (posts: InstagramPost[]) => {
       id: post.id,
       caption: post.caption,
       imageAsset,
-      permaLink: post.permalink,
+      permalink: post.permalink,
+      postedAt: post.timestamp
     })
   }
 
@@ -78,7 +79,8 @@ type AptigramData = {
   id: string
   caption: string
   imageAsset: AssetProps
-  permaLink: string
+  permalink: string
+  postedAt: string;
 }
 export const createAptigramEntry = async (data: AptigramData) => {
   try {
@@ -94,6 +96,12 @@ export const createAptigramEntry = async (data: AptigramData) => {
           },
           caption: {
             sv: data.caption,
+          },
+          permalink: {
+            sv: data.permalink,
+          },
+          postedAt: {
+            sv: data.postedAt,
           },
           image: {
             sv: {
