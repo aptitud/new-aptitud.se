@@ -1,5 +1,5 @@
 import { createClient } from 'contentful'
-import { TypeFellowFields, TypePostFields, TypeContactFields } from './types'
+import { TypeFellowFields, TypePostFields, TypeContactFields, TypeAptigramFields } from './types'
 import { unstable_cache } from 'next/cache'
 import { REVALIDATE_IN_SECONDS, REVALIDATE_TAGS } from '../../consants'
 
@@ -38,6 +38,30 @@ export const getFellows = unstable_cache(
   },
   [REVALIDATE_TAGS.fellows],
   { revalidate: REVALIDATE_IN_SECONDS, tags: [REVALIDATE_TAGS.fellows] }
+)
+
+export const getAptigrams = unstable_cache(
+  async () => {
+    const res = await client.getEntries<TypeAptigramFields>({
+      content_type: 'aptigram',
+      order: 'fields.postedAt',
+      limit: '8'
+    })
+    return res.items.map((fellow) => {
+      const {
+        fields: { caption, permalink, image },
+        sys: { id },
+      } = fellow
+      return {
+        id,
+        caption,
+        permalink,
+        image,
+      }
+    })
+  },
+  [REVALIDATE_TAGS.aptigrams],
+  { revalidate: REVALIDATE_IN_SECONDS, tags: [REVALIDATE_TAGS.aptigrams] }
 )
 
 export const getPosts = unstable_cache(

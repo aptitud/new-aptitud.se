@@ -1,6 +1,5 @@
 import { AptigramCardProps, ContactCardProps, FellowCardProps, PostsCardProps } from './types'
-import { getContacts, getFellows, getPosts } from './contentful/service'
-import { getInstagramPosts } from './instagram/service'
+import { getAptigrams, getContacts, getFellows, getPosts } from './contentful/service'
 
 export type CardFilter = 'about' | 'fellows' | 'instagram'
 export const cardFilterMapping: {
@@ -20,7 +19,7 @@ export const getAllCards = async (): Promise<{
   const fellows = await getFellows()
   const contacts = await getContacts()
   const posts = await getPosts()
-  const insta = await getInstagramPosts()
+  const insta = await getAptigrams()
 
   const sortedPosts = posts
     .sort((a, b) => {
@@ -68,8 +67,7 @@ export const getAllCards = async (): Promise<{
     id: post.id,
     type: 'aptigram',
     text: post.caption || '',
-    image: post.media_url ?? '',
-    thumbnail: post.thumbnail_url || '',
+    image: post.image?.fields.file.url ?? '',
     permalink: post.permalink || '',
     colorCode: 'aptitud-purple',
   }))

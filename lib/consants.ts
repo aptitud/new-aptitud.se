@@ -4,5 +4,6 @@ export const REVALIDATE_TAGS = {
   fellows: 'fellows',
   posts: 'posts',
   contacts: 'contacts',
+  aptigrams: 'aptigrams',
   instagram: 'instagram',
 }

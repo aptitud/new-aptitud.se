@@ -22,7 +22,7 @@ export const createInstagramPosts = async (posts: InstagramPost[]) => {
   console.log(`Propagating ${newPosts.length} new posts (actual new posts)...`);
   for (const post of newPosts) {
 
-    const imageAsset = await createInstagramImageAsset(post.id, post.media_url)
+    const imageAsset = await createInstagramImageAsset(post.id, post.thumbnail_url ?? post.media_url)
 
     await createAptigramEntry({
       id: post.id,

@@ -30,7 +30,6 @@ export type FellowCardProps = SharedCardProps & {
 
 export type AptigramCardProps = SharedCardProps & {
   type: 'aptigram'
-  thumbnail: string
   permalink: string
   text: string
   image: string
