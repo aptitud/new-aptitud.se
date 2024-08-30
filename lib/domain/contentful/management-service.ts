@@ -49,10 +49,10 @@ export const createInstagramImageAsset = async (postId: string, imageUrl: string
     )
 
     // downlaods the mediaUrl from IG to CF
-    await client.asset.processForAllLocales({}, asset)
+    const processedAsset = await client.asset.processForAllLocales({}, asset)
     // @TODO Publish does not work
     console.log('asset after processing: ', asset)
-    await client.asset.publish({ assetId: asset.sys.id }, asset)
+    await client.asset.publish({ assetId: asset.sys.id }, processedAsset)
     console.log('DID ACTUALLY PUBLISH!!!!!!!!')
 
     return asset
