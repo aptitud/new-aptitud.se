@@ -18,8 +18,12 @@ export const getInstagramPosts = async (): Promise<InstagramPost[]> => {
       { next: { revalidate: REVALIDATE_IN_SECONDS, tags: [REVALIDATE_TAGS.instagram] } }
     )
     const posts = await res.json()
-    return posts.data.reverse()
+
+    if(!res.ok) {
+      console.error('Failed to fetch Instagram posts:', res.statusText)
+    }
+    return posts.data;
   } catch (error) {
-    return []
+    throw error;
   }
 }
