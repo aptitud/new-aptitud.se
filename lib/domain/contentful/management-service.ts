@@ -3,32 +3,23 @@ import { client } from './management-client'
 import { InstagramPost } from '../instagram/service'
 
 export const createInstagramPosts = async (posts: InstagramPost[]) => {
-  console.log('Posts from instagram:', posts.length)
-  console.log('KJ:s data:', posts[0])
-  posts = posts.slice(0, 2);
-
+  console.log(`Propagataing ${posts.length} posts from instagram...`);
   const postsInContentFul = await client.entry.getMany({
     query: {
       content_type: 'aptigram',
     },
   })
 
-  console.log('postsInContentFul:', postsInContentFul);
-
   const newPosts = posts.filter(post => {
     return !postsInContentFul.items.find(cfPost => cfPost.sys.id === post.id)
   })
 
   if(newPosts.length === 0) {
-    console.log('No new posts to propagate...')
+    console.log('No new posts to propagate! Aborting...');
     return 0
   }
 
-  console.log('new posts:', newPosts)
-
-
-  console.log(`Propagating ${newPosts.length} new posts...`);
-  // @TODO stop doing only one (temp for testing..)
+  console.log(`Propagating ${newPosts.length} new posts (actual new posts)...`);
   for (const post of newPosts) {
 
     const imageAsset = await createInstagramImageAsset(post.id, post.media_url)
@@ -116,7 +107,6 @@ export const createAptigramEntry = async (data: AptigramData) => {
       }
     )
 
-    // @TODO Publish does not work
     await client.entry.publish({ entryId: entry.sys.id }, entry)
   } catch (error) {
     console.error('Error creating Aptigram entry:', error)
