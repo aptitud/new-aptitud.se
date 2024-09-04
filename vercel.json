@@ -2,11 +2,11 @@
   "crons": [
     {
       "path": "/api/instagram/refresh-token",
-      "schedule": "0 0 1 * *"
+      "schedule": "30 13 * * *"
     },
     {
       "path": "/api/instagram/propagate",
-      "schedule": "0 12 * * *"
+      "schedule": "0 13 * * *"
     }
   ]
 }

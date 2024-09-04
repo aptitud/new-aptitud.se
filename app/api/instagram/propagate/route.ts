@@ -6,8 +6,8 @@ export const runtime = 'nodejs'
 export const maxDuration = 60;
 
 
-// curl -X POST https://beta.aptitud.se/api/instagram/propagate
-export async function POST(request: NextRequest) {
+// curl -X GET https://beta.aptitud.se/api/instagram/propagate
+export async function GET(request: NextRequest) {
   // @TODO add support for how many posts we should fetch (body data?)
   // @TODO add some kind of auth?
   // @TODO add better trigger? (webhook? instead of cron)
