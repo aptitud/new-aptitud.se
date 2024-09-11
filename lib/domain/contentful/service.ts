@@ -44,7 +44,7 @@ export const getAptigrams = unstable_cache(
   async () => {
     const res = await client.getEntries<TypeAptigramFields>({
       content_type: 'aptigram',
-      order: 'fields.postedAt',
+      order: '-fields.postedAt',
       limit: '8'
     })
     return res.items.map((fellow) => {
