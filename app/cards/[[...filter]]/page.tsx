@@ -46,8 +46,8 @@ const randomizeOrder = (cards?: CardProps[]): CardProps[] => {
       randomItems.push(...nonStickyPosts.splice(index, 1))
     }
     if (aptigramItems?.length) {
-      const index = Math.floor(Math.random() * aptigramItems.length)
-      randomItems.push(...aptigramItems.splice(index, 1))
+      // do not randomize order of instagram cards...
+      randomItems.push(...aptigramItems.splice(0, 1))
     }
   }
 
